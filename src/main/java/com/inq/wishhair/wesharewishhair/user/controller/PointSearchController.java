@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.inq.wishhair.wesharewishhair.global.annotation.FetchAuthInfo;
 import com.inq.wishhair.wesharewishhair.global.dto.response.PagedResponse;
+import com.inq.wishhair.wesharewishhair.global.resolver.dto.AuthInfo;
 import com.inq.wishhair.wesharewishhair.user.service.PointSearchService;
 import com.inq.wishhair.wesharewishhair.user.service.dto.response.PointResponse;
 
@@ -22,9 +24,10 @@ public class PointSearchController {
 
 	@GetMapping
 	public ResponseEntity<PagedResponse<PointResponse>> findPointHistories(
-		@ExtractPayload Long userId,
-		@PageableDefault Pageable pageable) {
+		final @FetchAuthInfo AuthInfo authInfo,
+		final @PageableDefault Pageable pageable
+	) {
 
-		return ResponseEntity.ok(pointSearchService.findPointHistories(userId, pageable));
+		return ResponseEntity.ok(pointSearchService.findPointHistories(authInfo.userId(), pageable));
 	}
 }

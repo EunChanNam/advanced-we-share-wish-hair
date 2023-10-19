@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.inq.wishhair.wesharewishhair.global.annotation.FetchAuthInfo;
 import com.inq.wishhair.wesharewishhair.global.dto.response.PagedResponse;
 import com.inq.wishhair.wesharewishhair.global.dto.response.ResponseWrapper;
+import com.inq.wishhair.wesharewishhair.global.resolver.dto.AuthInfo;
 import com.inq.wishhair.wesharewishhair.review.service.ReviewSearchService;
 import com.inq.wishhair.wesharewishhair.review.service.dto.response.ReviewDetailResponse;
 import com.inq.wishhair.wesharewishhair.review.service.dto.response.ReviewResponse;
@@ -28,30 +30,34 @@ public class ReviewSearchController {
 	private final ReviewSearchService reviewSearchService;
 
 	@GetMapping(path = "{reviewId}")
-	public ResponseEntity<ReviewDetailResponse> findReview(@PathVariable Long reviewId,
-		@ExtractPayload Long userId) {
+	public ResponseEntity<ReviewDetailResponse> findReview(
+		final @PathVariable Long reviewId,
+		final @FetchAuthInfo AuthInfo authInfo
+	) {
 
-		ReviewDetailResponse result = reviewSearchService.findReviewById(userId, reviewId);
+		ReviewDetailResponse result = reviewSearchService.findReviewById(authInfo.userId(), reviewId);
 
 		return ResponseEntity.ok(result);
 	}
 
 	@GetMapping
 	public ResponseEntity<PagedResponse<ReviewResponse>> findPagingReviews(
-		@PageableDefault(sort = LIKES, direction = Sort.Direction.DESC) Pageable pageable,
-		@ExtractPayload Long userId) {
+		final @PageableDefault(sort = LIKES, direction = Sort.Direction.DESC) Pageable pageable,
+		final @FetchAuthInfo AuthInfo authInfo
+	) {
 
-		PagedResponse<ReviewResponse> result = reviewSearchService.findPagedReviews(userId, pageable);
+		PagedResponse<ReviewResponse> result = reviewSearchService.findPagedReviews(authInfo.userId(), pageable);
 
 		return ResponseEntity.ok(result);
 	}
 
 	@GetMapping("/my")
 	public ResponseEntity<PagedResponse<ReviewResponse>> findMyReviews(
-		@PageableDefault(sort = DATE, direction = Sort.Direction.DESC) Pageable pageable,
-		@ExtractPayload Long userId) {
+		final @PageableDefault(sort = DATE, direction = Sort.Direction.DESC) Pageable pageable,
+		final @FetchAuthInfo AuthInfo authInfo
+	) {
 
-		PagedResponse<ReviewResponse> result = reviewSearchService.findMyReviews(userId, pageable);
+		PagedResponse<ReviewResponse> result = reviewSearchService.findMyReviews(authInfo.userId(), pageable);
 
 		return ResponseEntity.ok(result);
 	}
@@ -63,8 +69,10 @@ public class ReviewSearchController {
 	}
 
 	@GetMapping("/hair_style/{hairStyleId}")
-	public ResponseWrapper<ReviewResponse> findHairStyleReview(@PathVariable Long hairStyleId,
-		@ExtractPayload Long userId) {
-		return reviewSearchService.findReviewByHairStyle(userId, hairStyleId);
+	public ResponseWrapper<ReviewResponse> findHairStyleReview(
+		final @PathVariable Long hairStyleId,
+		final @FetchAuthInfo AuthInfo authInfo
+	) {
+		return reviewSearchService.findReviewByHairStyle(authInfo.userId(), hairStyleId);
 	}
 }

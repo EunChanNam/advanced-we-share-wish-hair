@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.inq.wishhair.wesharewishhair.global.annotation.FetchAuthInfo;
 import com.inq.wishhair.wesharewishhair.global.dto.response.Success;
+import com.inq.wishhair.wesharewishhair.global.resolver.dto.AuthInfo;
 import com.inq.wishhair.wesharewishhair.hairstyle.service.WishHairService;
 import com.inq.wishhair.wesharewishhair.hairstyle.service.dto.response.WishHairResponse;
 
@@ -23,28 +25,31 @@ public class WishHairController {
 
 	@PostMapping(path = "{hairStyleId}")
 	public ResponseEntity<Success> executeWish(
-		@PathVariable Long hairStyleId,
-		@ExtractPayload Long userId) {
+		final @PathVariable Long hairStyleId,
+		final @FetchAuthInfo AuthInfo authInfo
+	) {
 
-		wishHairService.executeWish(hairStyleId, userId);
+		wishHairService.executeWish(hairStyleId, authInfo.userId());
 
 		return ResponseEntity.ok(new Success());
 	}
 
 	@DeleteMapping(path = "{hairStyleId}")
-	public ResponseEntity<Success> cancelWish(@PathVariable Long hairStyleId,
-		@ExtractPayload Long userId) {
-
-		wishHairService.cancelWish(hairStyleId, userId);
+	public ResponseEntity<Success> cancelWish(
+		final @PathVariable Long hairStyleId,
+		final @FetchAuthInfo AuthInfo authInfo
+	) {
+		wishHairService.cancelWish(hairStyleId, authInfo.userId());
 
 		return ResponseEntity.ok(new Success());
 	}
 
 	@GetMapping(path = {"{hairStyleId}"})
-	public ResponseEntity<WishHairResponse> checkIsWishing(@PathVariable Long hairStyleId,
-		@ExtractPayload Long userId) {
-
-		WishHairResponse result = wishHairService.checkIsWishing(hairStyleId, userId);
+	public ResponseEntity<WishHairResponse> checkIsWishing(
+		final @PathVariable Long hairStyleId,
+		final @FetchAuthInfo AuthInfo authInfo
+	) {
+		WishHairResponse result = wishHairService.checkIsWishing(hairStyleId, authInfo.userId());
 		return ResponseEntity.ok(result);
 	}
 }

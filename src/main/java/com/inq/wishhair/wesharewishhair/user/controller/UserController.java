@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.inq.wishhair.wesharewishhair.global.annotation.FetchAuthInfo;
 import com.inq.wishhair.wesharewishhair.global.dto.response.SimpleResponseWrapper;
 import com.inq.wishhair.wesharewishhair.global.dto.response.Success;
+import com.inq.wishhair.wesharewishhair.global.resolver.dto.AuthInfo;
 import com.inq.wishhair.wesharewishhair.user.controller.dto.request.FaceShapeUpdateRequest;
 import com.inq.wishhair.wesharewishhair.user.controller.dto.request.PasswordRefreshRequest;
 import com.inq.wishhair.wesharewishhair.user.controller.dto.request.PasswordUpdateRequest;
@@ -39,8 +41,8 @@ public class UserController {
 	}
 
 	@DeleteMapping
-	public ResponseEntity<Success> deleteUser(@ExtractPayload Long userId) {
-		userService.deleteUser(userId);
+	public ResponseEntity<Success> deleteUser(final @FetchAuthInfo AuthInfo authInfo) {
+		userService.deleteUser(authInfo.userId());
 
 		return ResponseEntity.ok(new Success());
 	}
@@ -55,27 +57,31 @@ public class UserController {
 
 	@PatchMapping
 	public ResponseEntity<Success> updateUser(@RequestBody UserUpdateRequest request,
-		@ExtractPayload Long userId) {
+		final @FetchAuthInfo AuthInfo authInfo
+	) {
 
-		userService.updateUser(userId, request);
+		userService.updateUser(authInfo.userId(), request);
 
 		return ResponseEntity.ok(new Success());
 	}
 
 	@PatchMapping("/password")
-	public ResponseEntity<Success> updatePassword(@RequestBody PasswordUpdateRequest request,
-		@ExtractPayload Long userId) {
-
-		userService.updatePassword(userId, request);
+	public ResponseEntity<Success> updatePassword(
+		final @RequestBody PasswordUpdateRequest request,
+		final @FetchAuthInfo AuthInfo authInfo
+	) {
+		userService.updatePassword(authInfo.userId(), request);
 
 		return ResponseEntity.ok(new Success());
 	}
 
 	@PatchMapping("/face_shape")
-	public ResponseEntity<SimpleResponseWrapper<String>> updateFaceShape(@ModelAttribute FaceShapeUpdateRequest request,
-		@ExtractPayload Long userId) {
+	public ResponseEntity<SimpleResponseWrapper<String>> updateFaceShape(
+		final @ModelAttribute FaceShapeUpdateRequest request,
+		final @FetchAuthInfo AuthInfo authInfo
+	) {
 
-		SimpleResponseWrapper<String> result = userService.updateFaceShape(userId, request.getFile());
+		SimpleResponseWrapper<String> result = userService.updateFaceShape(authInfo.userId(), request.getFile());
 
 		return ResponseEntity.ok(result);
 	}

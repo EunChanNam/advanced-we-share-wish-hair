@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.inq.wishhair.wesharewishhair.global.annotation.FetchAuthInfo;
 import com.inq.wishhair.wesharewishhair.global.dto.response.PagedResponse;
 import com.inq.wishhair.wesharewishhair.global.dto.response.ResponseWrapper;
 import com.inq.wishhair.wesharewishhair.global.exception.ErrorCode;
 import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
+import com.inq.wishhair.wesharewishhair.global.resolver.dto.AuthInfo;
 import com.inq.wishhair.wesharewishhair.hairstyle.domain.hashtag.Tag;
 import com.inq.wishhair.wesharewishhair.hairstyle.service.HairStyleSearchService;
 import com.inq.wishhair.wesharewishhair.hairstyle.service.dto.response.HairStyleResponse;
@@ -29,26 +31,27 @@ public class HairStyleSearchController {
 
 	@GetMapping("/recommend")
 	public ResponseWrapper<HairStyleResponse> respondRecommendedHairStyle(
-		@RequestParam(defaultValue = "ERROR") List<Tag> tags,
-		@ExtractPayload Long userId) {
-
+		final @RequestParam(defaultValue = "ERROR") List<Tag> tags,
+		final @FetchAuthInfo AuthInfo authInfo
+	) {
 		validateHasTag(tags);
 
-		return hairStyleSearchService.recommendHair(tags, userId);
+		return hairStyleSearchService.recommendHair(tags, authInfo.userId());
 	}
 
 	@GetMapping("/home")
 	public ResponseWrapper<HairStyleResponse> findHairStyleByFaceShape(
-		@ExtractPayload Long userId) {
-
-		return hairStyleSearchService.recommendHairByFaceShape(userId);
+		final @FetchAuthInfo AuthInfo authInfo
+	) {
+		return hairStyleSearchService.recommendHairByFaceShape(authInfo.userId());
 	}
 
 	@GetMapping("/wish")
-	public PagedResponse<HairStyleResponse> findWishHairStyles(@ExtractPayload Long useId,
-		@PageableDefault Pageable pageable) {
+	public PagedResponse<HairStyleResponse> findWishHairStyles(
+		final @FetchAuthInfo AuthInfo authInfo,
+		final @PageableDefault Pageable pageable) {
 
-		return hairStyleSearchService.findWishHairStyles(useId, pageable);
+		return hairStyleSearchService.findWishHairStyles(authInfo.userId(), pageable);
 	}
 
 	@GetMapping

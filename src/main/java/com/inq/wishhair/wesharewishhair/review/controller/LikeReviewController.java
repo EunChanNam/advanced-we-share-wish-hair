@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.inq.wishhair.wesharewishhair.global.annotation.FetchAuthInfo;
 import com.inq.wishhair.wesharewishhair.global.dto.response.Success;
+import com.inq.wishhair.wesharewishhair.global.resolver.dto.AuthInfo;
 import com.inq.wishhair.wesharewishhair.review.service.LikeReviewService;
 import com.inq.wishhair.wesharewishhair.review.service.dto.response.LikeReviewResponse;
 
@@ -23,27 +25,31 @@ public class LikeReviewController {
 
 	@PostMapping(path = "{reviewId}")
 	public ResponseEntity<Success> executeLike(
-		@PathVariable Long reviewId,
-		@ExtractPayload Long userId) {
+		final @PathVariable Long reviewId,
+		final @FetchAuthInfo AuthInfo authInfo
+	) {
 
-		likeReviewService.executeLike(reviewId, userId);
+		likeReviewService.executeLike(reviewId, authInfo.userId());
 		return ResponseEntity.ok(new Success());
 	}
 
 	@DeleteMapping("/{reviewId}")
 	public ResponseEntity<Success> cancelLike(
-		@PathVariable Long reviewId,
-		@ExtractPayload Long userId) {
+		final @PathVariable Long reviewId,
+		final @FetchAuthInfo AuthInfo authInfo
+	) {
 
-		likeReviewService.cancelLike(reviewId, userId);
+		likeReviewService.cancelLike(reviewId, authInfo.userId());
 		return ResponseEntity.ok(new Success());
 	}
 
 	@GetMapping(path = "{reviewId}")
-	public ResponseEntity<LikeReviewResponse> checkIsLiking(@ExtractPayload Long userId,
-		@PathVariable Long reviewId) {
+	public ResponseEntity<LikeReviewResponse> checkIsLiking(
+		final @FetchAuthInfo AuthInfo authInfo,
+		final @PathVariable Long reviewId
+	) {
 
-		LikeReviewResponse result = likeReviewService.checkIsLiking(userId, reviewId);
+		LikeReviewResponse result = likeReviewService.checkIsLiking(authInfo.userId(), reviewId);
 		return ResponseEntity.ok(result);
 	}
 }

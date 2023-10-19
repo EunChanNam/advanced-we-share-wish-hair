@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.inq.wishhair.wesharewishhair.auth.presentation.dto.request.LoginRequest;
 import com.inq.wishhair.wesharewishhair.auth.application.AuthService;
 import com.inq.wishhair.wesharewishhair.auth.application.dto.response.LoginResponse;
+import com.inq.wishhair.wesharewishhair.global.annotation.FetchAuthInfo;
 import com.inq.wishhair.wesharewishhair.global.dto.response.Success;
+import com.inq.wishhair.wesharewishhair.global.resolver.dto.AuthInfo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,14 +23,14 @@ public class AuthController {
 	private final AuthService authService;
 
 	@PostMapping("/login")
-	public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
+	public ResponseEntity<LoginResponse> login(final @RequestBody LoginRequest loginRequest) {
 		LoginResponse response = authService.login(loginRequest.getEmail(), loginRequest.getPw());
 		return ResponseEntity.ok(response);
 	}
 
 	@PostMapping("/logout")
-	public ResponseEntity<Success> logout(@ExtractPayload Long userId) {
-		authService.logout(userId);
+	public ResponseEntity<Success> logout(@FetchAuthInfo AuthInfo authInfo) {
+		authService.logout(authInfo.userId());
 		return ResponseEntity.ok(new Success());
 	}
 }

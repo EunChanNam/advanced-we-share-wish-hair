@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.inq.wishhair.wesharewishhair.global.annotation.FetchAuthInfo;
 import com.inq.wishhair.wesharewishhair.global.dto.response.Success;
+import com.inq.wishhair.wesharewishhair.global.resolver.dto.AuthInfo;
 import com.inq.wishhair.wesharewishhair.review.controller.dto.request.ReviewCreateRequest;
 import com.inq.wishhair.wesharewishhair.review.controller.dto.request.ReviewUpdateRequest;
 import com.inq.wishhair.wesharewishhair.review.service.ReviewService;
@@ -27,29 +29,33 @@ public class ReviewController {
 
 	@PostMapping
 	public ResponseEntity<Success> createReview(
-		@ModelAttribute ReviewCreateRequest reviewCreateRequest,
-		@ExtractPayload Long userId) {
+		final @ModelAttribute ReviewCreateRequest reviewCreateRequest,
+		final @FetchAuthInfo AuthInfo authInfo
+	) {
 
-		Long reviewId = reviewService.createReview(reviewCreateRequest, userId);
+		Long reviewId = reviewService.createReview(reviewCreateRequest, authInfo.userId());
 		return ResponseEntity
 			.created(URI.create("/api/review/" + reviewId))
 			.body(new Success());
 	}
 
 	@DeleteMapping(path = "{reviewId}")
-	public ResponseEntity<Success> deleteReview(@ExtractPayload Long userId,
-		@PathVariable Long reviewId) {
+	public ResponseEntity<Success> deleteReview(
+		final @FetchAuthInfo AuthInfo authInfo,
+		final @PathVariable Long reviewId
+	) {
 
-		reviewService.deleteReview(reviewId, userId);
+		reviewService.deleteReview(reviewId, authInfo.userId());
 
 		return ResponseEntity.ok(new Success());
 	}
 
 	@PatchMapping
-	public ResponseEntity<Success> updateReview(@ModelAttribute ReviewUpdateRequest request,
-		@ExtractPayload Long userId) {
-
-		reviewService.updateReview(request, userId);
+	public ResponseEntity<Success> updateReview(
+		final @ModelAttribute ReviewUpdateRequest request,
+		final @FetchAuthInfo AuthInfo authInfo
+	) {
+		reviewService.updateReview(request, authInfo.userId());
 
 		return ResponseEntity.ok(new Success());
 	}

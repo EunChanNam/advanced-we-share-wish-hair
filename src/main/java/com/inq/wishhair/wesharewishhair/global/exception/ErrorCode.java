@@ -11,9 +11,10 @@ public enum ErrorCode {
 	LOGIN_FAIL("LOGIN_001", "아이디 혹은 비밀번호가 틀렸습니다.", HttpStatus.BAD_REQUEST),
 	FILE_TRANSFER_EX("FILE_001", "파일 저장 오류", HttpStatus.INTERNAL_SERVER_ERROR),
 	EMPTY_FILE_EX("FILE_002", "빈 파일 입니다.", HttpStatus.BAD_REQUEST),
-	AUTH_EXPIRED_TOKEN("AUTH_001", "토큰의 유효기간이 만료되었습니다.", HttpStatus.UNAUTHORIZED),
-	AUTH_INVALID_TOKEN("AUTH_002", "토큰이 유효하지 않습니다.", HttpStatus.UNAUTHORIZED),
+	AUTH_EXPIRED_TOKEN("AUTH_001", "토큰의 유효기간이 만료되었습니다.", HttpStatus.BAD_REQUEST),
+	AUTH_INVALID_TOKEN("AUTH_002", "토큰이 유효하지 않습니다.", HttpStatus.BAD_REQUEST),
 	AUTH_REQUIRED_LOGIN("AUTH_003", "로그인이 필요합니다.", HttpStatus.UNAUTHORIZED),
+	AUTH_INVALID_AUTHORIZATION_HEADER("AUTH_004", "올바르지 않은 인증 헤더입니다", HttpStatus.BAD_REQUEST),
 
 	HAIR_STYLE_NO_FACE_SHAPE_TAG("HAIR_STYLE_002", "얼굴형 태그가 없습니다.", HttpStatus.INTERNAL_SERVER_ERROR),
 
