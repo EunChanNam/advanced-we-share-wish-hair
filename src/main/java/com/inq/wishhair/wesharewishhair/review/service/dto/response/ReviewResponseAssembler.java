@@ -1,7 +1,7 @@
 package com.inq.wishhair.wesharewishhair.review.service.dto.response;
 
 import static com.inq.wishhair.wesharewishhair.hairstyle.service.dto.response.HairStyleResponseAssembler.*;
-import static com.inq.wishhair.wesharewishhair.photo.dto.response.PhotoResponseAssembler.*;
+import static com.inq.wishhair.wesharewishhair.photo.application.dto.response.PhotoResponseAssembler.*;
 
 import java.util.List;
 

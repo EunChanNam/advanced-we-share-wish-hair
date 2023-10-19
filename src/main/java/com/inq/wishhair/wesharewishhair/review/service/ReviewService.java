@@ -11,7 +11,7 @@ import com.inq.wishhair.wesharewishhair.global.exception.ErrorCode;
 import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
 import com.inq.wishhair.wesharewishhair.hairstyle.domain.HairStyle;
 import com.inq.wishhair.wesharewishhair.hairstyle.service.HairStyleFindService;
-import com.inq.wishhair.wesharewishhair.photo.service.PhotoService;
+import com.inq.wishhair.wesharewishhair.photo.application.PhotoService;
 import com.inq.wishhair.wesharewishhair.review.controller.dto.request.ReviewCreateRequest;
 import com.inq.wishhair.wesharewishhair.review.controller.dto.request.ReviewUpdateRequest;
 import com.inq.wishhair.wesharewishhair.review.domain.Contents;
