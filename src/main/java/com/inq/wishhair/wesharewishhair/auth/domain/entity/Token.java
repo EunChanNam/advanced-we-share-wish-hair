@@ -1,4 +1,4 @@
-package com.inq.wishhair.wesharewishhair.auth.domain;
+package com.inq.wishhair.wesharewishhair.auth.domain.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

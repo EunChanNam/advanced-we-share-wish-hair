@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.inq.wishhair.wesharewishhair.auth.domain.Token;
+import com.inq.wishhair.wesharewishhair.auth.domain.entity.Token;
 import com.inq.wishhair.wesharewishhair.auth.domain.TokenRepository;
 
 public interface TokenJpaRepository extends TokenRepository, JpaRepository<Token, Long> {

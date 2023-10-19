@@ -3,7 +3,7 @@ package com.inq.wishhair.wesharewishhair.auth.application;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.inq.wishhair.wesharewishhair.auth.domain.Token;
+import com.inq.wishhair.wesharewishhair.auth.domain.entity.Token;
 import com.inq.wishhair.wesharewishhair.auth.domain.TokenRepository;
 
 import lombok.RequiredArgsConstructor;
