@@ -1,22 +1,13 @@
-# We-Share-Wish-Hair - Backend
+# Advavced-We-Share-Wish-Hair - Backend
 💇‍♀️ AI 기반 헤어스타일 추천 어플리케이션 💇‍♂️
 
-## ✅ 테스트
-### 커버리지
-<img src="https://github.com/EunChanNam/We-Share-Wish-Hair/assets/75837025/a497ae0a-568c-4443-a7d8-029a5b651946" width="50%">
-
-
-## ⚙️ 개발 환경
-* Language : Java 17
-* Framework : Spring Boot 2.7.7
-* IDE : Intellij
-
-## 💻 배포 환경
-* Cloud : Naver Cloud Platform
-* Storage : Naver Cloud Object Storage
-* Server : ubuntu-18.04
-* DB : MySQL 8.0
-* CI/CD : Jenkins, Docker
+## 개선 목적
+1. 아키텍처 : 기존의 레이어드 아키텍처는 유지하지만, 기존 Domain 계층의 잘못된 의존관계를 바로 잡는다.
+2. CI/CD : `github action` 을 통해서 CI/CD 를 구성하고 관리와 배포에 대한 자동화 환경을 구성한다.
+3. 테스트 코드
+   4. `Test Double` 을 활용하여 불필요한 통합 테스트 환경에서 벗어나며 단위테스트에 집중하고 테스트 성능을 향상시킨다.
+   5. 통합테스트를 별도로 진행하며 RestDocs + Swagger 를 통해 API 명세를 진행한다.
+4. 프로덕트 코드 리펙토링 : 코드를 살피며 불필요한 클래스나 코드를 제거하고 객체지향적인 코드로 리팩토링한다.
 
 ## 🛠️ 기술 스택
 * Java
@@ -26,7 +17,7 @@
 * RestDocs
 * JUnit5
 * MySQL
-* Jenkins
+* Github Action
 * Docker
 
 ## 🕹️ API 목록
