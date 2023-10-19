@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.inq.wishhair.wesharewishhair.auth.config.resolver.ExtractPayload;
 import com.inq.wishhair.wesharewishhair.global.dto.response.PagedResponse;
 import com.inq.wishhair.wesharewishhair.global.dto.response.ResponseWrapper;
 import com.inq.wishhair.wesharewishhair.global.exception.ErrorCode;
@@ -26,40 +25,40 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/hair_styles")
 public class HairStyleSearchController {
 
-    private final HairStyleSearchService hairStyleSearchService;
+	private final HairStyleSearchService hairStyleSearchService;
 
-    @GetMapping("/recommend")
-    public ResponseWrapper<HairStyleResponse> respondRecommendedHairStyle(
-            @RequestParam(defaultValue = "ERROR") List<Tag> tags,
-            @ExtractPayload Long userId) {
+	@GetMapping("/recommend")
+	public ResponseWrapper<HairStyleResponse> respondRecommendedHairStyle(
+		@RequestParam(defaultValue = "ERROR") List<Tag> tags,
+		@ExtractPayload Long userId) {
 
-        validateHasTag(tags);
+		validateHasTag(tags);
 
-        return hairStyleSearchService.recommendHair(tags, userId);
-    }
+		return hairStyleSearchService.recommendHair(tags, userId);
+	}
 
-    @GetMapping("/home")
-    public ResponseWrapper<HairStyleResponse> findHairStyleByFaceShape(
-            @ExtractPayload Long userId) {
+	@GetMapping("/home")
+	public ResponseWrapper<HairStyleResponse> findHairStyleByFaceShape(
+		@ExtractPayload Long userId) {
 
-        return hairStyleSearchService.recommendHairByFaceShape(userId);
-    }
+		return hairStyleSearchService.recommendHairByFaceShape(userId);
+	}
 
-    @GetMapping("/wish")
-    public PagedResponse<HairStyleResponse> findWishHairStyles(@ExtractPayload Long useId,
-                                                               @PageableDefault Pageable pageable) {
+	@GetMapping("/wish")
+	public PagedResponse<HairStyleResponse> findWishHairStyles(@ExtractPayload Long useId,
+		@PageableDefault Pageable pageable) {
 
-        return hairStyleSearchService.findWishHairStyles(useId, pageable);
-    }
+		return hairStyleSearchService.findWishHairStyles(useId, pageable);
+	}
 
-    @GetMapping
-    public ResponseWrapper<HairStyleSimpleResponse> findAllHairStyles() {
-        return hairStyleSearchService.findAllHairStyle();
-    }
+	@GetMapping
+	public ResponseWrapper<HairStyleSimpleResponse> findAllHairStyles() {
+		return hairStyleSearchService.findAllHairStyle();
+	}
 
-    private void validateHasTag(List<Tag> tags) {
-        if (tags.get(0).equals(Tag.ERROR)) {
-            throw new WishHairException(ErrorCode.RUN_NOT_ENOUGH_TAG);
-        }
-    }
+	private void validateHasTag(List<Tag> tags) {
+		if (tags.get(0).equals(Tag.ERROR)) {
+			throw new WishHairException(ErrorCode.RUN_NOT_ENOUGH_TAG);
+		}
+	}
 }

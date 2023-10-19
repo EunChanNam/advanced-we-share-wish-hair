@@ -9,11 +9,11 @@ import lombok.Getter;
 @AllArgsConstructor
 public class HairStyleSimpleResponse {
 
-    private Long hairStyleId;
-    private String hairStyleName;
+	private Long hairStyleId;
+	private String hairStyleName;
 
-    public HairStyleSimpleResponse(HairStyle hairStyle) {
-        this.hairStyleId = hairStyle.getId();
-        this.hairStyleName = hairStyle.getName();
-    }
+	public HairStyleSimpleResponse(HairStyle hairStyle) {
+		this.hairStyleId = hairStyle.getId();
+		this.hairStyleName = hairStyle.getName();
+	}
 }

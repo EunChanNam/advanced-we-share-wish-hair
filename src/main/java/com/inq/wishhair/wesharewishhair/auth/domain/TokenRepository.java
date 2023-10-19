@@ -11,20 +11,20 @@ import com.inq.wishhair.wesharewishhair.user.domain.User;
 
 public interface TokenRepository extends JpaRepository<Token, Long> {
 
-    Optional<Token> findByUser(User user);
+	Optional<Token> findByUser(User user);
 
-    @Query("select t from Token t where t.user.id = :userId " +
-            "and t.refreshToken = :refreshToken")
-    Optional<Token> findByUserIdAndRefreshToken(@Param("userId") Long userId,
-                                                @Param("refreshToken") String refreshToken);
+	@Query("select t from Token t where t.user.id = :userId " +
+		"and t.refreshToken = :refreshToken")
+	Optional<Token> findByUserIdAndRefreshToken(@Param("userId") Long userId,
+		@Param("refreshToken") String refreshToken);
 
-    @Modifying
-    @Query("delete from Token t where t.user.id = :userId")
-    void deleteByUserId(@Param("userId") Long userId);
+	@Modifying
+	@Query("delete from Token t where t.user.id = :userId")
+	void deleteByUserId(@Param("userId") Long userId);
 
-    @Modifying // RTR 정책에 의한 RefreshToken 업데이트
-    @Query("update Token SET refreshToken = :refreshToken " +
-            "where user.id = :userId")
-    void updateRefreshTokenByUserId(@Param("userId") Long userId,
-                                    @Param("refreshToken") String refreshToken);
+	@Modifying // RTR 정책에 의한 RefreshToken 업데이트
+	@Query("update Token SET refreshToken = :refreshToken " +
+		"where user.id = :userId")
+	void updateRefreshTokenByUserId(@Param("userId") Long userId,
+		@Param("refreshToken") String refreshToken);
 }

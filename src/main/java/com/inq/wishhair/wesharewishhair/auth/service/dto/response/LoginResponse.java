@@ -10,13 +10,13 @@ import lombok.Getter;
 @AllArgsConstructor
 public class LoginResponse {
 
-    private UserInfo userInfo;
-    private String accessToken;
-    private String refreshToken;
+	private UserInfo userInfo;
+	private String accessToken;
+	private String refreshToken;
 
-    public LoginResponse(User user, String accessToken, String refreshToken) {
-        this.userInfo = new UserInfo(user);
-        this.accessToken = accessToken;
-        this.refreshToken = refreshToken;
-    }
+	public LoginResponse(User user, String accessToken, String refreshToken) {
+		this.userInfo = new UserInfo(user);
+		this.accessToken = accessToken;
+		this.refreshToken = refreshToken;
+	}
 }

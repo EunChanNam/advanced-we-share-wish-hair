@@ -13,18 +13,18 @@ import lombok.Getter;
 @AllArgsConstructor
 public class MyPageResponse {
 
-    private String nickname;
+	private String nickname;
 
-    private Sex sex;
+	private Sex sex;
 
-    private int point;
+	private int point;
 
-    private List<ReviewResponse> reviews;
+	private List<ReviewResponse> reviews;
 
-    public MyPageResponse(User user, List<ReviewResponse> reviewResponses) {
-        this.nickname = user.getNicknameValue();
-        this.sex = user.getSex();
-        this.point = user.getPoints();
-        this.reviews = reviewResponses;
-    }
+	public MyPageResponse(User user, List<ReviewResponse> reviewResponses) {
+		this.nickname = user.getNicknameValue();
+		this.sex = user.getSex();
+		this.point = user.getPoints();
+		this.reviews = reviewResponses;
+	}
 }

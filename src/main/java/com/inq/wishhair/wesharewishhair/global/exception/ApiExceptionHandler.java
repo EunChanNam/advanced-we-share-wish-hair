@@ -22,42 +22,41 @@ import com.inq.wishhair.wesharewishhair.user.controller.UserController;
 import com.inq.wishhair.wesharewishhair.user.controller.UserInfoController;
 
 @RestControllerAdvice(assignableTypes = {
-        UserController.class, AuthController.class, HairStyleSearchController.class,
-        ReviewController.class, WishHairController.class, AuthController.class,
-        TokenReissueController.class, MailAuthController.class,
-        UserInfoController.class, LikeReviewController.class, ReviewSearchController.class,
-        PointSearchController.class, PointController.class
+	UserController.class, AuthController.class, HairStyleSearchController.class,
+	ReviewController.class, WishHairController.class, AuthController.class,
+	TokenReissueController.class, MailAuthController.class,
+	UserInfoController.class, LikeReviewController.class, ReviewSearchController.class,
+	PointSearchController.class, PointController.class
 })
 public class ApiExceptionHandler {
 
-    @ExceptionHandler(WishHairException.class)
-    public ResponseEntity<ErrorResponse> handleWishHairException(WishHairException e) {
-        return convert(e.getErrorCode());
-    }
+	@ExceptionHandler(WishHairException.class)
+	public ResponseEntity<ErrorResponse> handleWishHairException(WishHairException e) {
+		return convert(e.getErrorCode());
+	}
 
-    @ExceptionHandler({MethodArgumentNotValidException.class, MethodArgumentTypeMismatchException.class})
-    public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException() {
-        return convert(ErrorCode.GLOBAL_VALIDATION_ERROR);
-    }
+	@ExceptionHandler({MethodArgumentNotValidException.class, MethodArgumentTypeMismatchException.class})
+	public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException() {
+		return convert(ErrorCode.GLOBAL_VALIDATION_ERROR);
+	}
 
-    @ExceptionHandler(NoHandlerFoundException.class)
-    public ResponseEntity<ErrorResponse> handelNotSupportedUriException() {
-        return convert(ErrorCode.GLOBAL_NOT_SUPPORTED_URI);
-    }
+	@ExceptionHandler(NoHandlerFoundException.class)
+	public ResponseEntity<ErrorResponse> handelNotSupportedUriException() {
+		return convert(ErrorCode.GLOBAL_NOT_SUPPORTED_URI);
+	}
 
-    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-    public ResponseEntity<ErrorResponse> handlerHttpRequestMethodNotSupportedException() {
-        return convert(ErrorCode.GLOBAL_NOT_SUPPORTED_METHOD);
-    }
+	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+	public ResponseEntity<ErrorResponse> handlerHttpRequestMethodNotSupportedException() {
+		return convert(ErrorCode.GLOBAL_NOT_SUPPORTED_METHOD);
+	}
 
-//    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<ErrorResponse> handleAnyException() {
-        return convert(ErrorCode.GLOBAL_INTERNAL_SERVER_ERROR);
-    }
+	//    @ExceptionHandler(RuntimeException.class)
+	public ResponseEntity<ErrorResponse> handleAnyException() {
+		return convert(ErrorCode.GLOBAL_INTERNAL_SERVER_ERROR);
+	}
 
-    private ResponseEntity<ErrorResponse> convert(ErrorCode errorCode) {
-        return ResponseEntity.status(errorCode.getHttpStatus()).body(new ErrorResponse(errorCode));
-    }
-
+	private ResponseEntity<ErrorResponse> convert(ErrorCode errorCode) {
+		return ResponseEntity.status(errorCode.getHttpStatus()).body(new ErrorResponse(errorCode));
+	}
 
 }

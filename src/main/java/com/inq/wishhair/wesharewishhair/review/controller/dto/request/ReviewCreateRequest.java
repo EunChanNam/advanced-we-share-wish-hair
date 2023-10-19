@@ -14,14 +14,14 @@ import lombok.Getter;
 @AllArgsConstructor
 public class ReviewCreateRequest {
 
-    @NotNull
-    private String contents;
+	@NotNull
+	private String contents;
 
-    @NotNull
-    private Score score;
+	@NotNull
+	private Score score;
 
-    private List<MultipartFile> files;
+	private List<MultipartFile> files;
 
-    @NotNull
-    private Long hairStyleId;
+	@NotNull
+	private Long hairStyleId;
 }

@@ -7,13 +7,13 @@ import lombok.Getter;
 @AllArgsConstructor
 public class Paging {
 
-    private int contentSize;
+	private int contentSize;
 
-    private int page;
+	private int page;
 
-    private boolean hasNext;
+	private boolean hasNext;
 
-    public boolean hasNext() {
-        return hasNext;
-    }
+	public boolean hasNext() {
+		return hasNext;
+	}
 }

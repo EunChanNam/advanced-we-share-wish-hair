@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserUpdateRequest {
 
-    private String nickname;
+	private String nickname;
 
-    private Sex sex;
+	private Sex sex;
 }

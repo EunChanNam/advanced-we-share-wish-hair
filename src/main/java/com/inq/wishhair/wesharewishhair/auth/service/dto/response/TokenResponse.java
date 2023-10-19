@@ -8,11 +8,11 @@ import lombok.Getter;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class TokenResponse {
 
-    private String accessToken;
+	private String accessToken;
 
-    private String refreshToken;
+	private String refreshToken;
 
-    public static TokenResponse of(String accessToken, String refreshToken) {
-        return new TokenResponse(accessToken, refreshToken);
-    }
+	public static TokenResponse of(String accessToken, String refreshToken) {
+		return new TokenResponse(accessToken, refreshToken);
+	}
 }

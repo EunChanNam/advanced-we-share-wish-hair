@@ -20,29 +20,29 @@ import lombok.NoArgsConstructor;
 @Embeddable
 public class Password {
 
-    private static final String PASSWORD_PATTERN = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*\\W).{8,20}$";
-    private static final Pattern PASSWORD_MATCHER = Pattern.compile(PASSWORD_PATTERN);
+	private static final String PASSWORD_PATTERN = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*\\W).{8,20}$";
+	private static final Pattern PASSWORD_MATCHER = Pattern.compile(PASSWORD_PATTERN);
 
-    @Column(name = "pw", nullable = false)
-    private String value;
+	@Column(name = "pw", nullable = false)
+	private String value;
 
-    private Password(String pw) {
-        this.value = pw;
-    }
+	private Password(String pw) {
+		this.value = pw;
+	}
 
-    //암호화
-    public static Password encrypt(String pw, PasswordEncoder encoder) {
-        validatePasswordPattern(pw);
-        return new Password(encoder.encode(pw));
-    }
+	//암호화
+	public static Password encrypt(String pw, PasswordEncoder encoder) {
+		validatePasswordPattern(pw);
+		return new Password(encoder.encode(pw));
+	}
 
-    private static void validatePasswordPattern(String pw) {
-        if (isNotValidPattern(pw)) {
-            throw new WishHairException(ErrorCode.USER_INVALID_PASSWORD);
-        }
-    }
+	private static void validatePasswordPattern(String pw) {
+		if (isNotValidPattern(pw)) {
+			throw new WishHairException(ErrorCode.USER_INVALID_PASSWORD);
+		}
+	}
 
-    private static boolean isNotValidPattern(String pw) {
-        return !PASSWORD_MATCHER.matcher(pw).matches();
-    }
+	private static boolean isNotValidPattern(String pw) {
+		return !PASSWORD_MATCHER.matcher(pw).matches();
+	}
 }

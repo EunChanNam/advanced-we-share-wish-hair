@@ -19,27 +19,27 @@ import lombok.RequiredArgsConstructor;
 @Transactional(readOnly = true)
 public class AuthService {
 
-    private final TokenManager tokenManager;
-    private final UserRepository userRepository;
-    private final JwtTokenProvider provider;
-    private final PasswordEncoder passwordEncoder;
+	private final TokenManager tokenManager;
+	private final UserRepository userRepository;
+	private final JwtTokenProvider provider;
+	private final PasswordEncoder passwordEncoder;
 
-    @Transactional
-    public LoginResponse login(String email, String pw) {
-        User user = userRepository.findByEmail(new Email(email))
-                .filter(findUser -> passwordEncoder.matches(pw, findUser.getPasswordValue()))
-                .orElseThrow(() -> new WishHairException(ErrorCode.LOGIN_FAIL));
+	@Transactional
+	public LoginResponse login(String email, String pw) {
+		User user = userRepository.findByEmail(new Email(email))
+			.filter(findUser -> passwordEncoder.matches(pw, findUser.getPasswordValue()))
+			.orElseThrow(() -> new WishHairException(ErrorCode.LOGIN_FAIL));
 
-        String refreshToken = provider.createRefreshToken(user.getId());
-        String accessToken = provider.createAccessToken(user.getId());
+		String refreshToken = provider.createRefreshToken(user.getId());
+		String accessToken = provider.createAccessToken(user.getId());
 
-        tokenManager.synchronizeRefreshToken(user, refreshToken);
+		tokenManager.synchronizeRefreshToken(user, refreshToken);
 
-        return new LoginResponse(user, accessToken, refreshToken);
-    }
+		return new LoginResponse(user, accessToken, refreshToken);
+	}
 
-    @Transactional
-    public void logout(Long userId) {
-        tokenManager.deleteToken(userId);
-    }
+	@Transactional
+	public void logout(Long userId) {
+		tokenManager.deleteToken(userId);
+	}
 }

@@ -14,17 +14,17 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserValidator {
 
-    private final UserRepository userRepository;
+	private final UserRepository userRepository;
 
-    public void validateNicknameIsNotDuplicated(Nickname nickname) {
-        if (userRepository.existsByNickname(nickname)) {
-            throw new WishHairException(ErrorCode.USER_DUPLICATED_NICKNAME);
-        }
-    }
+	public void validateNicknameIsNotDuplicated(Nickname nickname) {
+		if (userRepository.existsByNickname(nickname)) {
+			throw new WishHairException(ErrorCode.USER_DUPLICATED_NICKNAME);
+		}
+	}
 
-    public void validateEmailIsNotDuplicated(Email email) {
-        if (userRepository.existsByEmail(email)) {
-            throw new WishHairException(ErrorCode.USER_DUPLICATED_EMAIL);
-        }
-    }
+	public void validateEmailIsNotDuplicated(Email email) {
+		if (userRepository.existsByEmail(email)) {
+			throw new WishHairException(ErrorCode.USER_DUPLICATED_EMAIL);
+		}
+	}
 }

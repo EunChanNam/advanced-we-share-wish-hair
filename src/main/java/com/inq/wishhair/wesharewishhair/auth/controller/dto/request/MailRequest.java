@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class MailRequest {
 
-    @NotNull
-    private String email;
+	@NotNull
+	private String email;
 }

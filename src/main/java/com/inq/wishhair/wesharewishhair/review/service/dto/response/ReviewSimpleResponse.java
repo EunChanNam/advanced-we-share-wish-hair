@@ -9,18 +9,18 @@ import lombok.Getter;
 @AllArgsConstructor
 public class ReviewSimpleResponse {
 
-    private Long reviewId;
+	private Long reviewId;
 
-    private String userNickname;
+	private String userNickname;
 
-    private String hairStyleName;
+	private String hairStyleName;
 
-    private String contents;
+	private String contents;
 
-    public ReviewSimpleResponse(Review review) {
-        this.reviewId = review.getId();
-        this.userNickname = review.getWriter().getNicknameValue();
-        this.hairStyleName = review.getHairStyle().getName();
-        this.contents = review.getContentsValue();
-    }
+	public ReviewSimpleResponse(Review review) {
+		this.reviewId = review.getId();
+		this.userNickname = review.getWriter().getNicknameValue();
+		this.hairStyleName = review.getHairStyle().getName();
+		this.contents = review.getContentsValue();
+	}
 }

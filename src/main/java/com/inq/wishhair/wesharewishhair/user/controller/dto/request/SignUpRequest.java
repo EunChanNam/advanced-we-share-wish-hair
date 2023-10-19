@@ -13,18 +13,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SignUpRequest {
 
-    @NotNull
-    private String email;
+	@NotNull
+	private String email;
 
-    @NotNull
-    private String pw;
+	@NotNull
+	private String pw;
 
-    @NotNull
-    private String name;
+	@NotNull
+	private String name;
 
-    @NotNull
-    private String nickname;
+	@NotNull
+	private String nickname;
 
-    @NotNull
-    private Sex sex;
+	@NotNull
+	private Sex sex;
 }

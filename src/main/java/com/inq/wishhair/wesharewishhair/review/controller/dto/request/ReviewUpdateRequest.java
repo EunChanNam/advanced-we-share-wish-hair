@@ -17,14 +17,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ReviewUpdateRequest {
 
-    @NotNull
-    private Long reviewId;
+	@NotNull
+	private Long reviewId;
 
-    @NotNull
-    private String contents;
+	@NotNull
+	private String contents;
 
-    @NotNull
-    private Score score;
+	@NotNull
+	private Score score;
 
-    private List<MultipartFile> files;
+	private List<MultipartFile> files;
 }

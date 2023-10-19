@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AuthKeyRequest {
 
-    @NotNull
-    private String authKey;
+	@NotNull
+	private String authKey;
 }

@@ -9,5 +9,5 @@ import lombok.Getter;
 @AllArgsConstructor
 public class ResponseWrapper<T> implements ListResponse<T> {
 
-    private List<T> result;
+	private List<T> result;
 }

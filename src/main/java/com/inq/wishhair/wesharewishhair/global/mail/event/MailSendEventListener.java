@@ -19,17 +19,17 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MailSendEventListener {
 
-    private final EmailSender emailSender;
+	private final EmailSender emailSender;
 
-    @Async("mailAsyncExecutor")
-    @EventListener
-    public void sendAuthMail(AuthMailSendEvent event) throws MessagingException, UnsupportedEncodingException {
-        emailSender.sendAuthMail(event.email().getValue(), event.authKey());
-    }
+	@Async("mailAsyncExecutor")
+	@EventListener
+	public void sendAuthMail(AuthMailSendEvent event) throws MessagingException, UnsupportedEncodingException {
+		emailSender.sendAuthMail(event.email().getValue(), event.authKey());
+	}
 
-    @Async("mailAsyncExecutor")
-    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-    public void sendRefundMail(RefundMailSendEvent event) throws MessagingException, UnsupportedEncodingException {
-        emailSender.sendRefundRequestMail(event);
-    }
+	@Async("mailAsyncExecutor")
+	@TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+	public void sendRefundMail(RefundMailSendEvent event) throws MessagingException, UnsupportedEncodingException {
+		emailSender.sendRefundRequestMail(event);
+	}
 }

@@ -6,5 +6,5 @@ import com.inq.wishhair.wesharewishhair.hairstyle.domain.hashtag.Tag;
 
 @FunctionalInterface
 public interface AiConnector {
-    Tag detectFaceShape(MultipartFile file);
+	Tag detectFaceShape(MultipartFile file);
 }

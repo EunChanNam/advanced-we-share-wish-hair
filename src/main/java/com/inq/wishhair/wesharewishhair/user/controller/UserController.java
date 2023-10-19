@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.inq.wishhair.wesharewishhair.auth.config.resolver.ExtractPayload;
 import com.inq.wishhair.wesharewishhair.global.dto.response.SimpleResponseWrapper;
 import com.inq.wishhair.wesharewishhair.global.dto.response.Success;
 import com.inq.wishhair.wesharewishhair.user.controller.dto.request.FaceShapeUpdateRequest;
@@ -28,56 +27,56 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/users")
 public class UserController {
 
-    private final UserService userService;
+	private final UserService userService;
 
-    @PostMapping
-    public ResponseEntity<Success> signUp(@RequestBody SignUpRequest createRequest) {
-        Long userId = userService.createUser(createRequest);
+	@PostMapping
+	public ResponseEntity<Success> signUp(@RequestBody SignUpRequest createRequest) {
+		Long userId = userService.createUser(createRequest);
 
-        return ResponseEntity
-                .created(URI.create("/api/users/" + userId))
-                .body(new Success());
-    }
+		return ResponseEntity
+			.created(URI.create("/api/users/" + userId))
+			.body(new Success());
+	}
 
-    @DeleteMapping
-    public ResponseEntity<Success> deleteUser(@ExtractPayload Long userId) {
-        userService.deleteUser(userId);
+	@DeleteMapping
+	public ResponseEntity<Success> deleteUser(@ExtractPayload Long userId) {
+		userService.deleteUser(userId);
 
-        return ResponseEntity.ok(new Success());
-    }
+		return ResponseEntity.ok(new Success());
+	}
 
-    @PatchMapping("/refresh/password")
-    public ResponseEntity<Success> refreshPassword(@RequestBody PasswordRefreshRequest request) {
+	@PatchMapping("/refresh/password")
+	public ResponseEntity<Success> refreshPassword(@RequestBody PasswordRefreshRequest request) {
 
-        userService.refreshPassword(request);
+		userService.refreshPassword(request);
 
-        return ResponseEntity.ok(new Success());
-    }
+		return ResponseEntity.ok(new Success());
+	}
 
-    @PatchMapping
-    public ResponseEntity<Success> updateUser(@RequestBody UserUpdateRequest request,
-                                              @ExtractPayload Long userId) {
+	@PatchMapping
+	public ResponseEntity<Success> updateUser(@RequestBody UserUpdateRequest request,
+		@ExtractPayload Long userId) {
 
-        userService.updateUser(userId, request);
+		userService.updateUser(userId, request);
 
-        return ResponseEntity.ok(new Success());
-    }
+		return ResponseEntity.ok(new Success());
+	}
 
-    @PatchMapping("/password")
-    public ResponseEntity<Success> updatePassword(@RequestBody PasswordUpdateRequest request,
-                                                  @ExtractPayload Long userId) {
+	@PatchMapping("/password")
+	public ResponseEntity<Success> updatePassword(@RequestBody PasswordUpdateRequest request,
+		@ExtractPayload Long userId) {
 
-        userService.updatePassword(userId, request);
+		userService.updatePassword(userId, request);
 
-        return ResponseEntity.ok(new Success());
-    }
+		return ResponseEntity.ok(new Success());
+	}
 
-    @PatchMapping("/face_shape")
-    public ResponseEntity<SimpleResponseWrapper<String>> updateFaceShape(@ModelAttribute FaceShapeUpdateRequest request,
-                                                                         @ExtractPayload Long userId) {
+	@PatchMapping("/face_shape")
+	public ResponseEntity<SimpleResponseWrapper<String>> updateFaceShape(@ModelAttribute FaceShapeUpdateRequest request,
+		@ExtractPayload Long userId) {
 
-        SimpleResponseWrapper<String> result = userService.updateFaceShape(userId, request.getFile());
+		SimpleResponseWrapper<String> result = userService.updateFaceShape(userId, request.getFile());
 
-        return ResponseEntity.ok(result);
-    }
+		return ResponseEntity.ok(result);
+	}
 }

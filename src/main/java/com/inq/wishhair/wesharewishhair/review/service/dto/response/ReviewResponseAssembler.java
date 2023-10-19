@@ -18,42 +18,44 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public abstract class ReviewResponseAssembler {
 
-    public static PagedResponse<ReviewResponse> toPagedReviewResponse(Slice<ReviewQueryResponse> slice) {
-        return new PagedResponse<>(transferContentToResponse(slice));
-    }
+	public static PagedResponse<ReviewResponse> toPagedReviewResponse(Slice<ReviewQueryResponse> slice) {
+		return new PagedResponse<>(transferContentToResponse(slice));
+	}
 
-    private static Slice<ReviewResponse> transferContentToResponse(Slice<ReviewQueryResponse> slice) {
-        return slice.map(ReviewResponseAssembler::toReviewResponse);
-    }
+	private static Slice<ReviewResponse> transferContentToResponse(Slice<ReviewQueryResponse> slice) {
+		return slice.map(ReviewResponseAssembler::toReviewResponse);
+	}
 
-    public static ReviewResponse toReviewResponse(ReviewQueryResponse queryResponse) {
-        Review review = queryResponse.getReview();
+	public static ReviewResponse toReviewResponse(ReviewQueryResponse queryResponse) {
+		Review review = queryResponse.getReview();
 
-        return ReviewResponse.builder()
-                .reviewId(review.getId())
-                .hairStyleName(review.getHairStyle().getName())
-                .userNickname(review.getWriter().getNicknameValue())
-                .score(review.getScore().getValue())
-                .contents(review.getContentsValue())
-                .createdDate(review.getCreatedDate())
-                .photos(toPhotoResponses(review.getPhotos()))
-                .likes(queryResponse.getLikes())
-                .hashTags(toHashTagResponses(review.getHairStyle().getHashTags()))
-                .writerId(review.getWriter().getId())
-                .build();
-    }
+		return ReviewResponse.builder()
+			.reviewId(review.getId())
+			.hairStyleName(review.getHairStyle().getName())
+			.userNickname(review.getWriter().getNicknameValue())
+			.score(review.getScore().getValue())
+			.contents(review.getContentsValue())
+			.createdDate(review.getCreatedDate())
+			.photos(toPhotoResponses(review.getPhotos()))
+			.likes(queryResponse.getLikes())
+			.hashTags(toHashTagResponses(review.getHairStyle().getHashTags()))
+			.writerId(review.getWriter().getId())
+			.build();
+	}
 
-    public static ReviewDetailResponse toReviewDetailResponse(ReviewQueryResponse queryResponse, boolean isLiking) {
-        return new ReviewDetailResponse(toReviewResponse(queryResponse), isLiking);
-    }
+	public static ReviewDetailResponse toReviewDetailResponse(ReviewQueryResponse queryResponse, boolean isLiking) {
+		return new ReviewDetailResponse(toReviewResponse(queryResponse), isLiking);
+	}
 
-    public static ResponseWrapper<ReviewSimpleResponse> toWrappedSimpleResponse(List<Review> reviews) {
-        List<ReviewSimpleResponse> responses = reviews.stream().map(ReviewSimpleResponse::new).toList();
-        return new ResponseWrapper<>(responses);
-    }
+	public static ResponseWrapper<ReviewSimpleResponse> toWrappedSimpleResponse(List<Review> reviews) {
+		List<ReviewSimpleResponse> responses = reviews.stream().map(ReviewSimpleResponse::new).toList();
+		return new ResponseWrapper<>(responses);
+	}
 
-    public static ResponseWrapper<ReviewResponse> toWrappedReviewResponse(List<ReviewQueryResponse> responses) {
-        List<ReviewResponse> reviewResponses = responses.stream().map(ReviewResponseAssembler::toReviewResponse).toList();
-        return new ResponseWrapper<>(reviewResponses);
-    }
+	public static ResponseWrapper<ReviewResponse> toWrappedReviewResponse(List<ReviewQueryResponse> responses) {
+		List<ReviewResponse> reviewResponses = responses.stream()
+			.map(ReviewResponseAssembler::toReviewResponse)
+			.toList();
+		return new ResponseWrapper<>(reviewResponses);
+	}
 }

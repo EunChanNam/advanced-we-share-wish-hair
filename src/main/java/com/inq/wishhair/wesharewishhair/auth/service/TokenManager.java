@@ -14,29 +14,30 @@ import lombok.RequiredArgsConstructor;
 @Transactional(readOnly = true)
 public class TokenManager {
 
-    private final TokenRepository tokenRepository;
+	private final TokenRepository tokenRepository;
 
-    @Transactional
-    public void synchronizeRefreshToken(User user, String refreshToken) {
-        tokenRepository.findByUser(user)
-                .ifPresentOrElse(
-                        token -> token.updateRefreshToken(refreshToken),
-                        () -> tokenRepository.save(Token.issue(user, refreshToken))
-                );
-    }
+	@Transactional
+	public void synchronizeRefreshToken(User user, String refreshToken) {
+		tokenRepository.findByUser(user)
+			.ifPresentOrElse(
+				token -> token.updateRefreshToken(refreshToken),
+				() -> tokenRepository.save(Token.issue(user.getId(), refreshToken))
+			);
+	}
 
-    boolean existByUserIdAndRefreshToken(Long userId, String refreshToken) {
-        return tokenRepository.findByUserIdAndRefreshToken(userId, refreshToken)
-                .isPresent();
-    }
+	public boolean existByUserIdAndRefreshToken(Long userId, String refreshToken) {
+		return tokenRepository
+			.findByUserIdAndRefreshToken(userId, refreshToken)
+			.isPresent();
+	}
 
-    @Transactional
-    public void deleteToken(Long userId) {
-        tokenRepository.deleteByUserId(userId);
-    }
+	@Transactional
+	public void deleteToken(Long userId) {
+		tokenRepository.deleteByUserId(userId);
+	}
 
-    @Transactional
-    public void updateRefreshTokenByRTR(Long userId, String refreshToken) {
-        tokenRepository.updateRefreshTokenByUserId(userId, refreshToken);
-    }
+	@Transactional
+	public void updateRefreshToken(Long userId, String refreshToken) {
+		tokenRepository.updateRefreshTokenByUserId(userId, refreshToken);
+	}
 }

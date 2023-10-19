@@ -17,27 +17,27 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PhotoService {
 
-    private final PhotoStore photoStore;
-    private final PhotoRepository photoRepository;
+	private final PhotoStore photoStore;
+	private final PhotoRepository photoRepository;
 
-    public List<String> uploadPhotos(List<MultipartFile> files) {
-        return photoStore.uploadFiles(files);
-    }
+	public List<String> uploadPhotos(List<MultipartFile> files) {
+		return photoStore.uploadFiles(files);
+	}
 
-    @Transactional
-    public void deletePhotosByReviewId(Review review) {
-        deletePhotosInCloud(review);
-        photoRepository.deleteAllByReview(review.getId());
-    }
+	@Transactional
+	public void deletePhotosByReviewId(Review review) {
+		deletePhotosInCloud(review);
+		photoRepository.deleteAllByReview(review.getId());
+	}
 
-    @Transactional
-    public void deletePhotosByWriter(List<Review> reviews) {
-        reviews.forEach(this::deletePhotosInCloud);
-        photoRepository.deleteAllByReviews(reviews.stream().map(Review::getId).toList());
-    }
+	@Transactional
+	public void deletePhotosByWriter(List<Review> reviews) {
+		reviews.forEach(this::deletePhotosInCloud);
+		photoRepository.deleteAllByReviews(reviews.stream().map(Review::getId).toList());
+	}
 
-    private void deletePhotosInCloud(Review review) {
-        List<String> storeUrls = review.getPhotos().stream().map(Photo::getStoreUrl).toList();
-        photoStore.deleteFiles(storeUrls);
-    }
+	private void deletePhotosInCloud(Review review) {
+		List<String> storeUrls = review.getPhotos().stream().map(Photo::getStoreUrl).toList();
+		photoStore.deleteFiles(storeUrls);
+	}
 }

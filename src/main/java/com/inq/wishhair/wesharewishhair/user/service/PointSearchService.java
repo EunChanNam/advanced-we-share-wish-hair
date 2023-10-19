@@ -19,11 +19,11 @@ import lombok.RequiredArgsConstructor;
 @Transactional(readOnly = true)
 public class PointSearchService {
 
-    private final PointSearchRepository pointSearchRepository;
+	private final PointSearchRepository pointSearchRepository;
 
-    public PagedResponse<PointResponse> findPointHistories(Long userId, Pageable pageable) {
+	public PagedResponse<PointResponse> findPointHistories(Long userId, Pageable pageable) {
 
-        Slice<PointHistory> result = pointSearchRepository.findByUserIdOrderByNew(userId, pageable);
-        return toPagedResponse(result);
-    }
+		Slice<PointHistory> result = pointSearchRepository.findByUserIdOrderByNew(userId, pageable);
+		return toPagedResponse(result);
+	}
 }

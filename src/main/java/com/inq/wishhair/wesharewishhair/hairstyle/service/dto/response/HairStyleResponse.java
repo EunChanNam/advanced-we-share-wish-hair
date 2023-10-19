@@ -15,18 +15,18 @@ import lombok.Getter;
 @AllArgsConstructor
 public class HairStyleResponse {
 
-    private Long hairStyleId;
+	private Long hairStyleId;
 
-    private String name;
+	private String name;
 
-    private List<PhotoResponse> photos;
+	private List<PhotoResponse> photos;
 
-    private List<HashTagResponse> hashTags;
+	private List<HashTagResponse> hashTags;
 
-    public HairStyleResponse(HairStyle hairStyle) {
-        this.hairStyleId = hairStyle.getId();
-        this.name = hairStyle.getName();
-        this.photos = toPhotoResponses(hairStyle.getPhotos());
-        this.hashTags = toHashTagResponses(hairStyle.getHashTags());
-    }
+	public HairStyleResponse(HairStyle hairStyle) {
+		this.hairStyleId = hairStyle.getId();
+		this.name = hairStyle.getName();
+		this.photos = toPhotoResponses(hairStyle.getPhotos());
+		this.hashTags = toHashTagResponses(hairStyle.getHashTags());
+	}
 }

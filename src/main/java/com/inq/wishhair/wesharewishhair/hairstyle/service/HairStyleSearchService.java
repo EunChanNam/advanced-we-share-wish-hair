@@ -33,45 +33,45 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class HairStyleSearchService {
 
-    private final HairStyleRepository hairStyleRepository;
-    private final UserFindService userFindService;
+	private final HairStyleRepository hairStyleRepository;
+	private final UserFindService userFindService;
 
-    //메인 추천 로직
-    public ResponseWrapper<HairStyleResponse> recommendHair(List<Tag> tags, Long userId) {
-        User user = userFindService.findByUserId(userId);
+	//메인 추천 로직
+	public ResponseWrapper<HairStyleResponse> recommendHair(List<Tag> tags, Long userId) {
+		User user = userFindService.findByUserId(userId);
 
-        validateUserHasFaceShapeTag(user);
+		validateUserHasFaceShapeTag(user);
 
-        HairRecommendCondition condition = mainRecommend(tags, user.getFaceShapeTag(), user.getSex());
-        List<HairStyle> hairStyles = hairStyleRepository.findByRecommend(condition, getDefaultPageable());
+		HairRecommendCondition condition = mainRecommend(tags, user.getFaceShapeTag(), user.getSex());
+		List<HairStyle> hairStyles = hairStyleRepository.findByRecommend(condition, getDefaultPageable());
 
-        return toWrappedHairStyleResponse(hairStyles);
-    }
+		return toWrappedHairStyleResponse(hairStyles);
+	}
 
-    //홈 화면 사용자 맞춤 추천 로직
-    public ResponseWrapper<HairStyleResponse> recommendHairByFaceShape(Long userId) {
-        User user = userFindService.findByUserId(userId);
+	//홈 화면 사용자 맞춤 추천 로직
+	public ResponseWrapper<HairStyleResponse> recommendHairByFaceShape(Long userId) {
+		User user = userFindService.findByUserId(userId);
 
-        HairRecommendCondition condition = subRecommend(user.getFaceShape(), user.getSex());
-        List<HairStyle> hairStyles = hairStyleRepository.findByFaceShape(condition, getDefaultPageable());
-        return toWrappedHairStyleResponse(hairStyles);
-    }
+		HairRecommendCondition condition = subRecommend(user.getFaceShape(), user.getSex());
+		List<HairStyle> hairStyles = hairStyleRepository.findByFaceShape(condition, getDefaultPageable());
+		return toWrappedHairStyleResponse(hairStyles);
+	}
 
-    //찜한 헤어스타일 조회 로직
-    public PagedResponse<HairStyleResponse> findWishHairStyles(Long userId, Pageable pageable) {
-        Slice<HairStyle> sliceResult = hairStyleRepository.findByWish(userId, pageable);
-        return toPagedResponse(sliceResult);
-    }
+	//찜한 헤어스타일 조회 로직
+	public PagedResponse<HairStyleResponse> findWishHairStyles(Long userId, Pageable pageable) {
+		Slice<HairStyle> sliceResult = hairStyleRepository.findByWish(userId, pageable);
+		return toPagedResponse(sliceResult);
+	}
 
-    //전체 헤어스타일 조회 로직
-    public ResponseWrapper<HairStyleSimpleResponse> findAllHairStyle() {
-        List<HairStyle> result = hairStyleRepository.findAllByOrderByName();
-        return toWrappedHairStyleSimpleResponse(result);
-    }
+	//전체 헤어스타일 조회 로직
+	public ResponseWrapper<HairStyleSimpleResponse> findAllHairStyle() {
+		List<HairStyle> result = hairStyleRepository.findAllByOrderByName();
+		return toWrappedHairStyleSimpleResponse(result);
+	}
 
-    private void validateUserHasFaceShapeTag(User user) {
-        if (!user.existFaceShape()) {
-            throw new WishHairException(ErrorCode.USER_NO_FACE_SHAPE_TAG);
-        }
-    }
+	private void validateUserHasFaceShapeTag(User user) {
+		if (!user.existFaceShape()) {
+			throw new WishHairException(ErrorCode.USER_NO_FACE_SHAPE_TAG);
+		}
+	}
 }

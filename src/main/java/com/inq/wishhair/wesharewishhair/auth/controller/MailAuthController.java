@@ -31,65 +31,65 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MailAuthController {
 
-    private static final String AUTH_KEY = "KEY";
+	private static final String AUTH_KEY = "KEY";
 
-    private final ApplicationEventPublisher eventPublisher;
+	private final ApplicationEventPublisher eventPublisher;
 
-    private final UserValidator userValidator;
+	private final UserValidator userValidator;
 
-    @PostMapping("/check")
-    public ResponseEntity<Success> checkDuplicateEmail(@RequestBody MailRequest request) {
+	@PostMapping("/check")
+	public ResponseEntity<Success> checkDuplicateEmail(@RequestBody MailRequest request) {
 
-        userValidator.validateEmailIsNotDuplicated(new Email(request.getEmail()));
+		userValidator.validateEmailIsNotDuplicated(new Email(request.getEmail()));
 
-        return ResponseEntity.ok(new Success());
-    }
+		return ResponseEntity.ok(new Success());
+	}
 
-    @PostMapping("/send")
-    public ResponseEntity<SessionIdResponse> sendAuthorizationMail(@RequestBody MailRequest mailRequest,
-                                                                   HttpServletRequest request) throws NoSuchAlgorithmException {
+	@PostMapping("/send")
+	public ResponseEntity<SessionIdResponse> sendAuthorizationMail(@RequestBody MailRequest mailRequest,
+		HttpServletRequest request) throws NoSuchAlgorithmException {
 
-        String authKey = createAuthKey();
-        String sessionId = registerAuthKey(request, authKey);
+		String authKey = createAuthKey();
+		String sessionId = registerAuthKey(request, authKey);
 
-        eventPublisher.publishEvent(new AuthMailSendEvent(new Email(mailRequest.getEmail()), authKey));
+		eventPublisher.publishEvent(new AuthMailSendEvent(new Email(mailRequest.getEmail()), authKey));
 
-        return ResponseEntity.ok(new SessionIdResponse(sessionId));
-    }
+		return ResponseEntity.ok(new SessionIdResponse(sessionId));
+	}
 
-    @PostMapping("/validate")
-    public ResponseEntity<Success> authorizeKey(@RequestBody AuthKeyRequest authKeyRequest,
-                                             HttpServletRequest request) {
+	@PostMapping("/validate")
+	public ResponseEntity<Success> authorizeKey(@RequestBody AuthKeyRequest authKeyRequest,
+		HttpServletRequest request) {
 
-        String inputKey = authKeyRequest.getAuthKey();
-        HttpSession session = request.getSession(false);
-        validateKey(session, inputKey);
+		String inputKey = authKeyRequest.getAuthKey();
+		HttpSession session = request.getSession(false);
+		validateKey(session, inputKey);
 
-        session.invalidate();
+		session.invalidate();
 
-        return ResponseEntity.ok(new Success());
-    }
+		return ResponseEntity.ok(new Success());
+	}
 
-    private void validateKey(HttpSession session, String inputKey) {
-        if (session == null) {
-            throw new WishHairException(ErrorCode.MAIL_EXPIRED_KEY);
-        }
+	private void validateKey(HttpSession session, String inputKey) {
+		if (session == null) {
+			throw new WishHairException(ErrorCode.MAIL_EXPIRED_KEY);
+		}
 
-        String authKey = (String) session.getAttribute(AUTH_KEY);
-        if (!inputKey.equals(authKey)) {
-            throw new WishHairException(MAIL_INVALID_KEY);
-        }
-    }
+		String authKey = (String)session.getAttribute(AUTH_KEY);
+		if (!inputKey.equals(authKey)) {
+			throw new WishHairException(MAIL_INVALID_KEY);
+		}
+	}
 
-    private String registerAuthKey(HttpServletRequest request, String authKey) {
-        HttpSession session = request.getSession();
-        session.setAttribute(AUTH_KEY, authKey);
+	private String registerAuthKey(HttpServletRequest request, String authKey) {
+		HttpSession session = request.getSession();
+		session.setAttribute(AUTH_KEY, authKey);
 
-        return session.getId();
-    }
+		return session.getId();
+	}
 
-    private String createAuthKey() throws NoSuchAlgorithmException {
-        SecureRandom random = SecureRandom.getInstanceStrong();
-        return String.valueOf(random.nextInt(8999) + 1000);
-    }
+	private String createAuthKey() throws NoSuchAlgorithmException {
+		SecureRandom random = SecureRandom.getInstanceStrong();
+		return String.valueOf(random.nextInt(8999) + 1000);
+	}
 }

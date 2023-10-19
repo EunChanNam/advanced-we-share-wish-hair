@@ -7,6 +7,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public class ReviewDetailResponse {
 
-    private ReviewResponse reviewResponse;
-    private boolean isLiking;
+	private ReviewResponse reviewResponse;
+	private boolean isLiking;
 }

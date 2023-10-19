@@ -7,9 +7,9 @@ import lombok.Getter;
 @AllArgsConstructor
 public class Success {
 
-    private final boolean isSuccess;
+	private final boolean isSuccess;
 
-    public Success() {
-        this.isSuccess = true;
-    }
+	public Success() {
+		this.isSuccess = true;
+	}
 }

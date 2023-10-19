@@ -16,15 +16,15 @@ import lombok.RequiredArgsConstructor;
 @Transactional(readOnly = true)
 public class UserFindService {
 
-    private final UserRepository userRepository;
+	private final UserRepository userRepository;
 
-    public User findByUserId(Long userId) {
-        return userRepository.findById(userId)
-                .orElseThrow(() -> new WishHairException(ErrorCode.NOT_EXIST_KEY));
-    }
+	public User findByUserId(Long userId) {
+		return userRepository.findById(userId)
+			.orElseThrow(() -> new WishHairException(ErrorCode.NOT_EXIST_KEY));
+	}
 
-    public User findByEmail(Email email) {
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new WishHairException(ErrorCode.USER_NOT_FOUND_BY_EMAIL));
-    }
+	public User findByEmail(Email email) {
+		return userRepository.findByEmail(email)
+			.orElseThrow(() -> new WishHairException(ErrorCode.USER_NOT_FOUND_BY_EMAIL));
+	}
 }

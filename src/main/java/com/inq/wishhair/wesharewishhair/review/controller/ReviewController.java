@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.inq.wishhair.wesharewishhair.auth.config.resolver.ExtractPayload;
 import com.inq.wishhair.wesharewishhair.global.dto.response.Success;
 import com.inq.wishhair.wesharewishhair.review.controller.dto.request.ReviewCreateRequest;
 import com.inq.wishhair.wesharewishhair.review.controller.dto.request.ReviewUpdateRequest;
@@ -24,34 +23,34 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/reviews")
 public class ReviewController {
 
-    private final ReviewService reviewService;
+	private final ReviewService reviewService;
 
-    @PostMapping
-    public ResponseEntity<Success> createReview(
-            @ModelAttribute ReviewCreateRequest reviewCreateRequest,
-            @ExtractPayload Long userId) {
+	@PostMapping
+	public ResponseEntity<Success> createReview(
+		@ModelAttribute ReviewCreateRequest reviewCreateRequest,
+		@ExtractPayload Long userId) {
 
-        Long reviewId = reviewService.createReview(reviewCreateRequest, userId);
-        return ResponseEntity
-                .created(URI.create("/api/review/" + reviewId))
-                .body(new Success());
-    }
+		Long reviewId = reviewService.createReview(reviewCreateRequest, userId);
+		return ResponseEntity
+			.created(URI.create("/api/review/" + reviewId))
+			.body(new Success());
+	}
 
-    @DeleteMapping(path = "{reviewId}")
-    public ResponseEntity<Success> deleteReview(@ExtractPayload Long userId,
-                                                @PathVariable Long reviewId) {
+	@DeleteMapping(path = "{reviewId}")
+	public ResponseEntity<Success> deleteReview(@ExtractPayload Long userId,
+		@PathVariable Long reviewId) {
 
-        reviewService.deleteReview(reviewId, userId);
+		reviewService.deleteReview(reviewId, userId);
 
-        return ResponseEntity.ok(new Success());
-    }
+		return ResponseEntity.ok(new Success());
+	}
 
-    @PatchMapping
-    public ResponseEntity<Success> updateReview(@ModelAttribute ReviewUpdateRequest request,
-                                                @ExtractPayload Long userId) {
+	@PatchMapping
+	public ResponseEntity<Success> updateReview(@ModelAttribute ReviewUpdateRequest request,
+		@ExtractPayload Long userId) {
 
-        reviewService.updateReview(request, userId);
+		reviewService.updateReview(request, userId);
 
-        return ResponseEntity.ok(new Success());
-    }
+		return ResponseEntity.ok(new Success());
+	}
 }

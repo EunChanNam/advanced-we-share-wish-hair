@@ -16,39 +16,39 @@ import lombok.RequiredArgsConstructor;
 @Transactional(readOnly = true)
 public class LikeReviewService {
 
-    private final LikeReviewRepository likeReviewRepository;
+	private final LikeReviewRepository likeReviewRepository;
 
-    @Transactional
-    public void executeLike(Long reviewId, Long userId) {
-        validateIsNotLiking(userId, reviewId);
+	@Transactional
+	public void executeLike(Long reviewId, Long userId) {
+		validateIsNotLiking(userId, reviewId);
 
-        likeReviewRepository.save(LikeReview.addLike(userId, reviewId));
-    }
+		likeReviewRepository.save(LikeReview.addLike(userId, reviewId));
+	}
 
-    @Transactional
-    public void cancelLike(Long reviewId, Long userId) {
-        validateIsLiking(userId, reviewId);
+	@Transactional
+	public void cancelLike(Long reviewId, Long userId) {
+		validateIsLiking(userId, reviewId);
 
-        likeReviewRepository.deleteByUserIdAndReviewId(userId, reviewId);
-    }
+		likeReviewRepository.deleteByUserIdAndReviewId(userId, reviewId);
+	}
 
-    public LikeReviewResponse checkIsLiking(Long userId, Long reviewId) {
-        return new LikeReviewResponse(existLikeReview(userId, reviewId));
-    }
+	public LikeReviewResponse checkIsLiking(Long userId, Long reviewId) {
+		return new LikeReviewResponse(existLikeReview(userId, reviewId));
+	}
 
-    private boolean existLikeReview(Long userId, Long reviewId) {
-        return likeReviewRepository.existsByUserIdAndReviewId(userId, reviewId);
-    }
+	private boolean existLikeReview(Long userId, Long reviewId) {
+		return likeReviewRepository.existsByUserIdAndReviewId(userId, reviewId);
+	}
 
-    private void validateIsNotLiking(Long userId, Long reviewId) {
-        if (existLikeReview(userId, reviewId)) {
-            throw new WishHairException(ErrorCode.REVIEW_ALREADY_LIKING);
-        }
-    }
+	private void validateIsNotLiking(Long userId, Long reviewId) {
+		if (existLikeReview(userId, reviewId)) {
+			throw new WishHairException(ErrorCode.REVIEW_ALREADY_LIKING);
+		}
+	}
 
-    private void validateIsLiking(Long userId, Long reviewId) {
-        if (!existLikeReview(userId, reviewId)) {
-            throw new WishHairException(ErrorCode.REVIEW_NOT_LIKING);
-        }
-    }
+	private void validateIsLiking(Long userId, Long reviewId) {
+		if (!existLikeReview(userId, reviewId)) {
+			throw new WishHairException(ErrorCode.REVIEW_NOT_LIKING);
+		}
+	}
 }

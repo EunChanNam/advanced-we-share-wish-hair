@@ -9,8 +9,8 @@ import com.inq.wishhair.wesharewishhair.review.config.converter.ScoreConverter;
 @Configuration
 public class ReviewConfig implements WebMvcConfigurer {
 
-    @Override
-    public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter(new ScoreConverter());
-    }
+	@Override
+	public void addFormatters(FormatterRegistry registry) {
+		registry.addConverter(new ScoreConverter());
+	}
 }

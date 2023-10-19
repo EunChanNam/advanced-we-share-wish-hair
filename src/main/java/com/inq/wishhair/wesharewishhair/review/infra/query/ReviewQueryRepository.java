@@ -11,21 +11,21 @@ import com.inq.wishhair.wesharewishhair.review.infra.query.dto.response.ReviewQu
 
 public interface ReviewQueryRepository {
 
-    //리뷰 단건 조회
-    Optional<ReviewQueryResponse> findReviewById(Long id);
+	//리뷰 단건 조회
+	Optional<ReviewQueryResponse> findReviewById(Long id);
 
-    //전체 리뷰 조회
-    Slice<ReviewQueryResponse> findReviewByPaging(Pageable pageable);
+	//전체 리뷰 조회
+	Slice<ReviewQueryResponse> findReviewByPaging(Pageable pageable);
 
-    //좋아요 한 리뷰 조회
-    Slice<ReviewQueryResponse> findReviewByLike(Long userId, Pageable pageable);
+	//좋아요 한 리뷰 조회
+	Slice<ReviewQueryResponse> findReviewByLike(Long userId, Pageable pageable);
 
-    //작성한 리뷰 조회
-    Slice<ReviewQueryResponse> findReviewByUser(Long userId, Pageable pageable);
+	//작성한 리뷰 조회
+	Slice<ReviewQueryResponse> findReviewByUser(Long userId, Pageable pageable);
 
-    //지난달에 작성한 리뷰 조회
-    List<Review> findReviewByCreatedDate();
+	//지난달에 작성한 리뷰 조회
+	List<Review> findReviewByCreatedDate();
 
-    //헤어스타일의 리뷰 조회
-    List<ReviewQueryResponse> findReviewByHairStyle(Long hairStyleId);
+	//헤어스타일의 리뷰 조회
+	List<ReviewQueryResponse> findReviewByHairStyle(Long hairStyleId);
 }

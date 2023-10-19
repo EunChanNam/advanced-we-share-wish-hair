@@ -15,24 +15,24 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public abstract class UserResponseAssembler {
 
-    public static PagedResponse<PointResponse> toPagedResponse(Slice<PointHistory> slice) {
-        return new PagedResponse<>(transferContentToResponse(slice));
-    }
+	public static PagedResponse<PointResponse> toPagedResponse(Slice<PointHistory> slice) {
+		return new PagedResponse<>(transferContentToResponse(slice));
+	}
 
-    private static Slice<PointResponse> transferContentToResponse(Slice<PointHistory> slice) {
-        return slice.map(PointResponse::new);
-    }
+	private static Slice<PointResponse> transferContentToResponse(Slice<PointHistory> slice) {
+		return slice.map(PointResponse::new);
+	}
 
-    public static MyPageResponse toMyPageResponse(User user, List<ReviewResponse> reviewResponses) {
-        return new MyPageResponse(user, reviewResponses);
-    }
+	public static MyPageResponse toMyPageResponse(User user, List<ReviewResponse> reviewResponses) {
+		return new MyPageResponse(user, reviewResponses);
+	}
 
-    public static UserInformation toUserInformation(User user) {
-        return new UserInformation(
-                user.getEmailValue(),
-                user.getName(),
-                user.getNicknameValue(),
-                user.getSex()
-        );
-    }
+	public static UserInformation toUserInformation(User user) {
+		return new UserInformation(
+			user.getEmailValue(),
+			user.getName(),
+			user.getNicknameValue(),
+			user.getSex()
+		);
+	}
 }

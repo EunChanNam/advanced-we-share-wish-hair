@@ -13,10 +13,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PointChargeEventListener {
 
-    private final PointService pointService;
+	private final PointService pointService;
 
-    @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
-    public void chargePoint(PointChargeEvent event) {
-        pointService.chargePoint(event.dealAmount(), event.userId());
-    }
+	@TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
+	public void chargePoint(PointChargeEvent event) {
+		pointService.chargePoint(event.dealAmount(), event.userId());
+	}
 }

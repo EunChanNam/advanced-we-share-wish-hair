@@ -20,69 +20,69 @@ import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
 @Component
 public class PhotoStore {
 
-    private final AmazonS3Client amazonS3Client;
-    private final String buketName;
+	private final AmazonS3Client amazonS3Client;
+	private final String buketName;
 
-    public PhotoStore(AmazonS3Client amazonS3Client,
-                      @Value("${cloud.aws.s3.bucket}") String buketName) {
-        this.amazonS3Client = amazonS3Client;
-        this.buketName = buketName;
-    }
+	public PhotoStore(AmazonS3Client amazonS3Client,
+		@Value("${cloud.aws.s3.bucket}") String buketName) {
+		this.amazonS3Client = amazonS3Client;
+		this.buketName = buketName;
+	}
 
-    public List<String> uploadFiles(List<MultipartFile> files) {
-        List<String> storeUrls = new ArrayList<>();
-        files.forEach(file -> storeUrls.add(uploadFile(file)));
-        return storeUrls;
-    }
+	public List<String> uploadFiles(List<MultipartFile> files) {
+		List<String> storeUrls = new ArrayList<>();
+		files.forEach(file -> storeUrls.add(uploadFile(file)));
+		return storeUrls;
+	}
 
-    private String uploadFile(MultipartFile file) {
-        validateFileExist(file);
+	private String uploadFile(MultipartFile file) {
+		validateFileExist(file);
 
-        String originalFilename = file.getOriginalFilename();
-        String storeFilename = createStoreFilename(originalFilename);
+		String originalFilename = file.getOriginalFilename();
+		String storeFilename = createStoreFilename(originalFilename);
 
-        ObjectMetadata metadata = new ObjectMetadata();
-        metadata.setContentType(file.getContentType());
-        metadata.setContentLength(file.getSize());
+		ObjectMetadata metadata = new ObjectMetadata();
+		metadata.setContentType(file.getContentType());
+		metadata.setContentLength(file.getSize());
 
-        try (InputStream inputStream = file.getInputStream();) {
-            PutObjectRequest putObjectRequest = new PutObjectRequest(
-                    buketName,
-                    storeFilename,
-                    inputStream,
-                    metadata).withCannedAcl(CannedAccessControlList.PublicRead);
+		try (InputStream inputStream = file.getInputStream();) {
+			PutObjectRequest putObjectRequest = new PutObjectRequest(
+				buketName,
+				storeFilename,
+				inputStream,
+				metadata).withCannedAcl(CannedAccessControlList.PublicRead);
 
-            amazonS3Client.putObject(putObjectRequest);
+			amazonS3Client.putObject(putObjectRequest);
 
-            return amazonS3Client.getUrl(buketName, storeFilename).toString();
-        } catch (IOException e) {
-            throw new WishHairException(ErrorCode.FILE_TRANSFER_EX);
-        }
-    }
+			return amazonS3Client.getUrl(buketName, storeFilename).toString();
+		} catch (IOException e) {
+			throw new WishHairException(ErrorCode.FILE_TRANSFER_EX);
+		}
+	}
 
-    public void deleteFiles(List<String> storeUrls) {
-        storeUrls.forEach(this::deleteFile);
-    }
+	public void deleteFiles(List<String> storeUrls) {
+		storeUrls.forEach(this::deleteFile);
+	}
 
-    private void deleteFile(String storeUrl) {
-        int point = storeUrl.indexOf('/', 10) + 1;
-        String fileKey = storeUrl.substring(point);
-        amazonS3Client.deleteObject(buketName, fileKey);
-    }
+	private void deleteFile(String storeUrl) {
+		int point = storeUrl.indexOf('/', 10) + 1;
+		String fileKey = storeUrl.substring(point);
+		amazonS3Client.deleteObject(buketName, fileKey);
+	}
 
-    private void validateFileExist(MultipartFile file) {
-        if (file == null || file.isEmpty()) {
-            throw new WishHairException(ErrorCode.EMPTY_FILE_EX);
-        }
-    }
+	private void validateFileExist(MultipartFile file) {
+		if (file == null || file.isEmpty()) {
+			throw new WishHairException(ErrorCode.EMPTY_FILE_EX);
+		}
+	}
 
-    private String createStoreFilename(String originalFilename) {
-        String ext = getExt(originalFilename);
-        return UUID.randomUUID() + ext;
-    }
+	private String createStoreFilename(String originalFilename) {
+		String ext = getExt(originalFilename);
+		return UUID.randomUUID() + ext;
+	}
 
-    private String getExt(String originalFilename) {
-        int index = originalFilename.lastIndexOf(".");
-        return originalFilename.substring(index);
-    }
+	private String getExt(String originalFilename) {
+		int index = originalFilename.lastIndexOf(".");
+		return originalFilename.substring(index);
+	}
 }

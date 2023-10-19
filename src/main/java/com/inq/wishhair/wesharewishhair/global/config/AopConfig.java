@@ -10,8 +10,8 @@ import com.inq.wishhair.wesharewishhair.global.aop.aspect.AddIsWriterAspect;
 @EnableAspectJAutoProxy
 public class AopConfig {
 
-    @Bean
-    public AddIsWriterAspect addIsWriterAspect() {
-        return new AddIsWriterAspect();
-    }
+	@Bean
+	public AddIsWriterAspect addIsWriterAspect() {
+		return new AddIsWriterAspect();
+	}
 }

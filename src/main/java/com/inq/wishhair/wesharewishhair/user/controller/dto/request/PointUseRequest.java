@@ -12,18 +12,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PointUseRequest {
 
-    private String bankName;
+	private String bankName;
 
-    private String accountNumber;
+	private String accountNumber;
 
-    private int dealAmount;
+	private int dealAmount;
 
-    public RefundMailSendEvent toRefundMailEvent(String userName) {
-        return new RefundMailSendEvent(
-                userName,
-                bankName,
-                accountNumber,
-                dealAmount
-        );
-    }
+	public RefundMailSendEvent toRefundMailEvent(String userName) {
+		return new RefundMailSendEvent(
+			userName,
+			bankName,
+			accountNumber,
+			dealAmount
+		);
+	}
 }

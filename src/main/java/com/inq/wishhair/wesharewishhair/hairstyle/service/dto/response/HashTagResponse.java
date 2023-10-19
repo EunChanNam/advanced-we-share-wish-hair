@@ -9,9 +9,9 @@ import lombok.Getter;
 @AllArgsConstructor
 public class HashTagResponse {
 
-    private final String tag;
+	private final String tag;
 
-    public HashTagResponse(HashTag hashTag) {
-        tag = hashTag.getDescription();
-    }
+	public HashTagResponse(HashTag hashTag) {
+		tag = hashTag.getDescription();
+	}
 }

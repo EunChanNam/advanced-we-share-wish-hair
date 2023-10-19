@@ -14,30 +14,30 @@ import lombok.Getter;
 @Builder
 public class ReviewResponse {
 
-    private Long reviewId;
+	private Long reviewId;
 
-    private String hairStyleName;
+	private String hairStyleName;
 
-    private String userNickname;
+	private String userNickname;
 
-    private String score;
+	private String score;
 
-    private String contents;
+	private String contents;
 
-    private LocalDateTime createdDate;
+	private LocalDateTime createdDate;
 
-    private List<PhotoResponse> photos;
+	private List<PhotoResponse> photos;
 
-    private long likes;
+	private long likes;
 
-    private List<HashTagResponse> hashTags;
+	private List<HashTagResponse> hashTags;
 
-    private boolean isWriter;
+	private boolean isWriter;
 
-    @JsonIgnore
-    private Long writerId;
+	@JsonIgnore
+	private Long writerId;
 
-    public void addIsWriter(Long userId) {
-        this.isWriter = writerId.equals(userId);
-    }
+	public void addIsWriter(Long userId) {
+		this.isWriter = writerId.equals(userId);
+	}
 }

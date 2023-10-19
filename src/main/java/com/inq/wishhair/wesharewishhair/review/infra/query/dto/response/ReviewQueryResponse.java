@@ -5,16 +5,15 @@ import com.querydsl.core.annotations.QueryProjection;
 
 import lombok.Getter;
 
-
 @Getter
 public class ReviewQueryResponse {
 
-    private final Review review;
-    private final long likes;
+	private final Review review;
+	private final long likes;
 
-    @QueryProjection
-    public ReviewQueryResponse(Review review, long likes) {
-        this.review = review;
-        this.likes = likes;
-    }
+	@QueryProjection
+	public ReviewQueryResponse(Review review, long likes) {
+		this.review = review;
+		this.likes = likes;
+	}
 }

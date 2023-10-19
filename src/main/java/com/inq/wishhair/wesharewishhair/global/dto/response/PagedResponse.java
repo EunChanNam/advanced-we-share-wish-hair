@@ -11,12 +11,12 @@ import lombok.Getter;
 @AllArgsConstructor
 public class PagedResponse<T> implements ListResponse<T> {
 
-    private List<T> result;
+	private List<T> result;
 
-    private Paging paging;
+	private Paging paging;
 
-    public PagedResponse (Slice<T> slice) {
-        result = slice.getContent();
-        paging = new Paging(result.size(), slice.getNumber(), slice.hasNext());
-    }
+	public PagedResponse(Slice<T> slice) {
+		result = slice.getContent();
+		paging = new Paging(result.size(), slice.getNumber(), slice.hasNext());
+	}
 }

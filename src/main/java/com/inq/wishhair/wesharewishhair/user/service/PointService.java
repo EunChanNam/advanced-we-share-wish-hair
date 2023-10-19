@@ -15,26 +15,26 @@ import lombok.RequiredArgsConstructor;
 @Transactional(readOnly = true)
 public class PointService {
 
-    private final UserFindService userFindService;
-    private final ApplicationEventPublisher eventPublisher;
+	private final UserFindService userFindService;
+	private final ApplicationEventPublisher eventPublisher;
 
-    @Transactional
-    public void usePoint(PointUseRequest request, Long userId) {
+	@Transactional
+	public void usePoint(PointUseRequest request, Long userId) {
 
-        User user = userFindService.findByUserId(userId);
-        insertPointHistory(PointType.USE, request.getDealAmount(), user);
+		User user = userFindService.findByUserId(userId);
+		insertPointHistory(PointType.USE, request.getDealAmount(), user);
 
-        eventPublisher.publishEvent(request.toRefundMailEvent(user.getName()));
-    }
+		eventPublisher.publishEvent(request.toRefundMailEvent(user.getName()));
+	}
 
-    @Transactional
-    public void chargePoint(int dealAmount, Long userId) {
-        User user = userFindService.findByUserId(userId);
-        insertPointHistory(PointType.CHARGE, dealAmount, user);
-    }
+	@Transactional
+	public void chargePoint(int dealAmount, Long userId) {
+		User user = userFindService.findByUserId(userId);
+		insertPointHistory(PointType.CHARGE, dealAmount, user);
+	}
 
-    private void insertPointHistory(PointType pointType, int dealAmount, User user) {
-        user.updateAvailablePoint(pointType, dealAmount);
-    }
+	private void insertPointHistory(PointType pointType, int dealAmount, User user) {
+		user.updateAvailablePoint(pointType, dealAmount);
+	}
 }
 

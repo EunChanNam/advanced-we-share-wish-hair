@@ -31,81 +31,81 @@ import lombok.RequiredArgsConstructor;
 @Transactional(readOnly = true)
 public class UserService {
 
-    private final UserRepository userRepository;
-    private final UserFindService userFindService;
-    private final UserValidator userValidator;
-    private final PasswordEncoder passwordEncoder;
-    private final ReviewService reviewService;
-    private final TokenRepository tokenRepository;
-    private final AiConnector connector;
-    private final PointRepository pointRepository;
+	private final UserRepository userRepository;
+	private final UserFindService userFindService;
+	private final UserValidator userValidator;
+	private final PasswordEncoder passwordEncoder;
+	private final ReviewService reviewService;
+	private final TokenRepository tokenRepository;
+	private final AiConnector connector;
+	private final PointRepository pointRepository;
 
-    @Transactional
-    public Long createUser(SignUpRequest request) {
+	@Transactional
+	public Long createUser(SignUpRequest request) {
 
-        User user = generateUser(request);
-        userValidator.validateNicknameIsNotDuplicated(user.getNickname());
+		User user = generateUser(request);
+		userValidator.validateNicknameIsNotDuplicated(user.getNickname());
 
-        User saveUser = userRepository.save(user);
+		User saveUser = userRepository.save(user);
 
-        return saveUser.getId();
-    }
+		return saveUser.getId();
+	}
 
-    @Transactional
-    public void deleteUser(Long userId) {
-        tokenRepository.deleteByUserId(userId);
-        reviewService.deleteReviewByWriter(userId);
-        pointRepository.deleteByUserId(userId);
-        userRepository.deleteById(userId);
-    }
+	@Transactional
+	public void deleteUser(Long userId) {
+		tokenRepository.deleteByUserId(userId);
+		reviewService.deleteReviewByWriter(userId);
+		pointRepository.deleteByUserId(userId);
+		userRepository.deleteById(userId);
+	}
 
-    @Transactional
-    public void refreshPassword(PasswordRefreshRequest request) {
-        User user = userFindService.findByEmail(new Email(request.getEmail()));
+	@Transactional
+	public void refreshPassword(PasswordRefreshRequest request) {
+		User user = userFindService.findByEmail(new Email(request.getEmail()));
 
-        user.updatePassword(Password.encrypt(request.getNewPassword(), passwordEncoder));
-    }
+		user.updatePassword(Password.encrypt(request.getNewPassword(), passwordEncoder));
+	}
 
-    @Transactional
-    public void updateUser(Long userId, UserUpdateRequest request) {
-        User user = userFindService.findByUserId(userId);
-        Nickname newNickname = new Nickname(request.getNickname());
+	@Transactional
+	public void updateUser(Long userId, UserUpdateRequest request) {
+		User user = userFindService.findByUserId(userId);
+		Nickname newNickname = new Nickname(request.getNickname());
 
-        userValidator.validateNicknameIsNotDuplicated(newNickname);
+		userValidator.validateNicknameIsNotDuplicated(newNickname);
 
-        user.updateNickname(newNickname);
-        user.updateSex(request.getSex());
-    }
+		user.updateNickname(newNickname);
+		user.updateSex(request.getSex());
+	}
 
-    @Transactional
-    public SimpleResponseWrapper<String> updateFaceShape(Long userId, MultipartFile file) {
-        User user = userFindService.findByUserId(userId);
-        Tag faceShapeTag = connector.detectFaceShape(file);
+	@Transactional
+	public SimpleResponseWrapper<String> updateFaceShape(Long userId, MultipartFile file) {
+		User user = userFindService.findByUserId(userId);
+		Tag faceShapeTag = connector.detectFaceShape(file);
 
-        user.updateFaceShape(new FaceShape(faceShapeTag));
-        return new SimpleResponseWrapper<>(user.getFaceShapeTag().getDescription());
-    }
+		user.updateFaceShape(new FaceShape(faceShapeTag));
+		return new SimpleResponseWrapper<>(user.getFaceShapeTag().getDescription());
+	}
 
-    @Transactional
-    public void updatePassword(Long userId, PasswordUpdateRequest request) {
-        User user = userFindService.findByUserId(userId);
-        confirmPassword(user, request.getOldPassword());
+	@Transactional
+	public void updatePassword(Long userId, PasswordUpdateRequest request) {
+		User user = userFindService.findByUserId(userId);
+		confirmPassword(user, request.getOldPassword());
 
-        user.updatePassword(Password.encrypt(request.getNewPassword(), passwordEncoder));
-    }
+		user.updatePassword(Password.encrypt(request.getNewPassword(), passwordEncoder));
+	}
 
-    private User generateUser(SignUpRequest request) {
-        return User.createUser(
-                request.getEmail(),
-                Password.encrypt(request.getPw(), passwordEncoder),
-                request.getName(),
-                request.getNickname(),
-                request.getSex());
-    }
+	private User generateUser(SignUpRequest request) {
+		return User.createUser(
+			request.getEmail(),
+			Password.encrypt(request.getPw(), passwordEncoder),
+			request.getName(),
+			request.getNickname(),
+			request.getSex());
+	}
 
-    private void confirmPassword(User user, String password) {
-        if (!passwordEncoder.matches(password, user.getPasswordValue())) {
-            throw new WishHairException(ErrorCode.USER_WRONG_PASSWORD);
-        }
-    }
+	private void confirmPassword(User user, String password) {
+		if (!passwordEncoder.matches(password, user.getPasswordValue())) {
+			throw new WishHairException(ErrorCode.USER_WRONG_PASSWORD);
+		}
+	}
 }

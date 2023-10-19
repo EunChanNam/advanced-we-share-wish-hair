@@ -29,52 +29,52 @@ import lombok.RequiredArgsConstructor;
 @Transactional(readOnly = true)
 public class ReviewSearchService {
 
-    private final ReviewRepository reviewRepository;
-    private final LikeReviewRepository likeReviewRepository;
+	private final ReviewRepository reviewRepository;
+	private final LikeReviewRepository likeReviewRepository;
 
-    /*리뷰 단건 조회*/
-    @AddisWriter
-    public ReviewDetailResponse findReviewById(Long userId, Long reviewId) {
-        ReviewQueryResponse queryResponse = reviewRepository.findReviewById(reviewId)
-                .orElseThrow(() -> new WishHairException(ErrorCode.NOT_EXIST_KEY));
+	/*리뷰 단건 조회*/
+	@AddisWriter
+	public ReviewDetailResponse findReviewById(Long userId, Long reviewId) {
+		ReviewQueryResponse queryResponse = reviewRepository.findReviewById(reviewId)
+			.orElseThrow(() -> new WishHairException(ErrorCode.NOT_EXIST_KEY));
 
-        boolean isLiking = likeReviewRepository.existsByUserIdAndReviewId(userId, reviewId);
+		boolean isLiking = likeReviewRepository.existsByUserIdAndReviewId(userId, reviewId);
 
-        return toReviewDetailResponse(queryResponse, isLiking);
-    }
+		return toReviewDetailResponse(queryResponse, isLiking);
+	}
 
-    /*전체 리뷰 조회*/
-    @AddisWriter
-    public PagedResponse<ReviewResponse> findPagedReviews(Long userId, Pageable pageable) {
-        Slice<ReviewQueryResponse> sliceResult = reviewRepository.findReviewByPaging(pageable);
-        return toPagedReviewResponse(sliceResult);
-    }
+	/*전체 리뷰 조회*/
+	@AddisWriter
+	public PagedResponse<ReviewResponse> findPagedReviews(Long userId, Pageable pageable) {
+		Slice<ReviewQueryResponse> sliceResult = reviewRepository.findReviewByPaging(pageable);
+		return toPagedReviewResponse(sliceResult);
+	}
 
-    /*좋아요한 리뷰 조회*/
-    @AddisWriter
-    public PagedResponse<ReviewResponse> findLikingReviews(Long userId, Pageable pageable) {
-        Slice<ReviewQueryResponse> sliceResult = reviewRepository.findReviewByLike(userId, pageable);
-        return toPagedReviewResponse(sliceResult);
-    }
+	/*좋아요한 리뷰 조회*/
+	@AddisWriter
+	public PagedResponse<ReviewResponse> findLikingReviews(Long userId, Pageable pageable) {
+		Slice<ReviewQueryResponse> sliceResult = reviewRepository.findReviewByLike(userId, pageable);
+		return toPagedReviewResponse(sliceResult);
+	}
 
-    /*나의 리뷰 조회*/
-    @AddisWriter
-    public PagedResponse<ReviewResponse> findMyReviews(Long userId, Pageable pageable) {
-        Slice<ReviewQueryResponse> sliceResult = reviewRepository.findReviewByUser(userId, pageable);
+	/*나의 리뷰 조회*/
+	@AddisWriter
+	public PagedResponse<ReviewResponse> findMyReviews(Long userId, Pageable pageable) {
+		Slice<ReviewQueryResponse> sliceResult = reviewRepository.findReviewByUser(userId, pageable);
 
-        return toPagedReviewResponse(sliceResult);
-    }
+		return toPagedReviewResponse(sliceResult);
+	}
 
-    /*이달의 추천 리뷰 조회*/
-    public ResponseWrapper<ReviewSimpleResponse> findReviewOfMonth() {
-        List<Review> result = reviewRepository.findReviewByCreatedDate();
-        return toWrappedSimpleResponse(result);
-    }
+	/*이달의 추천 리뷰 조회*/
+	public ResponseWrapper<ReviewSimpleResponse> findReviewOfMonth() {
+		List<Review> result = reviewRepository.findReviewByCreatedDate();
+		return toWrappedSimpleResponse(result);
+	}
 
-    /*헤어스타일의 리뷰 조회*/
-    @AddisWriter
-    public ResponseWrapper<ReviewResponse> findReviewByHairStyle(Long userId, Long hairStyleId) {
-        List<ReviewQueryResponse> result = reviewRepository.findReviewByHairStyle(hairStyleId);
-        return toWrappedReviewResponse(result);
-    }
+	/*헤어스타일의 리뷰 조회*/
+	@AddisWriter
+	public ResponseWrapper<ReviewResponse> findReviewByHairStyle(Long userId, Long hairStyleId) {
+		List<ReviewQueryResponse> result = reviewRepository.findReviewByHairStyle(hairStyleId);
+		return toWrappedReviewResponse(result);
+	}
 }

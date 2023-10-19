@@ -23,26 +23,26 @@ import lombok.RequiredArgsConstructor;
 @Transactional(readOnly = true)
 public class UserInfoService {
 
-    private final UserFindService userFindService;
-    private final ReviewSearchService reviewSearchService;
+	private final UserFindService userFindService;
+	private final ReviewSearchService reviewSearchService;
 
-    public MyPageResponse getMyPageInfo(Long userId) {
+	public MyPageResponse getMyPageInfo(Long userId) {
 
-        Pageable pageable = PageableGenerator.generateDateDescPageable(3);
+		Pageable pageable = PageableGenerator.generateDateDescPageable(3);
 
-        List<ReviewResponse> reviewResponses = reviewSearchService.findLikingReviews(userId, pageable).getResult();
+		List<ReviewResponse> reviewResponses = reviewSearchService.findLikingReviews(userId, pageable).getResult();
 
-        User user = userFindService.findByUserId(userId);
+		User user = userFindService.findByUserId(userId);
 
-        return toMyPageResponse(user, reviewResponses);
-    }
+		return toMyPageResponse(user, reviewResponses);
+	}
 
-    public UserInformation getUserInformation(Long userId) {
+	public UserInformation getUserInformation(Long userId) {
 
-        return toUserInformation(userFindService.findByUserId(userId));
-    }
+		return toUserInformation(userFindService.findByUserId(userId));
+	}
 
-    public UserInfo getUserInfo(Long userId) {
-        return new UserInfo(userFindService.findByUserId(userId));
-    }
+	public UserInfo getUserInfo(Long userId) {
+		return new UserInfo(userFindService.findByUserId(userId));
+	}
 }

@@ -12,5 +12,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class FaceShapeUpdateRequest {
 
-    private MultipartFile file;
+	private MultipartFile file;
 }

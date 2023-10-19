@@ -24,33 +24,34 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PointHistory extends BaseEntity {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(nullable = false, updatable = false)
-    @Enumerated(EnumType.STRING)
-    private PointType pointType;
+	@Column(nullable = false, updatable = false)
+	@Enumerated(EnumType.STRING)
+	private PointType pointType;
 
-    @Column(nullable = false, updatable = false)
-    private int dealAmount;
+	@Column(nullable = false, updatable = false)
+	private int dealAmount;
 
-    @Column(nullable = false, updatable = false)
-    private int point;
+	@Column(nullable = false, updatable = false)
+	private int point;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false, updatable = false)
-    private User user;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id", nullable = false, updatable = false)
+	private User user;
 
-    //==생성 메서드==//
-    private PointHistory(User user, PointType pointType, int dealAmount, int point) {
-        this.pointType = pointType;
-        this.dealAmount = dealAmount;
-        this.point = point;
-        this.user = user;
-        this.createdDate = LocalDateTime.now();
-    }
+	//==생성 메서드==//
+	private PointHistory(User user, PointType pointType, int dealAmount, int point) {
+		this.pointType = pointType;
+		this.dealAmount = dealAmount;
+		this.point = point;
+		this.user = user;
+		this.createdDate = LocalDateTime.now();
+	}
 
-    public static PointHistory createPointHistory(User user, PointType pointType, int dealAmount, int point) {
-        return new PointHistory(user, pointType, dealAmount, point);
-    }
+	public static PointHistory createPointHistory(User user, PointType pointType, int dealAmount, int point) {
+		return new PointHistory(user, pointType, dealAmount, point);
+	}
 }

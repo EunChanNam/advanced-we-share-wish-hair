@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface PointRepository extends JpaRepository<PointHistory, Long> {
 
-    @Modifying
-    @Query("delete from PointHistory p where p.user.id = :userId")
-    void deleteByUserId(@Param("userId") Long userId);
+	@Modifying
+	@Query("delete from PointHistory p where p.user.id = :userId")
+	void deleteByUserId(@Param("userId") Long userId);
 }

@@ -11,19 +11,18 @@ import com.inq.wishhair.wesharewishhair.review.domain.ReviewRepository;
 
 import lombok.RequiredArgsConstructor;
 
-
 @Service
 @RequiredArgsConstructor
 public class ReviewFindService {
 
-    private final ReviewRepository reviewRepository;
+	private final ReviewRepository reviewRepository;
 
-    public Review findWithPhotosById(Long id) {
-        return reviewRepository.findWithPhotosById(id)
-                .orElseThrow(() -> new WishHairException(ErrorCode.NOT_EXIST_KEY));
-    }
+	public Review findWithPhotosById(Long id) {
+		return reviewRepository.findWithPhotosById(id)
+			.orElseThrow(() -> new WishHairException(ErrorCode.NOT_EXIST_KEY));
+	}
 
-    public List<Review> findWithPhotosByUserId(Long userId) {
-        return reviewRepository.findWithPhotosByUserId(userId);
-    }
+	public List<Review> findWithPhotosByUserId(Long userId) {
+		return reviewRepository.findWithPhotosByUserId(userId);
+	}
 }
