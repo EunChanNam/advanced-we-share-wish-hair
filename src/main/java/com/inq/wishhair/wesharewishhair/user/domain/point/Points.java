@@ -1,18 +1,19 @@
 package com.inq.wishhair.wesharewishhair.user.domain.point;
 
-import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
-
-import javax.persistence.*;
-
-import com.inq.wishhair.wesharewishhair.user.domain.User;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import static com.inq.wishhair.wesharewishhair.global.exception.ErrorCode.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.inq.wishhair.wesharewishhair.global.exception.ErrorCode.*;
+import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
+import com.inq.wishhair.wesharewishhair.user.domain.User;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.OneToMany;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PUBLIC)

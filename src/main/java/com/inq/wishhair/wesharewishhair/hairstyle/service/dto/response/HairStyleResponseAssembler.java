@@ -1,14 +1,16 @@
 package com.inq.wishhair.wesharewishhair.hairstyle.service.dto.response;
 
+import java.util.List;
+
+import org.springframework.data.domain.Slice;
+
 import com.inq.wishhair.wesharewishhair.global.dto.response.PagedResponse;
 import com.inq.wishhair.wesharewishhair.global.dto.response.ResponseWrapper;
 import com.inq.wishhair.wesharewishhair.hairstyle.domain.HairStyle;
 import com.inq.wishhair.wesharewishhair.hairstyle.domain.hashtag.HashTag;
+
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.springframework.data.domain.Slice;
-
-import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public abstract class HairStyleResponseAssembler {

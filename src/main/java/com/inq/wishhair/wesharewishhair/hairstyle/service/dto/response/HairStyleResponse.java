@@ -1,14 +1,15 @@
 package com.inq.wishhair.wesharewishhair.hairstyle.service.dto.response;
 
-import com.inq.wishhair.wesharewishhair.hairstyle.domain.HairStyle;
-import com.inq.wishhair.wesharewishhair.photo.dto.response.PhotoResponse;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import static com.inq.wishhair.wesharewishhair.hairstyle.service.dto.response.HairStyleResponseAssembler.*;
+import static com.inq.wishhair.wesharewishhair.photo.dto.response.PhotoResponseAssembler.*;
 
 import java.util.List;
 
-import static com.inq.wishhair.wesharewishhair.hairstyle.service.dto.response.HairStyleResponseAssembler.toHashTagResponses;
-import static com.inq.wishhair.wesharewishhair.photo.dto.response.PhotoResponseAssembler.toPhotoResponses;
+import com.inq.wishhair.wesharewishhair.hairstyle.domain.HairStyle;
+import com.inq.wishhair.wesharewishhair.photo.dto.response.PhotoResponse;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 @Getter
 @AllArgsConstructor

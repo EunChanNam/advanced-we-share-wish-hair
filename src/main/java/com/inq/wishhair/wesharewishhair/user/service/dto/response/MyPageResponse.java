@@ -1,12 +1,13 @@
 package com.inq.wishhair.wesharewishhair.user.service.dto.response;
 
+import java.util.List;
+
 import com.inq.wishhair.wesharewishhair.review.service.dto.response.ReviewResponse;
-import com.inq.wishhair.wesharewishhair.user.domain.User;
 import com.inq.wishhair.wesharewishhair.user.domain.Sex;
+import com.inq.wishhair.wesharewishhair.user.domain.User;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-import java.util.List;
 
 @Getter
 @AllArgsConstructor

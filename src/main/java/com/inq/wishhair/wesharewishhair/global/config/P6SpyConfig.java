@@ -1,8 +1,10 @@
 package com.inq.wishhair.wesharewishhair.global.config;
 
-import com.p6spy.engine.spy.P6SpyOptions;
 import org.springframework.context.annotation.Configuration;
-import javax.annotation.PostConstruct;
+
+import com.p6spy.engine.spy.P6SpyOptions;
+
+import jakarta.annotation.PostConstruct;
 
 
 @Configuration

@@ -1,17 +1,19 @@
 package com.inq.wishhair.wesharewishhair.review.service.dto.response;
 
+import static com.inq.wishhair.wesharewishhair.hairstyle.service.dto.response.HairStyleResponseAssembler.*;
+import static com.inq.wishhair.wesharewishhair.photo.dto.response.PhotoResponseAssembler.*;
+
+import java.util.List;
+
+import org.springframework.data.domain.Slice;
+
 import com.inq.wishhair.wesharewishhair.global.dto.response.PagedResponse;
 import com.inq.wishhair.wesharewishhair.global.dto.response.ResponseWrapper;
 import com.inq.wishhair.wesharewishhair.review.domain.Review;
 import com.inq.wishhair.wesharewishhair.review.infra.query.dto.response.ReviewQueryResponse;
+
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.springframework.data.domain.Slice;
-
-import java.util.List;
-
-import static com.inq.wishhair.wesharewishhair.hairstyle.service.dto.response.HairStyleResponseAssembler.*;
-import static com.inq.wishhair.wesharewishhair.photo.dto.response.PhotoResponseAssembler.*;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public abstract class ReviewResponseAssembler {

@@ -1,16 +1,22 @@
 package com.inq.wishhair.wesharewishhair.user.utils;
 
-import com.inq.wishhair.wesharewishhair.global.exception.ErrorCode;
-import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
-import com.inq.wishhair.wesharewishhair.hairstyle.domain.hashtag.Tag;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.inq.wishhair.wesharewishhair.global.exception.ErrorCode;
+import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
+import com.inq.wishhair.wesharewishhair.hairstyle.domain.hashtag.Tag;
 
 @Component
 public class FlaskConnector implements AiConnector{
@@ -62,7 +68,7 @@ public class FlaskConnector implements AiConnector{
         return body;
     }
 
-    private void validateResponseStatusIsOk(HttpStatus status) {
+    private void validateResponseStatusIsOk(HttpStatusCode status) {
         if (!status.is2xxSuccessful()) {
             throw new WishHairException(ErrorCode.FLASK_RESPONSE_ERROR);
         }

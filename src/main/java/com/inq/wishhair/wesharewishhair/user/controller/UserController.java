@@ -1,15 +1,27 @@
 package com.inq.wishhair.wesharewishhair.user.controller;
 
+import java.net.URI;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.inq.wishhair.wesharewishhair.auth.config.resolver.ExtractPayload;
 import com.inq.wishhair.wesharewishhair.global.dto.response.SimpleResponseWrapper;
 import com.inq.wishhair.wesharewishhair.global.dto.response.Success;
-import com.inq.wishhair.wesharewishhair.user.controller.dto.request.*;
+import com.inq.wishhair.wesharewishhair.user.controller.dto.request.FaceShapeUpdateRequest;
+import com.inq.wishhair.wesharewishhair.user.controller.dto.request.PasswordRefreshRequest;
+import com.inq.wishhair.wesharewishhair.user.controller.dto.request.PasswordUpdateRequest;
+import com.inq.wishhair.wesharewishhair.user.controller.dto.request.SignUpRequest;
+import com.inq.wishhair.wesharewishhair.user.controller.dto.request.UserUpdateRequest;
 import com.inq.wishhair.wesharewishhair.user.service.UserService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor

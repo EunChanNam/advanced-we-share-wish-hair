@@ -1,12 +1,12 @@
 package com.inq.wishhair.wesharewishhair.user.controller.dto.request;
 
 import com.inq.wishhair.wesharewishhair.user.domain.Sex;
+
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.validation.constraints.NotNull;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

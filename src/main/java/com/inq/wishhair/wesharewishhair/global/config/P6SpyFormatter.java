@@ -1,11 +1,12 @@
 package com.inq.wishhair.wesharewishhair.global.config;
 
+import java.util.Locale;
+
+import org.hibernate.engine.jdbc.internal.FormatStyle;
+
 import com.p6spy.engine.event.JdbcEventListener;
 import com.p6spy.engine.logging.Category;
 import com.p6spy.engine.spy.appender.MessageFormattingStrategy;
-import org.hibernate.engine.jdbc.internal.FormatStyle;
-
-import java.util.Locale;
 
 public class P6SpyFormatter extends JdbcEventListener implements MessageFormattingStrategy {
     @Override

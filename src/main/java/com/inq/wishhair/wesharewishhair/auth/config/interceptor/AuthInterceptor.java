@@ -1,14 +1,15 @@
 package com.inq.wishhair.wesharewishhair.auth.config.interceptor;
 
+import org.springframework.web.servlet.HandlerInterceptor;
+
 import com.inq.wishhair.wesharewishhair.auth.utils.AuthorizationExtractor;
 import com.inq.wishhair.wesharewishhair.auth.utils.JwtTokenProvider;
 import com.inq.wishhair.wesharewishhair.global.exception.ErrorCode;
 import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
-import lombok.RequiredArgsConstructor;
-import org.springframework.web.servlet.HandlerInterceptor;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class AuthInterceptor implements HandlerInterceptor {

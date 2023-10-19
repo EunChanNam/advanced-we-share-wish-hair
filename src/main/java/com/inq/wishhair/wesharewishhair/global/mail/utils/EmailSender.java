@@ -1,7 +1,7 @@
 package com.inq.wishhair.wesharewishhair.global.mail.utils;
 
-import com.inq.wishhair.wesharewishhair.user.event.RefundMailSendEvent;
-import lombok.RequiredArgsConstructor;
+import java.io.UnsupportedEncodingException;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -9,10 +9,12 @@ import org.springframework.stereotype.Component;
 import org.thymeleaf.ITemplateEngine;
 import org.thymeleaf.context.Context;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import java.io.UnsupportedEncodingException;
+import com.inq.wishhair.wesharewishhair.user.event.RefundMailSendEvent;
+
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
+import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
