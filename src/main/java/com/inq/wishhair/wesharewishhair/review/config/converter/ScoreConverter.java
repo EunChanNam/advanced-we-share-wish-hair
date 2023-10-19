@@ -1,9 +1,10 @@
 package com.inq.wishhair.wesharewishhair.review.config.converter;
 
+import org.springframework.core.convert.converter.Converter;
+
 import com.inq.wishhair.wesharewishhair.global.exception.ErrorCode;
 import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
 import com.inq.wishhair.wesharewishhair.review.domain.Score;
-import org.springframework.core.convert.converter.Converter;
 
 public class ScoreConverter implements Converter<String, Score> {
 

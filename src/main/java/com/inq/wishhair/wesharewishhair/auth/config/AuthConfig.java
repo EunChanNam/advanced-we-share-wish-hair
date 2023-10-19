@@ -1,16 +1,18 @@
 package com.inq.wishhair.wesharewishhair.auth.config;
 
-import com.inq.wishhair.wesharewishhair.auth.utils.JwtTokenProvider;
-import com.inq.wishhair.wesharewishhair.auth.config.interceptor.AuthInterceptor;
-import com.inq.wishhair.wesharewishhair.auth.config.resolver.PayloadResolver;
-import com.inq.wishhair.wesharewishhair.auth.config.resolver.TokenResolver;
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.util.List;
+import com.inq.wishhair.wesharewishhair.auth.config.interceptor.AuthInterceptor;
+import com.inq.wishhair.wesharewishhair.auth.config.resolver.PayloadResolver;
+import com.inq.wishhair.wesharewishhair.auth.config.resolver.TokenResolver;
+import com.inq.wishhair.wesharewishhair.auth.utils.JwtTokenProvider;
+
+import lombok.RequiredArgsConstructor;
 
 @Configuration
 @RequiredArgsConstructor

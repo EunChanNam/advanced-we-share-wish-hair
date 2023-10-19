@@ -1,5 +1,17 @@
 package com.inq.wishhair.wesharewishhair.review.infra.query;
 
+import static com.inq.wishhair.wesharewishhair.global.utils.SortCondition.*;
+
+import java.time.LocalDateTime;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.SliceImpl;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.inq.wishhair.wesharewishhair.review.domain.QReview;
 import com.inq.wishhair.wesharewishhair.review.domain.Review;
 import com.inq.wishhair.wesharewishhair.review.domain.likereview.QLikeReview;
@@ -11,18 +23,8 @@ import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
-import org.springframework.data.domain.SliceImpl;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
-
-import static com.inq.wishhair.wesharewishhair.global.utils.SortCondition.*;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor

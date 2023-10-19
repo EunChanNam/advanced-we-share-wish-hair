@@ -1,10 +1,11 @@
 package com.inq.wishhair.wesharewishhair.auth.utils;
 
+import java.util.Enumeration;
+
 import com.inq.wishhair.wesharewishhair.global.exception.ErrorCode;
 import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Enumeration;
+import jakarta.servlet.http.HttpServletRequest;
 
 public class AuthorizationExtractor {
 

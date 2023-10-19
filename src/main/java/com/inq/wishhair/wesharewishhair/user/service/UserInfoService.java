@@ -1,21 +1,22 @@
 package com.inq.wishhair.wesharewishhair.user.service;
 
-import com.inq.wishhair.wesharewishhair.user.service.dto.response.UserInfo;
-import com.inq.wishhair.wesharewishhair.global.utils.PageableGenerator;
-import com.inq.wishhair.wesharewishhair.review.service.ReviewSearchService;
-import com.inq.wishhair.wesharewishhair.review.service.dto.response.ReviewResponse;
-import com.inq.wishhair.wesharewishhair.user.service.dto.response.MyPageResponse;
-import com.inq.wishhair.wesharewishhair.user.domain.User;
-import com.inq.wishhair.wesharewishhair.user.service.dto.response.UserInformation;
-import lombok.RequiredArgsConstructor;
+import static com.inq.wishhair.wesharewishhair.user.service.dto.response.UserResponseAssembler.*;
+
+import java.util.List;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import com.inq.wishhair.wesharewishhair.global.utils.PageableGenerator;
+import com.inq.wishhair.wesharewishhair.review.service.ReviewSearchService;
+import com.inq.wishhair.wesharewishhair.review.service.dto.response.ReviewResponse;
+import com.inq.wishhair.wesharewishhair.user.domain.User;
+import com.inq.wishhair.wesharewishhair.user.service.dto.response.MyPageResponse;
+import com.inq.wishhair.wesharewishhair.user.service.dto.response.UserInfo;
+import com.inq.wishhair.wesharewishhair.user.service.dto.response.UserInformation;
 
-import static com.inq.wishhair.wesharewishhair.user.service.dto.response.UserResponseAssembler.toMyPageResponse;
-import static com.inq.wishhair.wesharewishhair.user.service.dto.response.UserResponseAssembler.toUserInformation;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor

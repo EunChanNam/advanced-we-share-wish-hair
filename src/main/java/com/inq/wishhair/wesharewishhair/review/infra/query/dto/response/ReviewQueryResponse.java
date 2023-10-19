@@ -2,6 +2,7 @@ package com.inq.wishhair.wesharewishhair.review.infra.query.dto.response;
 
 import com.inq.wishhair.wesharewishhair.review.domain.Review;
 import com.querydsl.core.annotations.QueryProjection;
+
 import lombok.Getter;
 
 

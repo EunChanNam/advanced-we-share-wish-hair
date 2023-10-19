@@ -1,5 +1,13 @@
 package com.inq.wishhair.wesharewishhair.hairstyle.infra.query;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.SliceImpl;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.inq.wishhair.wesharewishhair.hairstyle.domain.HairStyle;
 import com.inq.wishhair.wesharewishhair.hairstyle.domain.QHairStyle;
 import com.inq.wishhair.wesharewishhair.hairstyle.domain.hashtag.QHashTag;
@@ -11,14 +19,8 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
-import org.springframework.data.domain.SliceImpl;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
-import java.util.List;
+import lombok.RequiredArgsConstructor;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor

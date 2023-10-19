@@ -1,6 +1,7 @@
 package com.inq.wishhair.wesharewishhair.review.service.dto.response;
 
 import com.inq.wishhair.wesharewishhair.review.domain.Review;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

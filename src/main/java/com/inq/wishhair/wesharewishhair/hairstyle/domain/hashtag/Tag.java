@@ -1,9 +1,9 @@
 package com.inq.wishhair.wesharewishhair.hairstyle.domain.hashtag;
 
+import static com.inq.wishhair.wesharewishhair.hairstyle.domain.hashtag.TagType.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-import static com.inq.wishhair.wesharewishhair.hairstyle.domain.hashtag.TagType.*;
 
 
 @Getter

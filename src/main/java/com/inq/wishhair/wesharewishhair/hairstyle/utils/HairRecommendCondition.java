@@ -1,14 +1,15 @@
 package com.inq.wishhair.wesharewishhair.hairstyle.utils;
 
-import com.inq.wishhair.wesharewishhair.hairstyle.domain.hashtag.Tag;
-import com.inq.wishhair.wesharewishhair.user.domain.FaceShape;
-import com.inq.wishhair.wesharewishhair.user.domain.Sex;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import static lombok.AccessLevel.*;
 
 import java.util.List;
 
-import static lombok.AccessLevel.PRIVATE;
+import com.inq.wishhair.wesharewishhair.hairstyle.domain.hashtag.Tag;
+import com.inq.wishhair.wesharewishhair.user.domain.FaceShape;
+import com.inq.wishhair.wesharewishhair.user.domain.Sex;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 @Getter
 @AllArgsConstructor(access = PRIVATE)

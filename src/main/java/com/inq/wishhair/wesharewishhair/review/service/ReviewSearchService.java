@@ -1,5 +1,14 @@
 package com.inq.wishhair.wesharewishhair.review.service;
 
+import static com.inq.wishhair.wesharewishhair.review.service.dto.response.ReviewResponseAssembler.*;
+
+import java.util.List;
+
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.inq.wishhair.wesharewishhair.global.aop.annotation.AddisWriter;
 import com.inq.wishhair.wesharewishhair.global.dto.response.PagedResponse;
 import com.inq.wishhair.wesharewishhair.global.dto.response.ResponseWrapper;
@@ -12,15 +21,8 @@ import com.inq.wishhair.wesharewishhair.review.infra.query.dto.response.ReviewQu
 import com.inq.wishhair.wesharewishhair.review.service.dto.response.ReviewDetailResponse;
 import com.inq.wishhair.wesharewishhair.review.service.dto.response.ReviewResponse;
 import com.inq.wishhair.wesharewishhair.review.service.dto.response.ReviewSimpleResponse;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-
-import static com.inq.wishhair.wesharewishhair.review.service.dto.response.ReviewResponseAssembler.*;
 
 @Service
 @RequiredArgsConstructor

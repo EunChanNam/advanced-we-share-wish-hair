@@ -1,14 +1,16 @@
 package com.inq.wishhair.wesharewishhair.user.domain;
 
+import java.util.regex.Pattern;
+
 import com.inq.wishhair.wesharewishhair.global.exception.ErrorCode;
 import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
-import javax.persistence.*;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.regex.Pattern;
 
 @Getter
 @EqualsAndHashCode

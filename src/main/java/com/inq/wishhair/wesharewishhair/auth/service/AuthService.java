@@ -1,16 +1,18 @@
 package com.inq.wishhair.wesharewishhair.auth.service;
 
-import com.inq.wishhair.wesharewishhair.auth.service.dto.response.LoginResponse;
-import com.inq.wishhair.wesharewishhair.auth.utils.JwtTokenProvider;
-import com.inq.wishhair.wesharewishhair.user.domain.Email;
-import com.inq.wishhair.wesharewishhair.user.domain.User;
-import com.inq.wishhair.wesharewishhair.global.exception.ErrorCode;
-import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
-import com.inq.wishhair.wesharewishhair.user.domain.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.inq.wishhair.wesharewishhair.auth.service.dto.response.LoginResponse;
+import com.inq.wishhair.wesharewishhair.auth.utils.JwtTokenProvider;
+import com.inq.wishhair.wesharewishhair.global.exception.ErrorCode;
+import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
+import com.inq.wishhair.wesharewishhair.user.domain.Email;
+import com.inq.wishhair.wesharewishhair.user.domain.User;
+import com.inq.wishhair.wesharewishhair.user.domain.UserRepository;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor

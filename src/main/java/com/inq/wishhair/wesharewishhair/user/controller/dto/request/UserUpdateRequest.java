@@ -1,6 +1,7 @@
 package com.inq.wishhair.wesharewishhair.user.controller.dto.request;
 
 import com.inq.wishhair.wesharewishhair.user.domain.Sex;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

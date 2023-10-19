@@ -1,27 +1,30 @@
 package com.inq.wishhair.wesharewishhair.auth.controller;
 
-import com.inq.wishhair.wesharewishhair.global.dto.response.Success;
-import com.inq.wishhair.wesharewishhair.global.exception.ErrorCode;
-import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
-import com.inq.wishhair.wesharewishhair.auth.controller.dto.request.AuthKeyRequest;
-import com.inq.wishhair.wesharewishhair.auth.controller.dto.request.MailRequest;
-import com.inq.wishhair.wesharewishhair.auth.event.AuthMailSendEvent;
-import com.inq.wishhair.wesharewishhair.user.domain.Email;
-import com.inq.wishhair.wesharewishhair.user.service.UserValidator;
-import com.inq.wishhair.wesharewishhair.user.service.dto.response.SessionIdResponse;
-
-import lombok.RequiredArgsConstructor;
-import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import static com.inq.wishhair.wesharewishhair.global.exception.ErrorCode.*;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
-import static com.inq.wishhair.wesharewishhair.global.exception.ErrorCode.MAIL_INVALID_KEY;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.inq.wishhair.wesharewishhair.auth.controller.dto.request.AuthKeyRequest;
+import com.inq.wishhair.wesharewishhair.auth.controller.dto.request.MailRequest;
+import com.inq.wishhair.wesharewishhair.auth.event.AuthMailSendEvent;
+import com.inq.wishhair.wesharewishhair.global.dto.response.Success;
+import com.inq.wishhair.wesharewishhair.global.exception.ErrorCode;
+import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
+import com.inq.wishhair.wesharewishhair.user.domain.Email;
+import com.inq.wishhair.wesharewishhair.user.service.UserValidator;
+import com.inq.wishhair.wesharewishhair.user.service.dto.response.SessionIdResponse;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/email")

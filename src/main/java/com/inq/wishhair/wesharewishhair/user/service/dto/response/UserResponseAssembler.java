@@ -1,14 +1,16 @@
 package com.inq.wishhair.wesharewishhair.user.service.dto.response;
 
+import java.util.List;
+
+import org.springframework.data.domain.Slice;
+
 import com.inq.wishhair.wesharewishhair.global.dto.response.PagedResponse;
 import com.inq.wishhair.wesharewishhair.review.service.dto.response.ReviewResponse;
 import com.inq.wishhair.wesharewishhair.user.domain.User;
 import com.inq.wishhair.wesharewishhair.user.domain.point.PointHistory;
+
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.springframework.data.domain.Slice;
-
-import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public abstract class UserResponseAssembler {

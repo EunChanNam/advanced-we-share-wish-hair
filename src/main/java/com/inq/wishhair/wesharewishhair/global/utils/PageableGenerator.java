@@ -1,10 +1,10 @@
 package com.inq.wishhair.wesharewishhair.global.utils;
 
+import static com.inq.wishhair.wesharewishhair.global.utils.SortCondition.*;
+
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-
-import static com.inq.wishhair.wesharewishhair.global.utils.SortCondition.DATE;
 
 public interface PageableGenerator {
     static Pageable getDefaultPageable() {

@@ -1,13 +1,17 @@
 package com.inq.wishhair.wesharewishhair.hairstyle.domain.wishhair;
 
+import java.time.LocalDateTime;
+
 import com.inq.wishhair.wesharewishhair.global.auditing.BaseEntity;
 
-import javax.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Getter

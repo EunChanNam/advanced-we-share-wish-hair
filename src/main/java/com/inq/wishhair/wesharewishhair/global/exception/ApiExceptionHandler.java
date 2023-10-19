@@ -1,18 +1,5 @@
 package com.inq.wishhair.wesharewishhair.global.exception;
 
-import com.inq.wishhair.wesharewishhair.auth.controller.MailAuthController;
-import com.inq.wishhair.wesharewishhair.auth.controller.OAuthController;
-import com.inq.wishhair.wesharewishhair.auth.controller.TokenReissueController;
-import com.inq.wishhair.wesharewishhair.auth.controller.AuthController;
-import com.inq.wishhair.wesharewishhair.auth.exception.WishHairOAuthException;
-import com.inq.wishhair.wesharewishhair.auth.infra.oauth.dto.response.OAuthUserResponse;
-import com.inq.wishhair.wesharewishhair.hairstyle.controller.HairStyleSearchController;
-import com.inq.wishhair.wesharewishhair.review.controller.LikeReviewController;
-import com.inq.wishhair.wesharewishhair.review.controller.ReviewController;
-import com.inq.wishhair.wesharewishhair.review.controller.ReviewSearchController;
-import com.inq.wishhair.wesharewishhair.user.controller.*;
-import com.inq.wishhair.wesharewishhair.hairstyle.controller.WishHairController;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -21,10 +8,23 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
+import com.inq.wishhair.wesharewishhair.auth.controller.AuthController;
+import com.inq.wishhair.wesharewishhair.auth.controller.MailAuthController;
+import com.inq.wishhair.wesharewishhair.auth.controller.TokenReissueController;
+import com.inq.wishhair.wesharewishhair.hairstyle.controller.HairStyleSearchController;
+import com.inq.wishhair.wesharewishhair.hairstyle.controller.WishHairController;
+import com.inq.wishhair.wesharewishhair.review.controller.LikeReviewController;
+import com.inq.wishhair.wesharewishhair.review.controller.ReviewController;
+import com.inq.wishhair.wesharewishhair.review.controller.ReviewSearchController;
+import com.inq.wishhair.wesharewishhair.user.controller.PointController;
+import com.inq.wishhair.wesharewishhair.user.controller.PointSearchController;
+import com.inq.wishhair.wesharewishhair.user.controller.UserController;
+import com.inq.wishhair.wesharewishhair.user.controller.UserInfoController;
+
 @RestControllerAdvice(assignableTypes = {
         UserController.class, AuthController.class, HairStyleSearchController.class,
         ReviewController.class, WishHairController.class, AuthController.class,
-        OAuthController.class, TokenReissueController.class, MailAuthController.class,
+        TokenReissueController.class, MailAuthController.class,
         UserInfoController.class, LikeReviewController.class, ReviewSearchController.class,
         PointSearchController.class, PointController.class
 })
@@ -33,11 +33,6 @@ public class ApiExceptionHandler {
     @ExceptionHandler(WishHairException.class)
     public ResponseEntity<ErrorResponse> handleWishHairException(WishHairException e) {
         return convert(e.getErrorCode());
-    }
-
-    @ExceptionHandler(WishHairOAuthException.class)
-    public ResponseEntity<OAuthUserResponse> handleOAuthException(WishHairOAuthException e) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getUserInfo());
     }
 
     @ExceptionHandler({MethodArgumentNotValidException.class, MethodArgumentTypeMismatchException.class})
