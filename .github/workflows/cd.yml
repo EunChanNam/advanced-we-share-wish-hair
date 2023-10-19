@@ -47,10 +47,10 @@ jobs:
 
 
       - name: Docker image build
-        run: docker build -t ${{ secrets.DOCKER_NAME }}/devops_study:latest .
+        run: docker build -t ${{ secrets.DOCKER_NAME }}/we-share-wish-hair:latest .
 
       - name: docker Hub 푸쉬
-        run: docker push ${{ secrets.DOCKER_NAME }}/devops_study:latest
+        run: docker push ${{ secrets.DOCKER_NAME }}/we-share-wish-hair:latest
 
       - name: Deploy with push
         uses: appleboy/ssh-action@v1.0.0
@@ -61,10 +61,10 @@ jobs:
           port: ${{ secrets.PORT }}
           # 이미 멈춰있어서 발생하는 예외를 방지하기 위해 || true 설정
           script: |
-            sudo docker stop devops_study || true 
+            sudo docker stop we-share-wish-hair || true 
             sudo docker container prune -f 
-            sudo docker pull ${{ secrets.DOCKER_NAME }}/devops_study:latest
+            sudo docker pull ${{ secrets.DOCKER_NAME }}/we-share-wish-hair:latest
             sudo docker run -d --log-driver=syslog --env-file .env \
-            -p 8080:9000 --name devops_study \
-            ${{ secrets.DOCKER_NAME }}/devops_study:latest
+            -p 8080:8080 --name we-share-wish-hair \
+            ${{ secrets.DOCKER_NAME }}/we-share-wish-hair:latest
             
