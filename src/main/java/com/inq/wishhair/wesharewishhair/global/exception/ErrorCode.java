@@ -15,6 +15,7 @@ public enum ErrorCode {
 	AUTH_INVALID_TOKEN("AUTH_002", "토큰이 유효하지 않습니다.", HttpStatus.BAD_REQUEST),
 	AUTH_REQUIRED_LOGIN("AUTH_003", "로그인이 필요합니다.", HttpStatus.UNAUTHORIZED),
 	AUTH_INVALID_AUTHORIZATION_HEADER("AUTH_004", "올바르지 않은 인증 헤더입니다", HttpStatus.BAD_REQUEST),
+	AUTH_INVALID_AUTH_CODE("AUTH_005", "올바르지 않은 인증코드 입니다", HttpStatus.BAD_REQUEST),
 
 	HAIR_STYLE_NO_FACE_SHAPE_TAG("HAIR_STYLE_002", "얼굴형 태그가 없습니다.", HttpStatus.INTERNAL_SERVER_ERROR),
 

@@ -1,29 +1,18 @@
 package com.inq.wishhair.wesharewishhair.auth.presentation;
 
-import static com.inq.wishhair.wesharewishhair.global.exception.ErrorCode.*;
-
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.inq.wishhair.wesharewishhair.auth.application.MailAuthService;
 import com.inq.wishhair.wesharewishhair.auth.presentation.dto.request.AuthKeyRequest;
 import com.inq.wishhair.wesharewishhair.auth.presentation.dto.request.MailRequest;
-import com.inq.wishhair.wesharewishhair.auth.event.AuthMailSendEvent;
 import com.inq.wishhair.wesharewishhair.global.dto.response.Success;
-import com.inq.wishhair.wesharewishhair.global.exception.ErrorCode;
-import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
 import com.inq.wishhair.wesharewishhair.user.domain.Email;
 import com.inq.wishhair.wesharewishhair.user.service.UserValidator;
-import com.inq.wishhair.wesharewishhair.user.service.dto.response.SessionIdResponse;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -31,65 +20,33 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MailAuthController {
 
-	private static final String AUTH_KEY = "KEY";
-
-	private final ApplicationEventPublisher eventPublisher;
-
 	private final UserValidator userValidator;
+	private final MailAuthService mailAuthService;
 
 	@PostMapping("/check")
-	public ResponseEntity<Success> checkDuplicateEmail(@RequestBody MailRequest request) {
-
-		userValidator.validateEmailIsNotDuplicated(new Email(request.getEmail()));
+	public ResponseEntity<Success> checkDuplicateEmail(
+		final @RequestBody MailRequest request
+	) {
+		userValidator.validateEmailIsNotDuplicated(new Email(request.email()));
 
 		return ResponseEntity.ok(new Success());
 	}
 
 	@PostMapping("/send")
-	public ResponseEntity<SessionIdResponse> sendAuthorizationMail(@RequestBody MailRequest mailRequest,
-		HttpServletRequest request) throws NoSuchAlgorithmException {
-
-		String authKey = createAuthKey();
-		String sessionId = registerAuthKey(request, authKey);
-
-		eventPublisher.publishEvent(new AuthMailSendEvent(new Email(mailRequest.getEmail()), authKey));
-
-		return ResponseEntity.ok(new SessionIdResponse(sessionId));
-	}
-
-	@PostMapping("/validate")
-	public ResponseEntity<Success> authorizeKey(@RequestBody AuthKeyRequest authKeyRequest,
-		HttpServletRequest request) {
-
-		String inputKey = authKeyRequest.getAuthKey();
-		HttpSession session = request.getSession(false);
-		validateKey(session, inputKey);
-
-		session.invalidate();
+	public ResponseEntity<Success> sendAuthorizationMail(
+		final @RequestBody MailRequest mailRequest
+	) {
+		mailAuthService.requestMailAuthorization(mailRequest.email());
 
 		return ResponseEntity.ok(new Success());
 	}
 
-	private void validateKey(HttpSession session, String inputKey) {
-		if (session == null) {
-			throw new WishHairException(ErrorCode.MAIL_EXPIRED_KEY);
-		}
+	@PostMapping("/validate")
+	public ResponseEntity<Success> authorizeKey(
+		final @RequestBody AuthKeyRequest authKeyRequest
+	) {
+		mailAuthService.requestMailAuthorization(authKeyRequest.authKey());
 
-		String authKey = (String)session.getAttribute(AUTH_KEY);
-		if (!inputKey.equals(authKey)) {
-			throw new WishHairException(MAIL_INVALID_KEY);
-		}
-	}
-
-	private String registerAuthKey(HttpServletRequest request, String authKey) {
-		HttpSession session = request.getSession();
-		session.setAttribute(AUTH_KEY, authKey);
-
-		return session.getId();
-	}
-
-	private String createAuthKey() throws NoSuchAlgorithmException {
-		SecureRandom random = SecureRandom.getInstanceStrong();
-		return String.valueOf(random.nextInt(8999) + 1000);
+		return ResponseEntity.ok(new Success());
 	}
 }
