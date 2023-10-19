@@ -1,4 +1,4 @@
-package com.inq.wishhair.wesharewishhair.photo.utils;
+package com.inq.wishhair.wesharewishhair.photo.infrastructure;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,26 +16,27 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.inq.wishhair.wesharewishhair.global.exception.ErrorCode;
 import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
+import com.inq.wishhair.wesharewishhair.photo.domain.PhotoStore;
 
 @Component
-public class PhotoStore {
+public class S3PhotoStore implements PhotoStore {
 
 	private final AmazonS3Client amazonS3Client;
 	private final String buketName;
 
-	public PhotoStore(AmazonS3Client amazonS3Client,
+	public S3PhotoStore(final AmazonS3Client amazonS3Client,
 		@Value("${cloud.aws.s3.bucket}") String buketName) {
 		this.amazonS3Client = amazonS3Client;
 		this.buketName = buketName;
 	}
 
-	public List<String> uploadFiles(List<MultipartFile> files) {
+	public List<String> uploadFiles(final List<MultipartFile> files) {
 		List<String> storeUrls = new ArrayList<>();
 		files.forEach(file -> storeUrls.add(uploadFile(file)));
 		return storeUrls;
 	}
 
-	private String uploadFile(MultipartFile file) {
+	private String uploadFile(final MultipartFile file) {
 		validateFileExist(file);
 
 		String originalFilename = file.getOriginalFilename();
@@ -45,7 +46,7 @@ public class PhotoStore {
 		metadata.setContentType(file.getContentType());
 		metadata.setContentLength(file.getSize());
 
-		try (InputStream inputStream = file.getInputStream();) {
+		try (InputStream inputStream = file.getInputStream()) {
 			PutObjectRequest putObjectRequest = new PutObjectRequest(
 				buketName,
 				storeFilename,
@@ -60,28 +61,28 @@ public class PhotoStore {
 		}
 	}
 
-	public void deleteFiles(List<String> storeUrls) {
+	public void deleteFiles(final List<String> storeUrls) {
 		storeUrls.forEach(this::deleteFile);
 	}
 
-	private void deleteFile(String storeUrl) {
+	private void deleteFile(final String storeUrl) {
 		int point = storeUrl.indexOf('/', 10) + 1;
 		String fileKey = storeUrl.substring(point);
 		amazonS3Client.deleteObject(buketName, fileKey);
 	}
 
-	private void validateFileExist(MultipartFile file) {
+	private void validateFileExist(final MultipartFile file) {
 		if (file == null || file.isEmpty()) {
 			throw new WishHairException(ErrorCode.EMPTY_FILE_EX);
 		}
 	}
 
-	private String createStoreFilename(String originalFilename) {
+	private String createStoreFilename(final String originalFilename) {
 		String ext = getExt(originalFilename);
 		return UUID.randomUUID() + ext;
 	}
 
-	private String getExt(String originalFilename) {
+	private String getExt(final String originalFilename) {
 		int index = originalFilename.lastIndexOf(".");
 		return originalFilename.substring(index);
 	}

@@ -1,4 +1,4 @@
-package com.inq.wishhair.wesharewishhair.photo.config;
+package com.inq.wishhair.wesharewishhair.global.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

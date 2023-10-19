@@ -40,13 +40,13 @@ public class Photo {
 		this.storeUrl = storeUrl;
 	}
 
-	public static Photo createReviewPhoto(String storeUrl, Review review) {
+	public static Photo createReviewPhoto(final String storeUrl, final Review review) {
 		Photo photo = new Photo(storeUrl);
 		photo.review = review;
 		return photo;
 	}
 
-	public static Photo createHairStylePhoto(String storeUrl, HairStyle hairStyle) {
+	public static Photo createHairStylePhoto(final String storeUrl, final HairStyle hairStyle) {
 		Photo photo = new Photo(storeUrl);
 		photo.hairStyle = hairStyle;
 		return photo;
