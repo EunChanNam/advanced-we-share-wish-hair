@@ -3,10 +3,14 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/wish_hair_db
-    username: root
-    password: 1234!
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:test_db;MODE=MySQL;
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+
   jpa:
     hibernate:
       ddl-auto: create
@@ -22,8 +26,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: ${MAIL}  # namhm23@kyonggi.ac.kr
-    password: ${MAIL_PW} # qkvpxhpgyuywcbgh
+    username: ${MAIL}
+    password: ${MAIL_PW}
     protocol: smtp
     properties:
       mail:
@@ -38,7 +42,7 @@ spring:
 
 # 포인트 메일 수신자 #
 mail:
-  point-mail-receiver: ${POINT_MAIL} #namhm23@naver.com
+  point-mail-receiver: ${POINT_MAIL}
 
 # Flask domain #
 flask:
@@ -60,20 +64,20 @@ decorator:
 
 #JWT key
 jwt:
-  secret-key: ${JWT_SECRET_KEY} # wishhairOiJIUzI1NiIvLoAR5cCI6IkpXSCJ9.eyJzdWIiOiIiLCLoCP1lIjoiSm9obiBEV9UiLCJpYXBCusE1MTYyMzkwMjJ9.163aevla8s7d6f987qweahqwculaoxce80k1i2o387tg
-  access-token-validity: ${ACCESS_TOKEN_VALIDITY}  # 1800000
-  refresh-token-validity: ${REFRESH_TOKEN_VALIDITY} # 259200000
+  secret-key: ${JWT_SECRET_KEY}
+  access-token-validity: ${ACCESS_TOKEN_VALIDITY}
+  refresh-token-validity: ${REFRESH_TOKEN_VALIDITY}
 
 # 네이버 클라우드 오브젝트 스토리지
 cloud:
   aws:
     credentials:
-      access-key: ${S3_ACCESS_KEY} # N3JCSJUtgse4alKEaOqX
-      secret-key: ${S3_SECRET_KEY} #rRamLrfUV8v6ZziJFEN4CVLjE9rl4kCBnEOLje5f
+      access-key: ${S3_ACCESS_KEY}
+      secret-key: ${S3_SECRET_KEY}
     stack:
       auto: false
     region:
       static: ap-northeast-2
     s3:
       endpoint: https://kr.object.ncloudstorage.com
-      bucket: ${BUCKET_NAME} # wswh-storage
+      bucket: ${BUCKET_NAME}
