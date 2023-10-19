@@ -1,4 +1,4 @@
-package com.inq.wishhair.wesharewishhair.global.mail.utils;
+package com.inq.wishhair.wesharewishhair.global.mail;
 
 import java.io.UnsupportedEncodingException;
 
