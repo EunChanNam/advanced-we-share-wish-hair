@@ -1,16 +1,11 @@
 HELP.md
 .gradle
+.DS_Store
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
-
-### private ###
-.idea
-.DS_Store
-
-### application.yml ###
-application-dev.yml
+/src/main/generated/
 
 ### sql ###
 **/src/main/resources/sql/
@@ -34,7 +29,7 @@ bin/
 ### IntelliJ IDEA ###
 .idea
 *.iws
-*.iml경
+*.iml
 *.ipr
 out/
 !**/src/main/**/out/
