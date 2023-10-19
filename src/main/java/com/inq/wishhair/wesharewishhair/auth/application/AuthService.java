@@ -5,7 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inq.wishhair.wesharewishhair.auth.application.dto.response.LoginResponse;
-import com.inq.wishhair.wesharewishhair.auth.utils.JwtTokenProvider;
+import com.inq.wishhair.wesharewishhair.auth.domain.AuthToken;
+import com.inq.wishhair.wesharewishhair.auth.domain.AuthTokenManager;
 import com.inq.wishhair.wesharewishhair.global.exception.ErrorCode;
 import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
 import com.inq.wishhair.wesharewishhair.user.domain.Email;
@@ -21,8 +22,8 @@ public class AuthService {
 
 	private final TokenManager tokenManager;
 	private final UserRepository userRepository;
-	private final JwtTokenProvider provider;
 	private final PasswordEncoder passwordEncoder;
+	private final AuthTokenManager authTokenManager;
 
 	@Transactional
 	public LoginResponse login(String email, String pw) {
@@ -30,12 +31,11 @@ public class AuthService {
 			.filter(findUser -> passwordEncoder.matches(pw, findUser.getPasswordValue()))
 			.orElseThrow(() -> new WishHairException(ErrorCode.LOGIN_FAIL));
 
-		String refreshToken = provider.createRefreshToken(user.getId());
-		String accessToken = provider.createAccessToken(user.getId());
+		AuthToken authToken = authTokenManager.generate(user.getId());
 
-		tokenManager.synchronizeRefreshToken(user.getId(), refreshToken);
+		tokenManager.synchronizeRefreshToken(user.getId(), authToken.refreshToken());
 
-		return new LoginResponse(user, accessToken, refreshToken);
+		return new LoginResponse(authToken.accessToken(), authToken.refreshToken());
 	}
 
 	@Transactional

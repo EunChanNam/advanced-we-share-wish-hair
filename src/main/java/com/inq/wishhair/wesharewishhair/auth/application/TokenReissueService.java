@@ -4,7 +4,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inq.wishhair.wesharewishhair.auth.application.dto.response.TokenResponse;
-import com.inq.wishhair.wesharewishhair.auth.utils.JwtTokenProvider;
+import com.inq.wishhair.wesharewishhair.auth.domain.AuthToken;
+import com.inq.wishhair.wesharewishhair.auth.domain.AuthTokenManager;
 import com.inq.wishhair.wesharewishhair.global.exception.ErrorCode;
 import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
 
@@ -12,11 +13,10 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class TokenReissueService {
 
 	private final TokenManager tokenManager;
-	private final JwtTokenProvider provider;
+	private final AuthTokenManager authTokenManager;
 
 	@Transactional
 	public TokenResponse reissueToken(Long userId, String refreshToken) {
@@ -26,11 +26,10 @@ public class TokenReissueService {
 			throw new WishHairException(ErrorCode.AUTH_INVALID_TOKEN);
 		}
 
-		String newAccessToken = provider.createAccessToken(userId);
-		String newRefreshToken = provider.createRefreshToken(userId);
+		AuthToken authToken = authTokenManager.generate(userId);
 
-		tokenManager.updateRefreshToken(userId, newRefreshToken);
+		tokenManager.updateRefreshToken(userId, authToken.refreshToken());
 
-		return TokenResponse.of(newAccessToken, newRefreshToken);
+		return new TokenResponse(authToken.accessToken(), authToken.refreshToken());
 	}
 }

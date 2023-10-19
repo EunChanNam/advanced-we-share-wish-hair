@@ -1,22 +1,7 @@
 package com.inq.wishhair.wesharewishhair.auth.application.dto.response;
 
-import com.inq.wishhair.wesharewishhair.user.domain.User;
-import com.inq.wishhair.wesharewishhair.user.service.dto.response.UserInfo;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
-@Getter
-@AllArgsConstructor
-public class LoginResponse {
-
-	private UserInfo userInfo;
-	private String accessToken;
-	private String refreshToken;
-
-	public LoginResponse(User user, String accessToken, String refreshToken) {
-		this.userInfo = new UserInfo(user);
-		this.accessToken = accessToken;
-		this.refreshToken = refreshToken;
-	}
+public record LoginResponse(
+	String accessToken,
+	String refreshToken
+) {
 }
