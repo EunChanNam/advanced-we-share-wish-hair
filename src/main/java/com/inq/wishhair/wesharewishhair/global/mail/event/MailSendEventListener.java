@@ -9,7 +9,7 @@ import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
 
 import com.inq.wishhair.wesharewishhair.auth.event.AuthMailSendEvent;
-import com.inq.wishhair.wesharewishhair.global.mail.utils.EmailSender;
+import com.inq.wishhair.wesharewishhair.global.mail.EmailSender;
 import com.inq.wishhair.wesharewishhair.user.event.RefundMailSendEvent;
 
 import jakarta.mail.MessagingException;
