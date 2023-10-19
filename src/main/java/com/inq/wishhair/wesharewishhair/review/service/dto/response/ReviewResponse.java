@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.inq.wishhair.wesharewishhair.hairstyle.service.dto.response.HashTagResponse;
-import com.inq.wishhair.wesharewishhair.photo.dto.response.PhotoResponse;
+import com.inq.wishhair.wesharewishhair.photo.application.dto.response.PhotoInfo;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -26,7 +26,7 @@ public class ReviewResponse {
 
 	private LocalDateTime createdDate;
 
-	private List<PhotoResponse> photos;
+	private List<PhotoInfo> photos;
 
 	private long likes;
 
