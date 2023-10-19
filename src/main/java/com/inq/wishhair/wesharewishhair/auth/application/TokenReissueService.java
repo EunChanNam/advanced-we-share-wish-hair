@@ -1,9 +1,9 @@
-package com.inq.wishhair.wesharewishhair.auth.service;
+package com.inq.wishhair.wesharewishhair.auth.application;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.inq.wishhair.wesharewishhair.auth.service.dto.response.TokenResponse;
+import com.inq.wishhair.wesharewishhair.auth.application.dto.response.TokenResponse;
 import com.inq.wishhair.wesharewishhair.auth.utils.JwtTokenProvider;
 import com.inq.wishhair.wesharewishhair.global.exception.ErrorCode;
 import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;

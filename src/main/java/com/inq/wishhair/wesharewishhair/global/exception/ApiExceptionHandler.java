@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
-import com.inq.wishhair.wesharewishhair.auth.controller.AuthController;
-import com.inq.wishhair.wesharewishhair.auth.controller.MailAuthController;
-import com.inq.wishhair.wesharewishhair.auth.controller.TokenReissueController;
+import com.inq.wishhair.wesharewishhair.auth.presentation.AuthController;
+import com.inq.wishhair.wesharewishhair.auth.presentation.MailAuthController;
+import com.inq.wishhair.wesharewishhair.auth.presentation.TokenReissueController;
 import com.inq.wishhair.wesharewishhair.hairstyle.controller.HairStyleSearchController;
 import com.inq.wishhair.wesharewishhair.hairstyle.controller.WishHairController;
 import com.inq.wishhair.wesharewishhair.review.controller.LikeReviewController;

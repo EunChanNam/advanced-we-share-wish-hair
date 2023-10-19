@@ -1,4 +1,4 @@
-package com.inq.wishhair.wesharewishhair.auth.controller;
+package com.inq.wishhair.wesharewishhair.auth.presentation;
 
 import static com.inq.wishhair.wesharewishhair.global.exception.ErrorCode.*;
 
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.inq.wishhair.wesharewishhair.auth.controller.dto.request.AuthKeyRequest;
-import com.inq.wishhair.wesharewishhair.auth.controller.dto.request.MailRequest;
+import com.inq.wishhair.wesharewishhair.auth.presentation.dto.request.AuthKeyRequest;
+import com.inq.wishhair.wesharewishhair.auth.presentation.dto.request.MailRequest;
 import com.inq.wishhair.wesharewishhair.auth.event.AuthMailSendEvent;
 import com.inq.wishhair.wesharewishhair.global.dto.response.Success;
 import com.inq.wishhair.wesharewishhair.global.exception.ErrorCode;

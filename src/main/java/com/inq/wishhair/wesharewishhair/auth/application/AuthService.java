@@ -1,10 +1,10 @@
-package com.inq.wishhair.wesharewishhair.auth.service;
+package com.inq.wishhair.wesharewishhair.auth.application;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.inq.wishhair.wesharewishhair.auth.service.dto.response.LoginResponse;
+import com.inq.wishhair.wesharewishhair.auth.application.dto.response.LoginResponse;
 import com.inq.wishhair.wesharewishhair.auth.utils.JwtTokenProvider;
 import com.inq.wishhair.wesharewishhair.global.exception.ErrorCode;
 import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
@@ -33,7 +33,7 @@ public class AuthService {
 		String refreshToken = provider.createRefreshToken(user.getId());
 		String accessToken = provider.createAccessToken(user.getId());
 
-		tokenManager.synchronizeRefreshToken(user, refreshToken);
+		tokenManager.synchronizeRefreshToken(user.getId(), refreshToken);
 
 		return new LoginResponse(user, accessToken, refreshToken);
 	}

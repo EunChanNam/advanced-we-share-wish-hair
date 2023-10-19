@@ -1,4 +1,4 @@
-package com.inq.wishhair.wesharewishhair.auth.controller.dto.request;
+package com.inq.wishhair.wesharewishhair.auth.presentation.dto.request;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
@@ -9,8 +9,11 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class AuthKeyRequest {
+public class LoginRequest {
 
 	@NotNull
-	private String authKey;
+	private String email;
+
+	@NotNull
+	private String pw;
 }

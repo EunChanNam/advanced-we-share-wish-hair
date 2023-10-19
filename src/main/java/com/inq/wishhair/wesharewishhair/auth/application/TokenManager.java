@@ -1,11 +1,10 @@
-package com.inq.wishhair.wesharewishhair.auth.service;
+package com.inq.wishhair.wesharewishhair.auth.application;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inq.wishhair.wesharewishhair.auth.domain.Token;
 import com.inq.wishhair.wesharewishhair.auth.domain.TokenRepository;
-import com.inq.wishhair.wesharewishhair.user.domain.User;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,11 +16,11 @@ public class TokenManager {
 	private final TokenRepository tokenRepository;
 
 	@Transactional
-	public void synchronizeRefreshToken(User user, String refreshToken) {
-		tokenRepository.findByUser(user)
+	public void synchronizeRefreshToken(Long userId, String refreshToken) {
+		tokenRepository.findByUserId(userId)
 			.ifPresentOrElse(
 				token -> token.updateRefreshToken(refreshToken),
-				() -> tokenRepository.save(Token.issue(user.getId(), refreshToken))
+				() -> tokenRepository.save(Token.issue(userId, refreshToken))
 			);
 	}
 
