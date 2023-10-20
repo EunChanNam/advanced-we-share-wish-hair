@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inq.wishhair.wesharewishhair.global.utils.PageableGenerator;
+import com.inq.wishhair.wesharewishhair.point.domain.PointLog;
+import com.inq.wishhair.wesharewishhair.point.domain.PointLogRepository;
 import com.inq.wishhair.wesharewishhair.review.service.ReviewSearchService;
 import com.inq.wishhair.wesharewishhair.review.service.dto.response.ReviewResponse;
 import com.inq.wishhair.wesharewishhair.user.domain.User;
@@ -25,16 +27,20 @@ public class UserInfoService {
 
 	private final UserFindService userFindService;
 	private final ReviewSearchService reviewSearchService;
+	private final PointLogRepository pointLogRepository;
 
 	public MyPageResponse getMyPageInfo(Long userId) {
 
 		Pageable pageable = PageableGenerator.generateDateDescPageable(3);
 
 		List<ReviewResponse> reviewResponses = reviewSearchService.findLikingReviews(userId, pageable).getResult();
-
 		User user = userFindService.findByUserId(userId);
 
-		return toMyPageResponse(user, reviewResponses);
+		int point = pointLogRepository.findByUserOrderByCreatedDateDesc(user)
+			.map(PointLog::getPoint)
+			.orElse(0);
+
+		return new MyPageResponse(user, reviewResponses, point);
 	}
 
 	public UserInformation getUserInformation(Long userId) {
