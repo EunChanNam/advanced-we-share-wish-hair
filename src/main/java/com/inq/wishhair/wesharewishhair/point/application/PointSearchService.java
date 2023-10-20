@@ -1,6 +1,6 @@
 package com.inq.wishhair.wesharewishhair.point.application;
 
-import static com.inq.wishhair.wesharewishhair.user.service.dto.response.UserResponseAssembler.*;
+import static com.inq.wishhair.wesharewishhair.user.application.dto.response.UserResponseAssembler.*;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;

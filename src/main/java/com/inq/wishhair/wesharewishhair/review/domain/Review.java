@@ -7,7 +7,7 @@ import java.util.List;
 import com.inq.wishhair.wesharewishhair.global.auditing.BaseEntity;
 import com.inq.wishhair.wesharewishhair.hairstyle.domain.HairStyle;
 import com.inq.wishhair.wesharewishhair.photo.domain.Photo;
-import com.inq.wishhair.wesharewishhair.user.domain.User;
+import com.inq.wishhair.wesharewishhair.user.domain.entity.User;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

@@ -11,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.inq.wishhair.wesharewishhair.point.domain.PointLog;
 import com.inq.wishhair.wesharewishhair.point.domain.PointLogRepository;
-import com.inq.wishhair.wesharewishhair.user.domain.User;
+import com.inq.wishhair.wesharewishhair.user.domain.entity.User;
 
 public interface PointLogJpaRepository extends PointLogRepository, JpaRepository<PointLog, Long> {
 

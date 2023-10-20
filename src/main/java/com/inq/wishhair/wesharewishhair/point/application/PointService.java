@@ -8,8 +8,8 @@ import com.inq.wishhair.wesharewishhair.point.application.dto.PointUseRequest;
 import com.inq.wishhair.wesharewishhair.point.domain.PointLog;
 import com.inq.wishhair.wesharewishhair.point.domain.PointLogRepository;
 import com.inq.wishhair.wesharewishhair.point.domain.PointType;
-import com.inq.wishhair.wesharewishhair.user.domain.User;
-import com.inq.wishhair.wesharewishhair.user.service.UserFindService;
+import com.inq.wishhair.wesharewishhair.user.domain.entity.User;
+import com.inq.wishhair.wesharewishhair.user.application.UserFindService;
 
 import lombok.RequiredArgsConstructor;
 

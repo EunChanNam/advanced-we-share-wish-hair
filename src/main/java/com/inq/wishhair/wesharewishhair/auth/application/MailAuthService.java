@@ -11,7 +11,7 @@ import com.inq.wishhair.wesharewishhair.auth.domain.AuthCodeRepository;
 import com.inq.wishhair.wesharewishhair.auth.domain.entity.AuthCode;
 import com.inq.wishhair.wesharewishhair.auth.event.AuthMailSendEvent;
 import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
-import com.inq.wishhair.wesharewishhair.user.domain.Email;
+import com.inq.wishhair.wesharewishhair.user.domain.entity.Email;
 
 import lombok.RequiredArgsConstructor;
 

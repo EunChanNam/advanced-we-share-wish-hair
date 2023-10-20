@@ -5,8 +5,8 @@ import static lombok.AccessLevel.*;
 import java.util.List;
 
 import com.inq.wishhair.wesharewishhair.hairstyle.domain.hashtag.Tag;
-import com.inq.wishhair.wesharewishhair.user.domain.FaceShape;
-import com.inq.wishhair.wesharewishhair.user.domain.Sex;
+import com.inq.wishhair.wesharewishhair.user.domain.entity.FaceShape;
+import com.inq.wishhair.wesharewishhair.user.domain.entity.Sex;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

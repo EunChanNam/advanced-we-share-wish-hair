@@ -9,8 +9,8 @@ import com.inq.wishhair.wesharewishhair.auth.domain.AuthToken;
 import com.inq.wishhair.wesharewishhair.auth.domain.AuthTokenManager;
 import com.inq.wishhair.wesharewishhair.global.exception.ErrorCode;
 import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
-import com.inq.wishhair.wesharewishhair.user.domain.Email;
-import com.inq.wishhair.wesharewishhair.user.domain.User;
+import com.inq.wishhair.wesharewishhair.user.domain.entity.Email;
+import com.inq.wishhair.wesharewishhair.user.domain.entity.User;
 import com.inq.wishhair.wesharewishhair.user.domain.UserRepository;
 
 import lombok.RequiredArgsConstructor;
