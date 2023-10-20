@@ -19,8 +19,8 @@ import com.inq.wishhair.wesharewishhair.review.domain.Review;
 import com.inq.wishhair.wesharewishhair.review.domain.ReviewRepository;
 import com.inq.wishhair.wesharewishhair.review.domain.likereview.LikeReviewRepository;
 import com.inq.wishhair.wesharewishhair.review.event.PointChargeEvent;
-import com.inq.wishhair.wesharewishhair.user.domain.User;
-import com.inq.wishhair.wesharewishhair.user.service.UserFindService;
+import com.inq.wishhair.wesharewishhair.user.domain.entity.User;
+import com.inq.wishhair.wesharewishhair.user.application.UserFindService;
 
 import lombok.RequiredArgsConstructor;
 

@@ -18,8 +18,8 @@ import com.inq.wishhair.wesharewishhair.review.controller.ReviewController;
 import com.inq.wishhair.wesharewishhair.review.controller.ReviewSearchController;
 import com.inq.wishhair.wesharewishhair.point.presentation.PointController;
 import com.inq.wishhair.wesharewishhair.point.presentation.PointSearchController;
-import com.inq.wishhair.wesharewishhair.user.controller.UserController;
-import com.inq.wishhair.wesharewishhair.user.controller.UserInfoController;
+import com.inq.wishhair.wesharewishhair.user.presentation.UserController;
+import com.inq.wishhair.wesharewishhair.user.presentation.UserInfoController;
 
 @RestControllerAdvice(assignableTypes = {
 	UserController.class, AuthController.class, HairStyleSearchController.class,

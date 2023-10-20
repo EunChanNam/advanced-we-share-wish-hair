@@ -10,8 +10,8 @@ import com.inq.wishhair.wesharewishhair.auth.application.MailAuthService;
 import com.inq.wishhair.wesharewishhair.auth.presentation.dto.request.AuthKeyRequest;
 import com.inq.wishhair.wesharewishhair.auth.presentation.dto.request.MailRequest;
 import com.inq.wishhair.wesharewishhair.global.dto.response.Success;
-import com.inq.wishhair.wesharewishhair.user.domain.Email;
-import com.inq.wishhair.wesharewishhair.user.service.UserValidator;
+import com.inq.wishhair.wesharewishhair.user.domain.entity.Email;
+import com.inq.wishhair.wesharewishhair.user.application.utils.UserValidator;
 
 import lombok.RequiredArgsConstructor;
 
@@ -43,9 +43,9 @@ public class MailAuthController {
 
 	@PostMapping("/validate")
 	public ResponseEntity<Success> authorizeKey(
-		final @RequestBody AuthKeyRequest authKeyRequest
+		final @RequestBody AuthKeyRequest request
 	) {
-		mailAuthService.requestMailAuthorization(authKeyRequest.authKey());
+		mailAuthService.checkAuthCode(request.email(), request.authKey());
 
 		return ResponseEntity.ok(new Success());
 	}
