@@ -1,6 +1,4 @@
-package com.inq.wishhair.wesharewishhair.user.domain.point;
-
-import java.time.LocalDateTime;
+package com.inq.wishhair.wesharewishhair.point.domain;
 
 import com.inq.wishhair.wesharewishhair.global.auditing.BaseEntity;
 import com.inq.wishhair.wesharewishhair.user.domain.User;
@@ -22,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class PointHistory extends BaseEntity {
+public class PointLog extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,16 +40,26 @@ public class PointHistory extends BaseEntity {
 	@JoinColumn(name = "user_id", nullable = false, updatable = false)
 	private User user;
 
-	//==생성 메서드==//
-	private PointHistory(User user, PointType pointType, int dealAmount, int point) {
+	private PointLog(
+		final User user,
+		final PointType pointType,
+		final int dealAmount,
+		final int point
+	) {
 		this.pointType = pointType;
 		this.dealAmount = dealAmount;
 		this.point = point;
 		this.user = user;
-		this.createdDate = LocalDateTime.now();
 	}
 
-	public static PointHistory createPointHistory(User user, PointType pointType, int dealAmount, int point) {
-		return new PointHistory(user, pointType, dealAmount, point);
+	//==Factory method==//
+	public static PointLog addPointLog(
+		final User user,
+		final PointType pointType,
+		final int dealAmount,
+		final int prePoint
+	) {
+		int availablePoint = pointType.getPoint(dealAmount, prePoint);
+		return new PointLog(user, pointType, dealAmount, availablePoint);
 	}
 }

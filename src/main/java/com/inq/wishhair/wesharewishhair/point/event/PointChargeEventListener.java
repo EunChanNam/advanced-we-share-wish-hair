@@ -1,11 +1,11 @@
-package com.inq.wishhair.wesharewishhair.user.domain.point.event;
+package com.inq.wishhair.wesharewishhair.point.event;
 
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
 
 import com.inq.wishhair.wesharewishhair.review.event.PointChargeEvent;
-import com.inq.wishhair.wesharewishhair.user.service.PointService;
+import com.inq.wishhair.wesharewishhair.point.application.PointService;
 
 import lombok.RequiredArgsConstructor;
 

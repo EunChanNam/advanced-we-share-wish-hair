@@ -1,4 +1,4 @@
-package com.inq.wishhair.wesharewishhair.user.controller;
+package com.inq.wishhair.wesharewishhair.point.presentation;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.inq.wishhair.wesharewishhair.global.annotation.FetchAuthInfo;
 import com.inq.wishhair.wesharewishhair.global.dto.response.PagedResponse;
 import com.inq.wishhair.wesharewishhair.global.resolver.dto.AuthInfo;
-import com.inq.wishhair.wesharewishhair.user.service.PointSearchService;
-import com.inq.wishhair.wesharewishhair.user.service.dto.response.PointResponse;
+import com.inq.wishhair.wesharewishhair.point.application.PointSearchService;
+import com.inq.wishhair.wesharewishhair.point.application.dto.PointResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,6 +28,6 @@ public class PointSearchController {
 		final @PageableDefault Pageable pageable
 	) {
 
-		return ResponseEntity.ok(pointSearchService.findPointHistories(authInfo.userId(), pageable));
+		return ResponseEntity.ok(pointSearchService.getPointHistories(authInfo.userId(), pageable));
 	}
 }

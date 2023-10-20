@@ -21,7 +21,7 @@ import com.inq.wishhair.wesharewishhair.user.domain.Nickname;
 import com.inq.wishhair.wesharewishhair.user.domain.Password;
 import com.inq.wishhair.wesharewishhair.user.domain.User;
 import com.inq.wishhair.wesharewishhair.user.domain.UserRepository;
-import com.inq.wishhair.wesharewishhair.user.domain.point.PointRepository;
+import com.inq.wishhair.wesharewishhair.point.domain.PointLogRepository;
 import com.inq.wishhair.wesharewishhair.user.utils.AiConnector;
 
 import lombok.RequiredArgsConstructor;
@@ -38,7 +38,7 @@ public class UserService {
 	private final ReviewService reviewService;
 	private final TokenRepository tokenRepository;
 	private final AiConnector connector;
-	private final PointRepository pointRepository;
+	private final PointLogRepository pointLogRepository;
 
 	@Transactional
 	public Long createUser(SignUpRequest request) {
@@ -55,7 +55,7 @@ public class UserService {
 	public void deleteUser(Long userId) {
 		tokenRepository.deleteByUserId(userId);
 		reviewService.deleteReviewByWriter(userId);
-		pointRepository.deleteByUserId(userId);
+		pointLogRepository.deleteByUserId(userId);
 		userRepository.deleteById(userId);
 	}
 

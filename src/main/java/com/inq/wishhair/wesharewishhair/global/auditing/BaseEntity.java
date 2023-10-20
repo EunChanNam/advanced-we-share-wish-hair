@@ -2,6 +2,7 @@ package com.inq.wishhair.wesharewishhair.global.auditing;
 
 import java.time.LocalDateTime;
 
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -15,9 +16,18 @@ import lombok.Getter;
 @Getter
 public class BaseEntity {
 
-	@Column(updatable = false)
+	@Column(
+		nullable = false,
+		insertable = false,
+		updatable = false,
+		columnDefinition = "datetime default CURRENT_TIMESTAMP")
+	@CreatedDate
 	protected LocalDateTime createdDate;
 
+	@Column(
+		nullable = false,
+		insertable = false,
+		columnDefinition = "datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP")
 	@LastModifiedDate
 	private LocalDateTime updatedDate;
 }
