@@ -1,4 +1,4 @@
-package com.inq.wishhair.wesharewishhair.review.controller;
+package com.inq.wishhair.wesharewishhair.review.presentation;
 
 import java.net.URI;
 
@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.inq.wishhair.wesharewishhair.global.annotation.FetchAuthInfo;
 import com.inq.wishhair.wesharewishhair.global.dto.response.Success;
 import com.inq.wishhair.wesharewishhair.global.resolver.dto.AuthInfo;
-import com.inq.wishhair.wesharewishhair.review.controller.dto.request.ReviewCreateRequest;
-import com.inq.wishhair.wesharewishhair.review.controller.dto.request.ReviewUpdateRequest;
-import com.inq.wishhair.wesharewishhair.review.service.ReviewService;
+import com.inq.wishhair.wesharewishhair.review.presentation.dto.request.ReviewCreateRequest;
+import com.inq.wishhair.wesharewishhair.review.presentation.dto.request.ReviewUpdateRequest;
+import com.inq.wishhair.wesharewishhair.review.application.ReviewService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -32,8 +32,8 @@ public class ReviewController {
 		final @ModelAttribute ReviewCreateRequest reviewCreateRequest,
 		final @FetchAuthInfo AuthInfo authInfo
 	) {
-
 		Long reviewId = reviewService.createReview(reviewCreateRequest, authInfo.userId());
+
 		return ResponseEntity
 			.created(URI.create("/api/review/" + reviewId))
 			.body(new Success());
@@ -44,7 +44,6 @@ public class ReviewController {
 		final @FetchAuthInfo AuthInfo authInfo,
 		final @PathVariable Long reviewId
 	) {
-
 		reviewService.deleteReview(reviewId, authInfo.userId());
 
 		return ResponseEntity.ok(new Success());

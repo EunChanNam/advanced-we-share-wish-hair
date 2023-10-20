@@ -1,4 +1,4 @@
-package com.inq.wishhair.wesharewishhair.review.service;
+package com.inq.wishhair.wesharewishhair.review.application;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -7,7 +7,7 @@ import com.inq.wishhair.wesharewishhair.global.exception.ErrorCode;
 import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
 import com.inq.wishhair.wesharewishhair.review.domain.likereview.LikeReview;
 import com.inq.wishhair.wesharewishhair.review.domain.likereview.LikeReviewRepository;
-import com.inq.wishhair.wesharewishhair.review.service.dto.response.LikeReviewResponse;
+import com.inq.wishhair.wesharewishhair.review.application.dto.response.LikeReviewResponse;
 
 import lombok.RequiredArgsConstructor;
 

@@ -1,4 +1,4 @@
-package com.inq.wishhair.wesharewishhair.review.infra.query;
+package com.inq.wishhair.wesharewishhair.review.infrastructure;
 
 import static com.inq.wishhair.wesharewishhair.global.utils.SortCondition.*;
 
@@ -10,13 +10,15 @@ import java.util.Optional;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inq.wishhair.wesharewishhair.review.domain.QReview;
-import com.inq.wishhair.wesharewishhair.review.domain.Review;
+import com.inq.wishhair.wesharewishhair.review.domain.entity.Review;
 import com.inq.wishhair.wesharewishhair.review.domain.likereview.QLikeReview;
 import com.inq.wishhair.wesharewishhair.review.infra.query.dto.response.QReviewQueryResponse;
-import com.inq.wishhair.wesharewishhair.review.infra.query.dto.response.ReviewQueryResponse;
+import com.inq.wishhair.wesharewishhair.review.application.query.ReviewQueryRepository;
+import com.inq.wishhair.wesharewishhair.review.application.query.dto.ReviewQueryResponse;
 import com.querydsl.core.types.ConstructorExpression;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.CaseBuilder;
@@ -26,9 +28,10 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import lombok.RequiredArgsConstructor;
 
+@Repository
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class ReviewQueryRepositoryImpl implements ReviewQueryRepository {
+public class ReviewQueryDslRepository implements ReviewQueryRepository {
 
 	private final JPAQueryFactory factory;
 

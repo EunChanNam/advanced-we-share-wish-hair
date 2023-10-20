@@ -2,7 +2,6 @@ package com.inq.wishhair.wesharewishhair.global.mail.event;
 
 import java.io.UnsupportedEncodingException;
 
-import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionPhase;
@@ -22,7 +21,7 @@ public class MailSendEventListener {
 	private final EmailSender emailSender;
 
 	@Async("mailAsyncExecutor")
-	@EventListener
+	@TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
 	public void sendAuthMail(AuthMailSendEvent event) throws MessagingException, UnsupportedEncodingException {
 		emailSender.sendAuthMail(event.email().getValue(), event.authKey());
 	}

@@ -1,4 +1,4 @@
-package com.inq.wishhair.wesharewishhair.review.infra.query;
+package com.inq.wishhair.wesharewishhair.review.application.query;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 
-import com.inq.wishhair.wesharewishhair.review.domain.Review;
-import com.inq.wishhair.wesharewishhair.review.infra.query.dto.response.ReviewQueryResponse;
+import com.inq.wishhair.wesharewishhair.review.domain.entity.Review;
+import com.inq.wishhair.wesharewishhair.review.application.query.dto.ReviewQueryResponse;
 
 public interface ReviewQueryRepository {
 
