@@ -43,7 +43,12 @@ public class HairStyle {
 	private Sex sex;
 
 	//==생성 메서드==//
-	private HairStyle(String name, Sex sex, List<String> photos, List<Tag> tags) {
+	private HairStyle(
+		final String name,
+		final Sex sex,
+		final List<String> photos,
+		final List<Tag> tags
+	) {
 		this.name = name;
 		this.sex = sex;
 		applyPhotos(photos);
@@ -51,16 +56,20 @@ public class HairStyle {
 	}
 
 	public static HairStyle createHairStyle(
-		String name, Sex sex, List<String> photos, List<Tag> tags) {
+		final String name,
+		final Sex sex,
+		final List<String> photos,
+		final List<Tag> tags
+	) {
 		return new HairStyle(name, sex, photos, tags);
 	}
 
 	//==편의 메서드--//
-	private void applyHasTags(List<Tag> tags) {
+	private void applyHasTags(final List<Tag> tags) {
 		tags.forEach(tag -> hashTags.add(HashTag.of(this, tag)));
 	}
 
-	private void applyPhotos(List<String> storeUrls) {
+	private void applyPhotos(final List<String> storeUrls) {
 		storeUrls.forEach(storeUrl -> photos.add(Photo.createHairStylePhoto(storeUrl, this)));
 	}
 }

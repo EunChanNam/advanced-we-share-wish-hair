@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.inq.wishhair.wesharewishhair.global.exception.ErrorCode;
 import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
 import com.inq.wishhair.wesharewishhair.hairstyle.domain.HairStyle;
-import com.inq.wishhair.wesharewishhair.hairstyle.service.HairStyleFindService;
+import com.inq.wishhair.wesharewishhair.hairstyle.application.HairStyleFindService;
 import com.inq.wishhair.wesharewishhair.photo.application.PhotoService;
 import com.inq.wishhair.wesharewishhair.review.presentation.dto.request.ReviewCreateRequest;
 import com.inq.wishhair.wesharewishhair.review.presentation.dto.request.ReviewUpdateRequest;

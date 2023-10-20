@@ -28,14 +28,14 @@ public class WishHair extends BaseEntity {
 	@JoinColumn
 	private Long userId;
 
-	//==생성 메서드==//
-	private WishHair(Long hairStyleId, Long userId) {
+	private WishHair(final Long hairStyleId, final Long userId) {
 		this.hairStyleId = hairStyleId;
 		this.userId = userId;
 		this.createdDate = LocalDateTime.now();
 	}
 
-	public static WishHair createWishHair(Long userId, Long hairStyleId) {
+	//==Factory method==//
+	public static WishHair createWishHair(final Long userId, final  Long hairStyleId) {
 		return new WishHair(hairStyleId, userId);
 	}
 }

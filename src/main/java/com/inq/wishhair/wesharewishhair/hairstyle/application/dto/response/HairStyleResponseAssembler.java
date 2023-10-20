@@ -1,4 +1,4 @@
-package com.inq.wishhair.wesharewishhair.hairstyle.service.dto.response;
+package com.inq.wishhair.wesharewishhair.hairstyle.application.dto.response;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public abstract class HairStyleResponseAssembler {
+public final class HairStyleResponseAssembler {
 
 	public static PagedResponse<HairStyleResponse> toPagedResponse(Slice<HairStyle> sliceResult) {
 		return new PagedResponse<>(transferContentToResponse(sliceResult));

@@ -1,4 +1,4 @@
-package com.inq.wishhair.wesharewishhair.hairstyle.controller;
+package com.inq.wishhair.wesharewishhair.hairstyle.presentation;
 
 import java.util.List;
 
@@ -16,9 +16,9 @@ import com.inq.wishhair.wesharewishhair.global.exception.ErrorCode;
 import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
 import com.inq.wishhair.wesharewishhair.global.resolver.dto.AuthInfo;
 import com.inq.wishhair.wesharewishhair.hairstyle.domain.hashtag.Tag;
-import com.inq.wishhair.wesharewishhair.hairstyle.service.HairStyleSearchService;
-import com.inq.wishhair.wesharewishhair.hairstyle.service.dto.response.HairStyleResponse;
-import com.inq.wishhair.wesharewishhair.hairstyle.service.dto.response.HairStyleSimpleResponse;
+import com.inq.wishhair.wesharewishhair.hairstyle.application.HairStyleSearchService;
+import com.inq.wishhair.wesharewishhair.hairstyle.application.dto.response.HairStyleResponse;
+import com.inq.wishhair.wesharewishhair.hairstyle.application.dto.response.HairStyleSimpleResponse;
 
 import lombok.RequiredArgsConstructor;
 

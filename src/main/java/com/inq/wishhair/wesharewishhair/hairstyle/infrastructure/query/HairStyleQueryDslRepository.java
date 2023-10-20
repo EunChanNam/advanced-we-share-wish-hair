@@ -1,4 +1,4 @@
-package com.inq.wishhair.wesharewishhair.hairstyle.infra.query;
+package com.inq.wishhair.wesharewishhair.hairstyle.infrastructure.query;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -8,6 +8,7 @@ import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.inq.wishhair.wesharewishhair.hairstyle.application.query.HairStyleQueryRepository;
 import com.inq.wishhair.wesharewishhair.hairstyle.domain.HairStyle;
 import com.inq.wishhair.wesharewishhair.hairstyle.domain.QHairStyle;
 import com.inq.wishhair.wesharewishhair.hairstyle.domain.hashtag.QHashTag;
@@ -24,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class HairStyleQueryRepositoryImpl implements HairStyleQueryRepository {
+public class HairStyleQueryDslRepository implements HairStyleQueryRepository {
 
 	private final JPAQueryFactory factory;
 
@@ -38,7 +39,10 @@ public class HairStyleQueryRepositoryImpl implements HairStyleQueryRepository {
 		.otherwise(hairStyle.id.count());
 
 	@Override
-	public List<HairStyle> findByRecommend(HairRecommendCondition condition, Pageable pageable) {
+	public List<HairStyle> findByRecommend(
+		final HairRecommendCondition condition,
+		final Pageable pageable
+	) {
 		List<Long> filteredHairStyles = factory
 			.select(hairStyle.id)
 			.from(hairStyle)
@@ -60,7 +64,10 @@ public class HairStyleQueryRepositoryImpl implements HairStyleQueryRepository {
 	}
 
 	@Override
-	public List<HairStyle> findByFaceShape(HairRecommendCondition condition, Pageable pageable) {
+	public List<HairStyle> findByFaceShape(
+		final HairRecommendCondition condition,
+		final Pageable pageable
+	) {
 		List<Long> filteredHairStyles = factory
 			.select(hairStyle.id)
 			.from(hairStyle)
@@ -82,7 +89,10 @@ public class HairStyleQueryRepositoryImpl implements HairStyleQueryRepository {
 	}
 
 	@Override
-	public Slice<HairStyle> findByWish(Long userId, Pageable pageable) {
+	public Slice<HairStyle> findByWish(
+		final Long userId,
+		final Pageable pageable
+	) {
 		List<HairStyle> hairStyles = factory
 			.select(hairStyle)
 			.from(wish)
@@ -96,19 +106,22 @@ public class HairStyleQueryRepositoryImpl implements HairStyleQueryRepository {
 		return new SliceImpl<>(hairStyles, pageable, validateHasNext(pageable, hairStyles));
 	}
 
-	private BooleanExpression hairStyleIn(List<Long> filteredHairStyles) {
+	private BooleanExpression hairStyleIn(final List<Long> filteredHairStyles) {
 		return (filteredHairStyles != null) ? hairStyle.id.in(filteredHairStyles) : null;
 	}
 
-	private BooleanExpression hashTagInTags(List<Tag> tags) {
+	private BooleanExpression hashTagInTags(final List<Tag> tags) {
 		return hashTag.tag.in(tags);
 	}
 
-	private BooleanExpression hashTagEqFaceShape(Tag faceShpaeTag) {
+	private BooleanExpression hashTagEqFaceShape(final Tag faceShpaeTag) {
 		return (faceShpaeTag != null) ? hashTag.tag.eq(faceShpaeTag) : null;
 	}
 
-	private boolean validateHasNext(Pageable pageable, List<HairStyle> result) {
+	private boolean validateHasNext(
+		final Pageable pageable,
+		final List<HairStyle> result
+	) {
 		if (result.size() > pageable.getPageSize()) {
 			result.remove(pageable.getPageSize());
 			return true;
