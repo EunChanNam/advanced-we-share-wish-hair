@@ -13,12 +13,12 @@ import org.springframework.data.domain.SliceImpl;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.inq.wishhair.wesharewishhair.review.domain.QReview;
+import com.inq.wishhair.wesharewishhair.review.application.query.ReviewQueryRepository;
+import com.inq.wishhair.wesharewishhair.review.application.query.dto.QReviewQueryResponse;
+import com.inq.wishhair.wesharewishhair.review.application.query.dto.ReviewQueryResponse;
+import com.inq.wishhair.wesharewishhair.review.domain.entity.QReview;
 import com.inq.wishhair.wesharewishhair.review.domain.entity.Review;
 import com.inq.wishhair.wesharewishhair.review.domain.likereview.QLikeReview;
-import com.inq.wishhair.wesharewishhair.review.infra.query.dto.response.QReviewQueryResponse;
-import com.inq.wishhair.wesharewishhair.review.application.query.ReviewQueryRepository;
-import com.inq.wishhair.wesharewishhair.review.application.query.dto.ReviewQueryResponse;
 import com.querydsl.core.types.ConstructorExpression;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.CaseBuilder;

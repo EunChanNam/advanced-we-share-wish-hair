@@ -33,17 +33,17 @@ public class HashTag {
 	@JoinColumn(name = "hair_style_id")
 	private HairStyle hairStyle;
 
-	//==생성 메서드==//
-	private HashTag(HairStyle hairStyle, Tag tag) {
+	private HashTag(final HairStyle hairStyle, final Tag tag) {
 		this.hairStyle = hairStyle;
 		this.tag = tag;
 	}
 
-	public static HashTag of(HairStyle hairStyle, Tag tag) {
+	//==Factory method==//
+	public static HashTag of(final HairStyle hairStyle, final Tag tag) {
 		return new HashTag(hairStyle, tag);
 	}
 
-	//==편의 메서드==//
+	//==Utility method==//
 	public String getDescription() {
 		return tag.getDescription();
 	}

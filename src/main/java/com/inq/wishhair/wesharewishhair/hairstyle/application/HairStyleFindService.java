@@ -1,4 +1,4 @@
-package com.inq.wishhair.wesharewishhair.hairstyle.service;
+package com.inq.wishhair.wesharewishhair.hairstyle.application;
 
 import org.springframework.stereotype.Service;
 

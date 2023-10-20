@@ -1,12 +1,13 @@
 package com.inq.wishhair.wesharewishhair.hairstyle.domain;
 
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+public interface HairStyleRepository {
 
-import com.inq.wishhair.wesharewishhair.hairstyle.infra.query.HairStyleQueryRepository;
+	HairStyle save(HairStyle hairStyle);
 
-public interface HairStyleRepository extends JpaRepository<HairStyle, Long>, HairStyleQueryRepository {
+	Optional<HairStyle> findById(Long id);
 
 	List<HairStyle> findAllByOrderByName();
 }

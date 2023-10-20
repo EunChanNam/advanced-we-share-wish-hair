@@ -1,4 +1,4 @@
-package com.inq.wishhair.wesharewishhair.hairstyle.controller;
+package com.inq.wishhair.wesharewishhair.hairstyle.presentation;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.inq.wishhair.wesharewishhair.global.annotation.FetchAuthInfo;
 import com.inq.wishhair.wesharewishhair.global.dto.response.Success;
 import com.inq.wishhair.wesharewishhair.global.resolver.dto.AuthInfo;
-import com.inq.wishhair.wesharewishhair.hairstyle.service.WishHairService;
-import com.inq.wishhair.wesharewishhair.hairstyle.service.dto.response.WishHairResponse;
+import com.inq.wishhair.wesharewishhair.hairstyle.application.WishHairService;
+import com.inq.wishhair.wesharewishhair.hairstyle.application.dto.response.WishHairResponse;
 
 import lombok.RequiredArgsConstructor;
 

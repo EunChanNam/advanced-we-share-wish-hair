@@ -1,4 +1,4 @@
-package com.inq.wishhair.wesharewishhair.hairstyle.infra.query;
+package com.inq.wishhair.wesharewishhair.hairstyle.application.query;
 
 import java.util.List;
 
