@@ -1,4 +1,4 @@
-package com.inq.wishhair.wesharewishhair.review.controller;
+package com.inq.wishhair.wesharewishhair.review.presentation;
 
 import static com.inq.wishhair.wesharewishhair.global.utils.SortCondition.*;
 
@@ -15,10 +15,10 @@ import com.inq.wishhair.wesharewishhair.global.annotation.FetchAuthInfo;
 import com.inq.wishhair.wesharewishhair.global.dto.response.PagedResponse;
 import com.inq.wishhair.wesharewishhair.global.dto.response.ResponseWrapper;
 import com.inq.wishhair.wesharewishhair.global.resolver.dto.AuthInfo;
-import com.inq.wishhair.wesharewishhair.review.service.ReviewSearchService;
-import com.inq.wishhair.wesharewishhair.review.service.dto.response.ReviewDetailResponse;
-import com.inq.wishhair.wesharewishhair.review.service.dto.response.ReviewResponse;
-import com.inq.wishhair.wesharewishhair.review.service.dto.response.ReviewSimpleResponse;
+import com.inq.wishhair.wesharewishhair.review.application.ReviewSearchService;
+import com.inq.wishhair.wesharewishhair.review.application.dto.response.ReviewDetailResponse;
+import com.inq.wishhair.wesharewishhair.review.application.dto.response.ReviewResponse;
+import com.inq.wishhair.wesharewishhair.review.application.dto.response.ReviewSimpleResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -34,7 +34,6 @@ public class ReviewSearchController {
 		final @PathVariable Long reviewId,
 		final @FetchAuthInfo AuthInfo authInfo
 	) {
-
 		ReviewDetailResponse result = reviewSearchService.findReviewById(authInfo.userId(), reviewId);
 
 		return ResponseEntity.ok(result);
@@ -45,7 +44,6 @@ public class ReviewSearchController {
 		final @PageableDefault(sort = LIKES, direction = Sort.Direction.DESC) Pageable pageable,
 		final @FetchAuthInfo AuthInfo authInfo
 	) {
-
 		PagedResponse<ReviewResponse> result = reviewSearchService.findPagedReviews(authInfo.userId(), pageable);
 
 		return ResponseEntity.ok(result);
@@ -56,7 +54,6 @@ public class ReviewSearchController {
 		final @PageableDefault(sort = DATE, direction = Sort.Direction.DESC) Pageable pageable,
 		final @FetchAuthInfo AuthInfo authInfo
 	) {
-
 		PagedResponse<ReviewResponse> result = reviewSearchService.findMyReviews(authInfo.userId(), pageable);
 
 		return ResponseEntity.ok(result);
@@ -64,7 +61,6 @@ public class ReviewSearchController {
 
 	@GetMapping("/month")
 	public ResponseWrapper<ReviewSimpleResponse> findReviewOfMonth() {
-
 		return reviewSearchService.findReviewOfMonth();
 	}
 

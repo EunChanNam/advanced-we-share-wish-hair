@@ -1,6 +1,6 @@
-package com.inq.wishhair.wesharewishhair.review.service;
+package com.inq.wishhair.wesharewishhair.review.application;
 
-import static com.inq.wishhair.wesharewishhair.review.service.dto.response.ReviewResponseAssembler.*;
+import static com.inq.wishhair.wesharewishhair.review.application.dto.response.ReviewResponseAssembler.*;
 
 import java.util.List;
 
@@ -14,13 +14,13 @@ import com.inq.wishhair.wesharewishhair.global.dto.response.PagedResponse;
 import com.inq.wishhair.wesharewishhair.global.dto.response.ResponseWrapper;
 import com.inq.wishhair.wesharewishhair.global.exception.ErrorCode;
 import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
-import com.inq.wishhair.wesharewishhair.review.domain.Review;
-import com.inq.wishhair.wesharewishhair.review.domain.ReviewRepository;
+import com.inq.wishhair.wesharewishhair.review.application.dto.response.ReviewDetailResponse;
+import com.inq.wishhair.wesharewishhair.review.application.dto.response.ReviewResponse;
+import com.inq.wishhair.wesharewishhair.review.application.dto.response.ReviewSimpleResponse;
+import com.inq.wishhair.wesharewishhair.review.application.query.ReviewQueryRepository;
+import com.inq.wishhair.wesharewishhair.review.application.query.dto.ReviewQueryResponse;
+import com.inq.wishhair.wesharewishhair.review.domain.entity.Review;
 import com.inq.wishhair.wesharewishhair.review.domain.likereview.LikeReviewRepository;
-import com.inq.wishhair.wesharewishhair.review.infra.query.dto.response.ReviewQueryResponse;
-import com.inq.wishhair.wesharewishhair.review.service.dto.response.ReviewDetailResponse;
-import com.inq.wishhair.wesharewishhair.review.service.dto.response.ReviewResponse;
-import com.inq.wishhair.wesharewishhair.review.service.dto.response.ReviewSimpleResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -29,7 +29,7 @@ import lombok.RequiredArgsConstructor;
 @Transactional(readOnly = true)
 public class ReviewSearchService {
 
-	private final ReviewRepository reviewRepository;
+	private final ReviewQueryRepository reviewRepository;
 	private final LikeReviewRepository likeReviewRepository;
 
 	/*리뷰 단건 조회*/

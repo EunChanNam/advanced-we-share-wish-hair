@@ -3,28 +3,19 @@ package com.inq.wishhair.wesharewishhair.review.domain;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+import com.inq.wishhair.wesharewishhair.review.domain.entity.Review;
 
-import com.inq.wishhair.wesharewishhair.review.infra.query.ReviewQueryRepository;
+public interface ReviewRepository {
 
-public interface ReviewRepository extends JpaRepository<Review, Long>, ReviewQueryRepository {
+	Review save(Review review);
 
 	//review find service - 리뷰 단순 조회
-	@Query("select distinct r from Review r " +
-		"left outer join fetch r.photos " +
-		"where r.id = :id")
-	Optional<Review> findWithPhotosById(@Param("id") Long id);
+	Optional<Review> findWithPhotosById(Long id);
 
 	//회원 탈퇴를 위한 사용자가 작성한 리뷰 조회
-	@Query("select distinct r from Review r " +
-		"left outer join fetch r.photos " +
-		"where r.writer.id = :userId")
-	List<Review> findWithPhotosByUserId(@Param("userId") Long userId);
+	List<Review> findWithPhotosByUserId(Long userId);
 
-	@Modifying
-	@Query("delete from Review r where r.id in :reviewIds")
-	void deleteAllByWriter(@Param("reviewIds") List<Long> reviewIds);
+	void deleteAllByWriter(List<Long> reviewIds);
+
+	void delete(Review review);
 }

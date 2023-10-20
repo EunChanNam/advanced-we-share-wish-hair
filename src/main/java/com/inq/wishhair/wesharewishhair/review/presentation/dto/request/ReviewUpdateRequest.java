@@ -1,10 +1,10 @@
-package com.inq.wishhair.wesharewishhair.review.controller.dto.request;
+package com.inq.wishhair.wesharewishhair.review.presentation.dto.request;
 
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.inq.wishhair.wesharewishhair.review.domain.Score;
+import com.inq.wishhair.wesharewishhair.review.domain.entity.Score;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;

@@ -1,4 +1,4 @@
-package com.inq.wishhair.wesharewishhair.review.domain;
+package com.inq.wishhair.wesharewishhair.review.domain.entity;
 
 import lombok.Getter;
 

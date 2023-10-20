@@ -1,4 +1,4 @@
-package com.inq.wishhair.wesharewishhair.review.service.dto.response;
+package com.inq.wishhair.wesharewishhair.review.application.dto.response;
 
 import static com.inq.wishhair.wesharewishhair.hairstyle.service.dto.response.HairStyleResponseAssembler.*;
 import static com.inq.wishhair.wesharewishhair.photo.application.dto.response.PhotoResponseAssembler.*;
@@ -9,14 +9,14 @@ import org.springframework.data.domain.Slice;
 
 import com.inq.wishhair.wesharewishhair.global.dto.response.PagedResponse;
 import com.inq.wishhair.wesharewishhair.global.dto.response.ResponseWrapper;
-import com.inq.wishhair.wesharewishhair.review.domain.Review;
-import com.inq.wishhair.wesharewishhair.review.infra.query.dto.response.ReviewQueryResponse;
+import com.inq.wishhair.wesharewishhair.review.application.query.dto.ReviewQueryResponse;
+import com.inq.wishhair.wesharewishhair.review.domain.entity.Review;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public abstract class ReviewResponseAssembler {
+public final class ReviewResponseAssembler {
 
 	public static PagedResponse<ReviewResponse> toPagedReviewResponse(Slice<ReviewQueryResponse> slice) {
 		return new PagedResponse<>(transferContentToResponse(slice));
@@ -27,7 +27,7 @@ public abstract class ReviewResponseAssembler {
 	}
 
 	public static ReviewResponse toReviewResponse(ReviewQueryResponse queryResponse) {
-		Review review = queryResponse.getReview();
+		Review review = queryResponse.review();
 
 		return ReviewResponse.builder()
 			.reviewId(review.getId())
@@ -37,7 +37,7 @@ public abstract class ReviewResponseAssembler {
 			.contents(review.getContentsValue())
 			.createdDate(review.getCreatedDate())
 			.photos(toPhotoResponses(review.getPhotos()))
-			.likes(queryResponse.getLikes())
+			.likes(queryResponse.likes())
 			.hashTags(toHashTagResponses(review.getHairStyle().getHashTags()))
 			.writerId(review.getWriter().getId())
 			.build();

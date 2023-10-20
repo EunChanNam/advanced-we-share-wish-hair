@@ -1,4 +1,4 @@
-package com.inq.wishhair.wesharewishhair.review.domain;
+package com.inq.wishhair.wesharewishhair.review.domain.entity;
 
 import com.inq.wishhair.wesharewishhair.global.exception.ErrorCode;
 import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;

@@ -10,7 +10,7 @@ import com.inq.wishhair.wesharewishhair.global.dto.response.SimpleResponseWrappe
 import com.inq.wishhair.wesharewishhair.global.exception.ErrorCode;
 import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
 import com.inq.wishhair.wesharewishhair.hairstyle.domain.hashtag.Tag;
-import com.inq.wishhair.wesharewishhair.review.service.ReviewService;
+import com.inq.wishhair.wesharewishhair.review.application.ReviewService;
 import com.inq.wishhair.wesharewishhair.user.presentation.dto.request.PasswordRefreshRequest;
 import com.inq.wishhair.wesharewishhair.user.presentation.dto.request.PasswordUpdateRequest;
 import com.inq.wishhair.wesharewishhair.user.presentation.dto.request.SignUpRequest;

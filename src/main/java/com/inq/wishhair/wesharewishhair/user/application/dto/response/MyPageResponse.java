@@ -2,7 +2,7 @@ package com.inq.wishhair.wesharewishhair.user.application.dto.response;
 
 import java.util.List;
 
-import com.inq.wishhair.wesharewishhair.review.service.dto.response.ReviewResponse;
+import com.inq.wishhair.wesharewishhair.review.application.dto.response.ReviewResponse;
 import com.inq.wishhair.wesharewishhair.user.domain.entity.Sex;
 import com.inq.wishhair.wesharewishhair.user.domain.entity.User;
 

@@ -8,8 +8,8 @@ import org.aspectj.lang.annotation.Pointcut;
 import com.inq.wishhair.wesharewishhair.global.dto.response.ListResponse;
 import com.inq.wishhair.wesharewishhair.global.exception.ErrorCode;
 import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
-import com.inq.wishhair.wesharewishhair.review.service.dto.response.ReviewDetailResponse;
-import com.inq.wishhair.wesharewishhair.review.service.dto.response.ReviewResponse;
+import com.inq.wishhair.wesharewishhair.review.application.dto.response.ReviewDetailResponse;
+import com.inq.wishhair.wesharewishhair.review.application.dto.response.ReviewResponse;
 
 @Aspect
 public class AddIsWriterAspect {
@@ -19,7 +19,7 @@ public class AddIsWriterAspect {
 	private void listResponsePointcut() {
 	}
 
-	@Pointcut("execution(com.inq.wishhair.wesharewishhair.review.service.dto.response.ReviewDetailResponse *(..))")
+	@Pointcut("execution(com.inq.wishhair.wesharewishhair.review.application.dto.response.ReviewDetailResponse *(..))")
 	private void reviewDetailResponsePointcut() {
 	}
 
@@ -43,7 +43,7 @@ public class AddIsWriterAspect {
 	public Object addIsWriterToReviewDetailResponse(ProceedingJoinPoint joinPoint, Long userId) throws Throwable {
 		ReviewDetailResponse result = (ReviewDetailResponse)joinPoint.proceed();
 
-		result.getReviewResponse().addIsWriter(userId);
+		result.reviewResponse().addIsWriter(userId);
 		return result;
 	}
 }
