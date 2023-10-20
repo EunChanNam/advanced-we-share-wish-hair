@@ -1,7 +1,7 @@
 package com.inq.wishhair.wesharewishhair.photo.domain;
 
 import com.inq.wishhair.wesharewishhair.hairstyle.domain.HairStyle;
-import com.inq.wishhair.wesharewishhair.review.domain.Review;
+import com.inq.wishhair.wesharewishhair.review.domain.entity.Review;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

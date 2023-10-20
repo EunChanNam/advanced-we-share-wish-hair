@@ -1,4 +1,4 @@
-package com.inq.wishhair.wesharewishhair.review.service;
+package com.inq.wishhair.wesharewishhair.review.application;
 
 import java.util.List;
 
@@ -12,10 +12,10 @@ import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
 import com.inq.wishhair.wesharewishhair.hairstyle.domain.HairStyle;
 import com.inq.wishhair.wesharewishhair.hairstyle.service.HairStyleFindService;
 import com.inq.wishhair.wesharewishhair.photo.application.PhotoService;
-import com.inq.wishhair.wesharewishhair.review.controller.dto.request.ReviewCreateRequest;
-import com.inq.wishhair.wesharewishhair.review.controller.dto.request.ReviewUpdateRequest;
-import com.inq.wishhair.wesharewishhair.review.domain.Contents;
-import com.inq.wishhair.wesharewishhair.review.domain.Review;
+import com.inq.wishhair.wesharewishhair.review.presentation.dto.request.ReviewCreateRequest;
+import com.inq.wishhair.wesharewishhair.review.presentation.dto.request.ReviewUpdateRequest;
+import com.inq.wishhair.wesharewishhair.review.domain.entity.Contents;
+import com.inq.wishhair.wesharewishhair.review.domain.entity.Review;
 import com.inq.wishhair.wesharewishhair.review.domain.ReviewRepository;
 import com.inq.wishhair.wesharewishhair.review.domain.likereview.LikeReviewRepository;
 import com.inq.wishhair.wesharewishhair.review.event.PointChargeEvent;

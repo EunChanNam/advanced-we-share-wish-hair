@@ -1,4 +1,4 @@
-package com.inq.wishhair.wesharewishhair.review.domain;
+package com.inq.wishhair.wesharewishhair.review.domain.entity;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -52,7 +52,6 @@ public class Review extends BaseEntity {
 	@JoinColumn(name = "hair_style_id")
 	private HairStyle hairStyle;
 
-	//==생성 메서드==//
 	private Review(User writer, String contents, Score score, List<String> photos, HairStyle hairStyle) {
 		this.writer = writer;
 		this.contents = new Contents(contents);
@@ -62,12 +61,13 @@ public class Review extends BaseEntity {
 		this.createdDate = LocalDateTime.now();
 	}
 
+	//==Factory method==//
 	public static Review createReview(
 		User user, String contents, Score score, List<String> photos, HairStyle hairStyle) {
 		return new Review(user, contents, score, photos, hairStyle);
 	}
 
-	//편의 메서드
+	//==Business method==//
 	public String getContentsValue() {
 		return contents.getValue();
 	}

@@ -4,7 +4,7 @@ import org.springframework.core.convert.converter.Converter;
 
 import com.inq.wishhair.wesharewishhair.global.exception.ErrorCode;
 import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
-import com.inq.wishhair.wesharewishhair.review.domain.Score;
+import com.inq.wishhair.wesharewishhair.review.domain.entity.Score;
 
 public class ScoreConverter implements Converter<String, Score> {
 

@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.inq.wishhair.wesharewishhair.photo.domain.Photo;
 import com.inq.wishhair.wesharewishhair.photo.domain.PhotoRepository;
 import com.inq.wishhair.wesharewishhair.photo.domain.PhotoStore;
-import com.inq.wishhair.wesharewishhair.review.domain.Review;
+import com.inq.wishhair.wesharewishhair.review.domain.entity.Review;
 
 import lombok.RequiredArgsConstructor;
 
