@@ -21,8 +21,8 @@ import com.inq.wishhair.wesharewishhair.hairstyle.domain.hashtag.Tag;
 import com.inq.wishhair.wesharewishhair.hairstyle.service.dto.response.HairStyleResponse;
 import com.inq.wishhair.wesharewishhair.hairstyle.service.dto.response.HairStyleSimpleResponse;
 import com.inq.wishhair.wesharewishhair.hairstyle.utils.HairRecommendCondition;
-import com.inq.wishhair.wesharewishhair.user.domain.User;
-import com.inq.wishhair.wesharewishhair.user.service.UserFindService;
+import com.inq.wishhair.wesharewishhair.user.domain.entity.User;
+import com.inq.wishhair.wesharewishhair.user.application.UserFindService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

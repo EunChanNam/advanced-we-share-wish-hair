@@ -6,7 +6,7 @@ import java.util.List;
 import com.inq.wishhair.wesharewishhair.hairstyle.domain.hashtag.HashTag;
 import com.inq.wishhair.wesharewishhair.hairstyle.domain.hashtag.Tag;
 import com.inq.wishhair.wesharewishhair.photo.domain.Photo;
-import com.inq.wishhair.wesharewishhair.user.domain.Sex;
+import com.inq.wishhair.wesharewishhair.user.domain.entity.Sex;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

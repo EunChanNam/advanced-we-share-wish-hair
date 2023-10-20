@@ -1,7 +1,7 @@
 package com.inq.wishhair.wesharewishhair.point.domain;
 
 import com.inq.wishhair.wesharewishhair.global.auditing.BaseEntity;
-import com.inq.wishhair.wesharewishhair.user.domain.User;
+import com.inq.wishhair.wesharewishhair.user.domain.entity.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
