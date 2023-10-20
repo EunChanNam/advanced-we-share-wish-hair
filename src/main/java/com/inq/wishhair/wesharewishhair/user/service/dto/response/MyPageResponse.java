@@ -21,10 +21,13 @@ public class MyPageResponse {
 
 	private List<ReviewResponse> reviews;
 
-	public MyPageResponse(User user, List<ReviewResponse> reviewResponses) {
+	public MyPageResponse(
+		final User user,
+		final List<ReviewResponse> reviewResponses,
+		final int point) {
 		this.nickname = user.getNicknameValue();
 		this.sex = user.getSex();
-		this.point = user.getPoints();
+		this.point = point;
 		this.reviews = reviewResponses;
 	}
 }

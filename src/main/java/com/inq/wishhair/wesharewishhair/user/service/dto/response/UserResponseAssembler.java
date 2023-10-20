@@ -1,13 +1,10 @@
 package com.inq.wishhair.wesharewishhair.user.service.dto.response;
 
-import java.util.List;
-
 import org.springframework.data.domain.Slice;
 
 import com.inq.wishhair.wesharewishhair.global.dto.response.PagedResponse;
 import com.inq.wishhair.wesharewishhair.point.application.dto.PointResponse;
 import com.inq.wishhair.wesharewishhair.point.domain.PointLog;
-import com.inq.wishhair.wesharewishhair.review.service.dto.response.ReviewResponse;
 import com.inq.wishhair.wesharewishhair.user.domain.User;
 
 import lombok.AccessLevel;
@@ -22,10 +19,6 @@ public abstract class UserResponseAssembler {
 
 	private static Slice<PointResponse> transferContentToResponse(Slice<PointLog> slice) {
 		return slice.map(PointResponse::new);
-	}
-
-	public static MyPageResponse toMyPageResponse(User user, List<ReviewResponse> reviewResponses) {
-		return new MyPageResponse(user, reviewResponses);
 	}
 
 	public static UserInformation toUserInformation(User user) {
