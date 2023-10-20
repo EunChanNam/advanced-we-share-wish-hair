@@ -16,8 +16,8 @@ import com.inq.wishhair.wesharewishhair.hairstyle.controller.WishHairController;
 import com.inq.wishhair.wesharewishhair.review.controller.LikeReviewController;
 import com.inq.wishhair.wesharewishhair.review.controller.ReviewController;
 import com.inq.wishhair.wesharewishhair.review.controller.ReviewSearchController;
-import com.inq.wishhair.wesharewishhair.user.controller.PointController;
-import com.inq.wishhair.wesharewishhair.user.controller.PointSearchController;
+import com.inq.wishhair.wesharewishhair.point.presentation.PointController;
+import com.inq.wishhair.wesharewishhair.point.presentation.PointSearchController;
 import com.inq.wishhair.wesharewishhair.user.controller.UserController;
 import com.inq.wishhair.wesharewishhair.user.controller.UserInfoController;
 

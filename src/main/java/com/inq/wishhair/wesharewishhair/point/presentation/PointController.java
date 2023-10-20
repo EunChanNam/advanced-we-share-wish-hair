@@ -1,4 +1,4 @@
-package com.inq.wishhair.wesharewishhair.user.controller;
+package com.inq.wishhair.wesharewishhair.point.presentation;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.inq.wishhair.wesharewishhair.global.annotation.FetchAuthInfo;
 import com.inq.wishhair.wesharewishhair.global.dto.response.Success;
 import com.inq.wishhair.wesharewishhair.global.resolver.dto.AuthInfo;
-import com.inq.wishhair.wesharewishhair.user.controller.dto.request.PointUseRequest;
-import com.inq.wishhair.wesharewishhair.user.service.PointService;
+import com.inq.wishhair.wesharewishhair.point.application.dto.PointUseRequest;
+import com.inq.wishhair.wesharewishhair.point.application.PointService;
 
 import lombok.RequiredArgsConstructor;
 

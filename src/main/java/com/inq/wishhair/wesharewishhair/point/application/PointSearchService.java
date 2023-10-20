@@ -1,4 +1,4 @@
-package com.inq.wishhair.wesharewishhair.user.service;
+package com.inq.wishhair.wesharewishhair.point.application;
 
 import static com.inq.wishhair.wesharewishhair.user.service.dto.response.UserResponseAssembler.*;
 
@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inq.wishhair.wesharewishhair.global.dto.response.PagedResponse;
-import com.inq.wishhair.wesharewishhair.user.domain.point.PointHistory;
-import com.inq.wishhair.wesharewishhair.user.domain.point.PointSearchRepository;
-import com.inq.wishhair.wesharewishhair.user.service.dto.response.PointResponse;
+import com.inq.wishhair.wesharewishhair.point.domain.PointLog;
+import com.inq.wishhair.wesharewishhair.point.domain.PointLogRepository;
+import com.inq.wishhair.wesharewishhair.point.application.dto.PointResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,11 +19,14 @@ import lombok.RequiredArgsConstructor;
 @Transactional(readOnly = true)
 public class PointSearchService {
 
-	private final PointSearchRepository pointSearchRepository;
+	private final PointLogRepository pointLogRepository;
 
-	public PagedResponse<PointResponse> findPointHistories(Long userId, Pageable pageable) {
+	public PagedResponse<PointResponse> getPointHistories(
+		final Long userId,
+		final Pageable pageable
+	) {
 
-		Slice<PointHistory> result = pointSearchRepository.findByUserIdOrderByNew(userId, pageable);
+		Slice<PointLog> result = pointLogRepository.findByUserIdOrderByNew(userId, pageable);
 		return toPagedResponse(result);
 	}
 }
