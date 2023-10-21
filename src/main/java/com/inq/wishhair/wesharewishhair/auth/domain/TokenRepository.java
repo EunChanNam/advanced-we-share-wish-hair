@@ -10,7 +10,7 @@ public interface TokenRepository {
 
 	Optional<Token> findByUserId(Long userId);
 
-	Optional<Token> findByUserIdAndRefreshToken(Long userId, String refreshToken);
+	boolean existsByUserIdAndRefreshToken(Long userId, String refreshToken);
 
 	void deleteByUserId(Long userId);
 

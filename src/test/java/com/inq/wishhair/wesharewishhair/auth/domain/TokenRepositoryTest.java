@@ -39,19 +39,20 @@ class TokenRepositoryTest extends RepositoryTestSupport {
 	}
 
 	@Test
-	@DisplayName("[해당 유저 아이디와 리프래쉬 토큰을 가진 토큰을 조회한다]")
+	@DisplayName("[해당 유저 아이디와 리프래쉬 토큰을 가진 토큰의 존재여부를 조회한다]")
 	void findByUserIdAndRefreshToken() {
 		//given
 		final String refreshToken = "token";
 		final long userId = 1L;
+
 		Token token = Token.issue(userId, refreshToken);
 		tokenRepository.save(token);
 
 		//when
-		Optional<Token> actual = tokenRepository.findByUserIdAndRefreshToken(userId, refreshToken);
+		boolean actual = tokenRepository.existsByUserIdAndRefreshToken(userId, refreshToken);
 
 		//then
-		assertThat(actual).contains(token);
+		assertThat(actual).isTrue();
 	}
 
 	@Test
