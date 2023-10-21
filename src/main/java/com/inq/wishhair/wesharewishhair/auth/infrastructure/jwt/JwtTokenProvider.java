@@ -38,12 +38,12 @@ public class JwtTokenProvider {
 		this.refreshTokenValidity = refreshTokenValidity;
 	}
 
-	public String createAccessToken(final Long memberId) {
-		return createToken(memberId, accessTokenValidity);
+	public String createAccessToken(final Long userId) {
+		return createToken(userId, accessTokenValidity);
 	}
 
-	public String createRefreshToken(final Long memberId) {
-		return createToken(memberId, refreshTokenValidity);
+	public String createRefreshToken(final Long userId) {
+		return createToken(userId, refreshTokenValidity);
 	}
 
 	public Long getPayload(final String token) {
