@@ -38,12 +38,10 @@ public class MailAuthService {
 
 	public void checkAuthCode(
 		final String email,
-		final String authCode
+		final String code
 	) {
 		authCodeRepository.findByEmail(email)
-			.filter(actualAuthCode -> actualAuthCode.getCode().equals(authCode))
+			.filter(authCode -> authCode.getCode().equals(code))
 			.orElseThrow(() -> new WishHairException(AUTH_INVALID_AUTH_CODE));
-
-		authCodeRepository.deleteByEmail(email);
 	}
 }

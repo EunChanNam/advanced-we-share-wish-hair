@@ -9,6 +9,8 @@ import com.inq.wishhair.wesharewishhair.auth.domain.entity.AuthCode;
 
 public interface AuthCodeJpaRepository extends AuthCodeRepository, JpaRepository<AuthCode, Long> {
 
+	void deleteById(Long id);
+
 	@Override
 	void deleteByEmail(String email);
 
