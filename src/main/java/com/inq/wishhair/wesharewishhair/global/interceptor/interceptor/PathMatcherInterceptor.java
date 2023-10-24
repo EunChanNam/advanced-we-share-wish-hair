@@ -24,35 +24,38 @@ public class PathMatcherInterceptor implements HandlerInterceptor {
 		final HttpServletResponse response,
 		final Object handler
 	) throws Exception {
+		boolean interceptorRequired = pathMatcherContainer.isInterceptorRequired(
+			request.getRequestURI(), HttpMethod.valueOf(request.getMethod())
+		);
 
-		if (pathMatcherContainer.isInterceptorRequired(request.getRequestURI(), request.getMethod())) {
+		if (interceptorRequired) {
 			return target.preHandle(request, response, handler);
 		}
 		return true;
 	}
 
 	public PathMatcherInterceptor addIncludePathPattern(final String pathPattern, final HttpMethod method) {
-		pathMatcherContainer.includePathPattern(pathPattern, method.toString());
+		pathMatcherContainer.includePathPattern(pathPattern, method);
 		return this;
 	}
 
 	public PathMatcherInterceptor addIncludePathPattern(final String pathPattern) {
 		Arrays.stream(HttpMethod.values())
 				.forEach(method ->
-					pathMatcherContainer.includePathPattern(pathPattern, method.toString()));
+					pathMatcherContainer.includePathPattern(pathPattern, method));
 
 		return this;
 	}
 
 	public PathMatcherInterceptor addExcludePathPattern(final String pathPattern, final HttpMethod method) {
-		pathMatcherContainer.excludePathPattern(pathPattern, method.toString());
+		pathMatcherContainer.excludePathPattern(pathPattern, method);
 		return this;
 	}
 
 	public PathMatcherInterceptor addExcludePathPattern(final String pathPattern) {
 		Arrays.stream(HttpMethod.values())
 			.forEach(method ->
-				pathMatcherContainer.excludePathPattern(pathPattern, method.toString()));
+				pathMatcherContainer.excludePathPattern(pathPattern, method));
 
 		return this;
 	}

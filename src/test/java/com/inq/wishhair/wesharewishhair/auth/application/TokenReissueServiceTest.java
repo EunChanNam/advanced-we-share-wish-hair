@@ -16,8 +16,7 @@ import com.inq.wishhair.wesharewishhair.auth.application.dto.response.TokenRespo
 import com.inq.wishhair.wesharewishhair.auth.domain.AuthToken;
 import com.inq.wishhair.wesharewishhair.auth.domain.AuthTokenManager;
 import com.inq.wishhair.wesharewishhair.auth.domain.TokenRepository;
-import com.inq.wishhair.wesharewishhair.auth.infrastructure.jwt.AuthAuthTokenManagerAdaptor;
-import com.inq.wishhair.wesharewishhair.auth.stub.JwtTokenProviderStub;
+import com.inq.wishhair.wesharewishhair.auth.stub.AuthTokenMangerStub;
 import com.inq.wishhair.wesharewishhair.global.exception.ErrorCode;
 import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
 
@@ -31,7 +30,7 @@ class TokenReissueServiceTest {
 
 	public TokenReissueServiceTest() {
 		this.tokenRepository = Mockito.mock(TokenRepository.class);
-		this.authTokenManager = new AuthAuthTokenManagerAdaptor(new JwtTokenProviderStub());
+		this.authTokenManager = new AuthTokenMangerStub();
 		this.tokenReissueService = new TokenReissueService(tokenRepository, authTokenManager);
 	}
 

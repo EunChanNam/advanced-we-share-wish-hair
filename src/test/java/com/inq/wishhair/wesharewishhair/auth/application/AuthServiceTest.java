@@ -10,9 +10,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.inq.wishhair.wesharewishhair.auth.application.dto.response.LoginResponse;
@@ -21,8 +19,7 @@ import com.inq.wishhair.wesharewishhair.auth.domain.AuthTokenManager;
 import com.inq.wishhair.wesharewishhair.auth.domain.TokenRepository;
 import com.inq.wishhair.wesharewishhair.auth.domain.entity.Token;
 import com.inq.wishhair.wesharewishhair.auth.fixture.TokenFixture;
-import com.inq.wishhair.wesharewishhair.auth.infrastructure.jwt.AuthAuthTokenManagerAdaptor;
-import com.inq.wishhair.wesharewishhair.auth.stub.JwtTokenProviderStub;
+import com.inq.wishhair.wesharewishhair.auth.stub.AuthTokenMangerStub;
 import com.inq.wishhair.wesharewishhair.global.exception.ErrorCode;
 import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
 import com.inq.wishhair.wesharewishhair.user.domain.UserRepository;
@@ -30,7 +27,6 @@ import com.inq.wishhair.wesharewishhair.user.domain.entity.Email;
 import com.inq.wishhair.wesharewishhair.user.domain.entity.User;
 import com.inq.wishhair.wesharewishhair.user.fixture.UserFixture;
 
-@ExtendWith(MockitoExtension.class)
 @DisplayName("[AuthService Test] - Application Layer")
 class AuthServiceTest {
 
@@ -48,7 +44,7 @@ class AuthServiceTest {
 		this.userRepository = Mockito.mock(UserRepository.class);
 		this.tokenRepository = Mockito.mock(TokenRepository.class);
 		this.passwordEncoder = Mockito.mock(PasswordEncoder.class);
-		this.authTokenManager = new AuthAuthTokenManagerAdaptor(new JwtTokenProviderStub());
+		this.authTokenManager = new AuthTokenMangerStub();
 		this.authService = new AuthService(
 			userRepository,
 			tokenRepository,
