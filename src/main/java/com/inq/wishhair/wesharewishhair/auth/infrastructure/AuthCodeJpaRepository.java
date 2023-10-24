@@ -12,8 +12,5 @@ public interface AuthCodeJpaRepository extends AuthCodeRepository, JpaRepository
 	void deleteById(Long id);
 
 	@Override
-	void deleteByEmail(String email);
-
-	@Override
 	Optional<AuthCode> findByEmail(String email);
 }

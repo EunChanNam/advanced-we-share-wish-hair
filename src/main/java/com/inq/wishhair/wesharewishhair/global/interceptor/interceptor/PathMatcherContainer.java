@@ -3,6 +3,7 @@ package com.inq.wishhair.wesharewishhair.global.interceptor.interceptor;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
 
@@ -18,7 +19,7 @@ public class PathMatcherContainer {
 		excludePath = new HashSet<>();
 	}
 
-	public boolean isInterceptorRequired(final String path, final String method) {
+	public boolean isInterceptorRequired(final String path, final HttpMethod method) {
 		boolean isInclude = includePath.stream()
 			.anyMatch(include -> matches(include, path, method));
 
@@ -28,27 +29,27 @@ public class PathMatcherContainer {
 		return isNotExclude && isInclude;
 	}
 
-	public void includePathPattern(final String pathPattern, final String method) {
+	public void includePathPattern(final String pathPattern, final HttpMethod method) {
 		includePath.add(new PathInfo(pathPattern, method));
 	}
 
-	public void excludePathPattern(final String pathPattern, final String method) {
+	public void excludePathPattern(final String pathPattern, final HttpMethod method) {
 		excludePath.add(new PathInfo(pathPattern, method));
 	}
 
 	private boolean matches(
 		final PathInfo pathInfo,
 		final String targetPath,
-		final String targetMethod
+		final HttpMethod targetMethod
 	) {
-		boolean match = pathMatcher.match(pathInfo.pathPattern, targetPath);
-		boolean equals = pathInfo.method.equals(targetMethod);
-		return match && equals;
+		boolean pathMatch = pathMatcher.match(pathInfo.pathPattern, targetPath);
+		boolean methodMath = pathInfo.method.equals(targetMethod);
+		return pathMatch && methodMath;
 	}
 
 	private record PathInfo(
 		String pathPattern,
-		String method
+		HttpMethod method
 	) {
 	}
 }
