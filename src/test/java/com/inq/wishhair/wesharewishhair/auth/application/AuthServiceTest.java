@@ -10,6 +10,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import org.mockito.Mockito;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -143,5 +144,15 @@ class AuthServiceTest {
 				.isInstanceOf(WishHairException.class)
 				.hasMessageContaining(ErrorCode.LOGIN_FAIL.getMessage());
 		}
+	}
+
+	@Test
+	@DisplayName("[로그아웃을 한다]")
+	void logout() {
+		//when
+		Executable when = () -> authService.logout(1L);
+
+		//then
+		assertDoesNotThrow(when);
 	}
 }
