@@ -34,7 +34,7 @@ public class UserInfoService {
 		Pageable pageable = PageableGenerator.generateDateDescPageable(3);
 
 		List<ReviewResponse> reviewResponses = reviewSearchService.findLikingReviews(userId, pageable).getResult();
-		User user = userFindService.findByUserId(userId);
+		User user = userFindService.getById(userId);
 
 		int point = pointLogRepository.findByUserOrderByCreatedDateDesc(user)
 			.map(PointLog::getPoint)
@@ -44,10 +44,10 @@ public class UserInfoService {
 	}
 
 	public UserInformation getUserInformation(Long userId) {
-		return toUserInformation(userFindService.findByUserId(userId));
+		return toUserInformation(userFindService.getById(userId));
 	}
 
 	public UserInfo getUserInfo(Long userId) {
-		return new UserInfo(userFindService.findByUserId(userId));
+		return new UserInfo(userFindService.getById(userId));
 	}
 }
