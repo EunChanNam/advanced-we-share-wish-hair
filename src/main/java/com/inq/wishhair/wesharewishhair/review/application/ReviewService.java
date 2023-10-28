@@ -41,7 +41,7 @@ public class ReviewService {
 	public Long createReview(ReviewCreateRequest request, Long userId) {
 
 		List<String> photoUrls = photoService.uploadPhotos(request.getFiles());
-		User user = userFindService.findByUserId(userId);
+		User user = userFindService.getById(userId);
 		HairStyle hairStyle = hairStyleFindService.findById(request.getHairStyleId());
 
 		Review review = generateReview(request, photoUrls, user, hairStyle);

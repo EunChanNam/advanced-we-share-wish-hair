@@ -24,7 +24,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
+@Transactional
 public class UserService {
 
 	private final UserRepository userRepository;
@@ -35,7 +35,6 @@ public class UserService {
 	private final AiConnector connector;
 	private final PointLogRepository pointLogRepository;
 
-	@Transactional
 	public Long createUser(SignUpRequest request) {
 
 		User user = generateUser(request);
@@ -46,7 +45,6 @@ public class UserService {
 		return saveUser.getId();
 	}
 
-	@Transactional
 	public void deleteUser(Long userId) {
 		tokenRepository.deleteByUserId(userId);
 		reviewService.deleteReviewByWriter(userId);
@@ -54,46 +52,42 @@ public class UserService {
 		userRepository.deleteById(userId);
 	}
 
-	@Transactional
 	public void refreshPassword(PasswordRefreshRequest request) {
-		User user = userFindService.findByEmail(new Email(request.getEmail()));
+		User user = userFindService.getByEmail(new Email(request.email()));
 
-		user.updatePassword(request.getNewPassword());
+		user.updatePassword(request.newPassword());
 	}
 
-	@Transactional
 	public void updateUser(Long userId, UserUpdateRequest request) {
-		User user = userFindService.findByUserId(userId);
+		User user = userFindService.getById(userId);
 
-		userValidator.validateNicknameIsNotDuplicated(new Nickname(request.getNickname()));
+		userValidator.validateNicknameIsNotDuplicated(new Nickname(request.nickname()));
 
-		user.updateNickname(request.getNickname());
-		user.updateSex(request.getSex());
+		user.updateNickname(request.nickname());
+		user.updateSex(request.sex());
 	}
 
-	@Transactional
 	public SimpleResponseWrapper<String> updateFaceShape(Long userId, MultipartFile file) {
-		User user = userFindService.findByUserId(userId);
+		User user = userFindService.getById(userId);
 		Tag faceShapeTag = connector.detectFaceShape(file);
 
 		user.updateFaceShape(faceShapeTag);
 		return new SimpleResponseWrapper<>(user.getFaceShapeTag().getDescription());
 	}
 
-	@Transactional
 	public void updatePassword(Long userId, PasswordUpdateRequest request) {
-		User user = userFindService.findByUserId(userId);
-		user.confirmPassword(request.getOldPassword());
+		User user = userFindService.getById(userId);
+		user.confirmPassword(request.oldPassword());
 
-		user.updatePassword(request.getNewPassword());
+		user.updatePassword(request.newPassword());
 	}
 
 	private User generateUser(SignUpRequest request) {
 		return User.of(
-			request.getEmail(),
-			request.getPw(),
-			request.getName(),
-			request.getNickname(),
-			request.getSex());
+			request.email(),
+			request.pw(),
+			request.name(),
+			request.nickname(),
+			request.sex());
 	}
 }

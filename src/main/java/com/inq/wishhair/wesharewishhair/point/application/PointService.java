@@ -25,7 +25,7 @@ public class PointService {
 	@Transactional
 	public void usePoint(final PointUseRequest request, final Long userId) {
 
-		User user = userFindService.findByUserId(userId);
+		User user = userFindService.getById(userId);
 		insertPointHistory(PointType.USE, request.dealAmount(), user);
 
 		eventPublisher.publishEvent(request.toRefundMailEvent(user.getName()));
@@ -33,7 +33,7 @@ public class PointService {
 
 	@Transactional
 	public void chargePoint(int dealAmount, Long userId) {
-		User user = userFindService.findByUserId(userId);
+		User user = userFindService.getById(userId);
 		insertPointHistory(PointType.CHARGE, dealAmount, user);
 	}
 

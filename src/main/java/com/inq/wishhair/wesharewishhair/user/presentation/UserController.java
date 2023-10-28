@@ -81,7 +81,7 @@ public class UserController {
 		final @FetchAuthInfo AuthInfo authInfo
 	) {
 
-		SimpleResponseWrapper<String> result = userService.updateFaceShape(authInfo.userId(), request.getFile());
+		SimpleResponseWrapper<String> result = userService.updateFaceShape(authInfo.userId(), request.file());
 
 		return ResponseEntity.ok(result);
 	}

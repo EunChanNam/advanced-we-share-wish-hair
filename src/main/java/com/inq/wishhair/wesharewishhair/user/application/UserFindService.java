@@ -18,12 +18,12 @@ public class UserFindService {
 
 	private final UserRepository userRepository;
 
-	public User findByUserId(Long userId) {
+	public User getById(Long userId) {
 		return userRepository.findById(userId)
 			.orElseThrow(() -> new WishHairException(ErrorCode.NOT_EXIST_KEY));
 	}
 
-	public User findByEmail(Email email) {
+	public User getByEmail(Email email) {
 		return userRepository.findByEmail(email)
 			.orElseThrow(() -> new WishHairException(ErrorCode.USER_NOT_FOUND_BY_EMAIL));
 	}

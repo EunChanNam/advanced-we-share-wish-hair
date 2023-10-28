@@ -31,7 +31,7 @@ public class Password {
 
 	public Password(String pw) {
 		validatePasswordPattern(pw);
-		this.value = pw;
+		this.value = passwordEncoder.encode(pw);
 	}
 
 	public void confirmPassword(String password) {
