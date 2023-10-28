@@ -27,45 +27,38 @@ public class FlaskConnector implements AiConnector {
 	private final String requestUri;
 	private final RestTemplate restTemplate;
 
-	public FlaskConnector(@Value("${flask.domain}") String domain) {
+	public FlaskConnector(
+		@Value("${flask.domain}") String domain,
+		RestTemplate restTemplate
+	) {
 		this.requestUri = domain + URL;
-		this.restTemplate = new RestTemplate();
+		this.restTemplate = restTemplate;
 	}
 
 	@Override
 	public Tag detectFaceShape(MultipartFile file) {
 		validateFileExist(file);
 
-		HttpHeaders headers = generateHeaders();
-		MultiValueMap<String, Object> body = generateBody(file);
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+
+		MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+		body.add(FILES, file.getResource());
+
 		HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(body, headers);
 
-		String response = fetchFlackResponse(request);
-		return toTag(response);
+		ResponseEntity<String> response = postRequest(request);
+		validateResponseStatusIsOk(response.getStatusCode());
+
+		return Tag.valueOf(response.getBody());
 	}
 
-	private String fetchFlackResponse(HttpEntity<MultiValueMap<String, Object>> request) {
-		ResponseEntity<String> response;
+	private ResponseEntity<String> postRequest(HttpEntity<MultiValueMap<String, Object>> request) {
 		try {
-			response = restTemplate.postForEntity(requestUri, request, String.class);
+			return restTemplate.postForEntity(requestUri, request, String.class);
 		} catch (RestClientException e) {
 			throw new WishHairException(ErrorCode.FLASK_SERVER_EXCEPTION);
 		}
-
-		validateResponseStatusIsOk(response.getStatusCode());
-		return response.getBody();
-	}
-
-	private HttpHeaders generateHeaders() {
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-		return headers;
-	}
-
-	private MultiValueMap<String, Object> generateBody(MultipartFile file) {
-		LinkedMultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-		body.add(FILES, file.getResource());
-		return body;
 	}
 
 	private void validateResponseStatusIsOk(HttpStatusCode status) {
@@ -77,14 +70,6 @@ public class FlaskConnector implements AiConnector {
 	private void validateFileExist(MultipartFile file) {
 		if (file == null || file.isEmpty()) {
 			throw new WishHairException(ErrorCode.EMPTY_FILE_EX);
-		}
-	}
-
-	private Tag toTag(String response) {
-		try {
-			return Tag.valueOf(response);
-		} catch (IllegalArgumentException e) {
-			throw new WishHairException(ErrorCode.FLASK_RESPONSE_ERROR);
 		}
 	}
 }
