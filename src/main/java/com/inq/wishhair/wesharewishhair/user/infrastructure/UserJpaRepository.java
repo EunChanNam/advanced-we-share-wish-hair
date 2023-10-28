@@ -11,8 +11,6 @@ import com.inq.wishhair.wesharewishhair.user.domain.UserRepository;
 
 public interface UserJpaRepository extends UserRepository, JpaRepository<User, Long> {
 
-	Optional<User> findById(Long id);
-
 	Optional<User> findByEmail(Email email);
 
 	boolean existsByNickname(Nickname nickname);

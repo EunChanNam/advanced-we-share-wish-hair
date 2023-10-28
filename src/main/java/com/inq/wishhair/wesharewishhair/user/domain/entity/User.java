@@ -43,23 +43,23 @@ public class User {
 	private FaceShape faceShape;
 
 	private User(final Email email,
-		final Password password,
+		final String password,
 		final String name,
 		final Nickname nickname,
 		final Sex sex
 	) {
 		this.email = email;
-		this.password = password;
+		this.password = new Password(password);
 		this.name = name;
 		this.nickname = nickname;
 		this.sex = sex;
 		this.faceShape = null;
 	}
 
-	//=Factory method==//
-	public static User createUser(
+	//==Factory method==//
+	public static User of(
 		final String email,
-		final Password password,
+		final String password,
 		final String name,
 		final String nickname,
 		final Sex sex
@@ -105,16 +105,16 @@ public class User {
 		return faceShape != null;
 	}
 
-	public void updateFaceShape(FaceShape faceShape) {
-		this.faceShape = faceShape;
+	public void updateFaceShape(Tag tag) {
+		this.faceShape = new FaceShape(tag);
 	}
 
-	public void updatePassword(Password password) {
-		this.password = password;
+	public void updatePassword(String password) {
+		this.password = new Password(password);
 	}
 
-	public void updateNickname(Nickname nickname) {
-		this.nickname = nickname;
+	public void updateNickname(String nickname) {
+		this.nickname = new Nickname(nickname);
 	}
 
 	public void updateSex(Sex sex) {
@@ -127,5 +127,9 @@ public class User {
 
 	public String getNicknameValue() {
 		return nickname.getValue();
+	}
+
+	public void confirmPassword(String password) {
+		this.password.confirmPassword(password);
 	}
 }
