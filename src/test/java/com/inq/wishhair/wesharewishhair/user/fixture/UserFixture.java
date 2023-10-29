@@ -1,5 +1,11 @@
 package com.inq.wishhair.wesharewishhair.user.fixture;
 
+import java.util.ArrayList;
+
+import com.inq.wishhair.wesharewishhair.hairstyle.domain.hashtag.Tag;
+import com.inq.wishhair.wesharewishhair.user.application.dto.response.MyPageResponse;
+import com.inq.wishhair.wesharewishhair.user.application.dto.response.UserInfo;
+import com.inq.wishhair.wesharewishhair.user.application.dto.response.UserInformation;
 import com.inq.wishhair.wesharewishhair.user.domain.entity.Sex;
 import com.inq.wishhair.wesharewishhair.user.domain.entity.User;
 import com.inq.wishhair.wesharewishhair.user.presentation.dto.request.PasswordRefreshRequest;
@@ -67,5 +73,29 @@ public final class UserFixture {
 			PW,
 			"newPassword1234!"
 		);
+	}
+
+	public static MyPageResponse getMyPageResponse() {
+		return new MyPageResponse(
+			getFixedManUser(),
+			new ArrayList<>(),
+			1000
+		);
+	}
+
+	public static UserInformation getUserInformation() {
+		return new UserInformation(
+			EMAIL,
+			NAME,
+			NICKNAME,
+			Sex.MAN
+		);
+	}
+
+	public static UserInfo getUserInfo() {
+		User user = getFixedManUser();
+		user.updateFaceShape(Tag.ROUND);
+
+		return new UserInfo(user);
 	}
 }

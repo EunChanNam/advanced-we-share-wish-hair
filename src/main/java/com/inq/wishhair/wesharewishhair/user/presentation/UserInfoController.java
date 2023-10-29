@@ -22,7 +22,7 @@ public class UserInfoController {
 	private final UserInfoService userInfoService;
 
 	@GetMapping("/my_page")
-	public ResponseEntity<MyPageResponse> getMyPageInfo(final @FetchAuthInfo AuthInfo authInfo) {
+	public ResponseEntity<MyPageResponse> getMyPageInfo(@FetchAuthInfo AuthInfo authInfo) {
 
 		MyPageResponse result = userInfoService.getMyPageInfo(authInfo.userId());
 
@@ -31,7 +31,7 @@ public class UserInfoController {
 
 	@GetMapping("/info")
 	public ResponseEntity<UserInformation> getUserInformation(
-		final @FetchAuthInfo AuthInfo authInfo
+		@FetchAuthInfo AuthInfo authInfo
 	) {
 
 		UserInformation result = userInfoService.getUserInformation(authInfo.userId());
@@ -40,7 +40,7 @@ public class UserInfoController {
 	}
 
 	@GetMapping("/home_info")
-	public ResponseEntity<UserInfo> getUserInfo(final @FetchAuthInfo AuthInfo authInfo) {
+	public ResponseEntity<UserInfo> getUserInfo(@FetchAuthInfo AuthInfo authInfo) {
 
 		UserInfo result = userInfoService.getUserInfo(authInfo.userId());
 
