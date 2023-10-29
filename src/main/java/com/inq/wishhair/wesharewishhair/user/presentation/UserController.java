@@ -41,14 +41,16 @@ public class UserController {
 	}
 
 	@DeleteMapping
-	public ResponseEntity<Success> deleteUser(final @FetchAuthInfo AuthInfo authInfo) {
+	public ResponseEntity<Success> deleteUser(@FetchAuthInfo AuthInfo authInfo) {
 		userService.deleteUser(authInfo.userId());
 
 		return ResponseEntity.ok(new Success());
 	}
 
 	@PatchMapping("/refresh/password")
-	public ResponseEntity<Success> refreshPassword(@RequestBody PasswordRefreshRequest request) {
+	public ResponseEntity<Success> refreshPassword(
+		@RequestBody PasswordRefreshRequest request
+	) {
 
 		userService.refreshPassword(request);
 
@@ -56,8 +58,9 @@ public class UserController {
 	}
 
 	@PatchMapping
-	public ResponseEntity<Success> updateUser(@RequestBody UserUpdateRequest request,
-		final @FetchAuthInfo AuthInfo authInfo
+	public ResponseEntity<Success> updateUser(
+		@RequestBody UserUpdateRequest request,
+		@FetchAuthInfo AuthInfo authInfo
 	) {
 
 		userService.updateUser(authInfo.userId(), request);
@@ -67,8 +70,8 @@ public class UserController {
 
 	@PatchMapping("/password")
 	public ResponseEntity<Success> updatePassword(
-		final @RequestBody PasswordUpdateRequest request,
-		final @FetchAuthInfo AuthInfo authInfo
+		@RequestBody PasswordUpdateRequest request,
+		@FetchAuthInfo AuthInfo authInfo
 	) {
 		userService.updatePassword(authInfo.userId(), request);
 
@@ -77,8 +80,8 @@ public class UserController {
 
 	@PatchMapping("/face_shape")
 	public ResponseEntity<SimpleResponseWrapper<String>> updateFaceShape(
-		final @ModelAttribute FaceShapeUpdateRequest request,
-		final @FetchAuthInfo AuthInfo authInfo
+		@ModelAttribute FaceShapeUpdateRequest request,
+		@FetchAuthInfo AuthInfo authInfo
 	) {
 
 		SimpleResponseWrapper<String> result = userService.updateFaceShape(authInfo.userId(), request.file());
