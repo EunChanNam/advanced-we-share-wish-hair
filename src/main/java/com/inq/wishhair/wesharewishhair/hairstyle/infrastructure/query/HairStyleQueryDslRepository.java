@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inq.wishhair.wesharewishhair.hairstyle.application.query.HairStyleQueryRepository;
@@ -23,6 +24,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import lombok.RequiredArgsConstructor;
 
+@Repository
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class HairStyleQueryDslRepository implements HairStyleQueryRepository {

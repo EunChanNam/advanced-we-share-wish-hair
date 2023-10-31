@@ -44,13 +44,14 @@ public class Review extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	private Score score;
 
-	@OneToMany(mappedBy = "review",
-		cascade = CascadeType.PERSIST) // 사진을 값타입 컬렉션 처럼 사용
+	@OneToMany(mappedBy = "review", cascade = CascadeType.PERSIST) // 사진을 값타입 컬렉션 처럼 사용
 	private final List<Photo> photos = new ArrayList<>();
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "hair_style_id")
 	private HairStyle hairStyle;
+
+	private Long likeCount;
 
 	private Review(User writer, String contents, Score score, List<String> photos, HairStyle hairStyle) {
 		this.writer = writer;
@@ -59,6 +60,7 @@ public class Review extends BaseEntity {
 		applyPhotos(photos);
 		this.hairStyle = hairStyle;
 		this.createdDate = LocalDateTime.now();
+		this.likeCount = 0L;
 	}
 
 	//==Factory method==//
@@ -84,6 +86,16 @@ public class Review extends BaseEntity {
 		updateContents(contents);
 		updateScore(score);
 		updatePhotos(storeUrls);
+	}
+
+	public void addLike() {
+		this.likeCount++;
+	}
+
+	public void cancelLike() {
+		if (likeCount > 0) {
+			this.likeCount--;
+		}
 	}
 
 	private void updateContents(Contents contents) {

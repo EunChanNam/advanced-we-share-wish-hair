@@ -2,6 +2,7 @@ package com.inq.wishhair.wesharewishhair.review.infrastructure;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -28,4 +29,21 @@ public interface ReviewJpaRepository extends ReviewRepository, JpaRepository<Rev
 	@Modifying
 	@Query("delete from Review r where r.id in :reviewIds")
 	void deleteAllByWriter(@Param("reviewIds") List<Long> reviewIds);
+
+	@Query("select case "
+		   + "when l.reviewId is null then 0 "
+		   + "else count(r.id) end "
+		   + "from Review r "
+		   + "left join LikeReview l on r.id = l.reviewId "
+		   + "where r.id in :reviewIds "
+		   + "group by r.id "
+		   + "order by r.id")
+	List<Integer> countLikeReviewByIdsOrderById(@Param("reviewIds") Set<Long> reviewIds);
+
+	@Modifying
+	@Query("update Review r SET r.likeCount = :likeCount where r.id = :id")
+	void updateLikeCountById(
+		@Param("id") Long id,
+		@Param("likeCount") int likeCount
+	);
 }
