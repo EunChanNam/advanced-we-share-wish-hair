@@ -6,7 +6,7 @@ import com.inq.wishhair.wesharewishhair.common.stub.PasswordEncoderStub;
 import com.inq.wishhair.wesharewishhair.user.domain.entity.Password;
 import com.inq.wishhair.wesharewishhair.user.domain.entity.Sex;
 import com.inq.wishhair.wesharewishhair.user.domain.entity.User;
-
+ 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 

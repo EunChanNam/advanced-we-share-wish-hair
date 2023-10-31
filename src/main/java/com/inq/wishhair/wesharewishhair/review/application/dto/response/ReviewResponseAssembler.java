@@ -9,7 +9,6 @@ import org.springframework.data.domain.Slice;
 
 import com.inq.wishhair.wesharewishhair.global.dto.response.PagedResponse;
 import com.inq.wishhair.wesharewishhair.global.dto.response.ResponseWrapper;
-import com.inq.wishhair.wesharewishhair.review.application.query.dto.ReviewQueryResponse;
 import com.inq.wishhair.wesharewishhair.review.domain.entity.Review;
 
 import lombok.AccessLevel;
@@ -18,16 +17,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ReviewResponseAssembler {
 
-	public static PagedResponse<ReviewResponse> toPagedReviewResponse(Slice<ReviewQueryResponse> slice) {
+	public static PagedResponse<ReviewResponse> toPagedReviewResponse(Slice<Review> slice) {
 		return new PagedResponse<>(transferContentToResponse(slice));
 	}
 
-	private static Slice<ReviewResponse> transferContentToResponse(Slice<ReviewQueryResponse> slice) {
+	private static Slice<ReviewResponse> transferContentToResponse(Slice<Review> slice) {
 		return slice.map(ReviewResponseAssembler::toReviewResponse);
 	}
 
-	public static ReviewResponse toReviewResponse(ReviewQueryResponse queryResponse) {
-		Review review = queryResponse.review();
+	public static ReviewResponse toReviewResponse(Review review) {
 
 		return ReviewResponse.builder()
 			.reviewId(review.getId())
@@ -37,14 +35,17 @@ public final class ReviewResponseAssembler {
 			.contents(review.getContentsValue())
 			.createdDate(review.getCreatedDate())
 			.photos(toPhotoResponses(review.getPhotos()))
-			.likes(queryResponse.likes())
+			.likes(review.getLikeCount())
 			.hashTags(toHashTagResponses(review.getHairStyle().getHashTags()))
 			.writerId(review.getWriter().getId())
 			.build();
 	}
 
-	public static ReviewDetailResponse toReviewDetailResponse(ReviewQueryResponse queryResponse, boolean isLiking) {
-		return new ReviewDetailResponse(toReviewResponse(queryResponse), isLiking);
+	public static ReviewDetailResponse toReviewDetailResponse(
+		Review review,
+		boolean isLiking
+	) {
+		return new ReviewDetailResponse(toReviewResponse(review), isLiking);
 	}
 
 	public static ResponseWrapper<ReviewSimpleResponse> toWrappedSimpleResponse(List<Review> reviews) {
@@ -52,10 +53,11 @@ public final class ReviewResponseAssembler {
 		return new ResponseWrapper<>(responses);
 	}
 
-	public static ResponseWrapper<ReviewResponse> toWrappedReviewResponse(List<ReviewQueryResponse> responses) {
+	public static ResponseWrapper<ReviewResponse> toWrappedReviewResponse(List<Review> responses) {
 		List<ReviewResponse> reviewResponses = responses.stream()
 			.map(ReviewResponseAssembler::toReviewResponse)
 			.toList();
+
 		return new ResponseWrapper<>(reviewResponses);
 	}
 }

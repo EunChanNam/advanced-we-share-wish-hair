@@ -13,16 +13,11 @@ import org.springframework.data.domain.SliceImpl;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.inq.wishhair.wesharewishhair.review.application.query.ReviewQueryRepository;
-import com.inq.wishhair.wesharewishhair.review.application.query.dto.QReviewQueryResponse;
-import com.inq.wishhair.wesharewishhair.review.application.query.dto.ReviewQueryResponse;
+import com.inq.wishhair.wesharewishhair.review.domain.ReviewQueryRepository;
 import com.inq.wishhair.wesharewishhair.review.domain.entity.QReview;
 import com.inq.wishhair.wesharewishhair.review.domain.entity.Review;
 import com.inq.wishhair.wesharewishhair.review.domain.likereview.QLikeReview;
-import com.querydsl.core.types.ConstructorExpression;
 import com.querydsl.core.types.OrderSpecifier;
-import com.querydsl.core.types.dsl.CaseBuilder;
-import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -38,39 +33,30 @@ public class ReviewQueryDslRepository implements ReviewQueryRepository {
 	private final QReview review = new QReview("r");
 	private final QLikeReview like = new QLikeReview("l");
 
-	private final NumberExpression<Long> likes = new CaseBuilder()
-		.when(like.id.sum().isNull())
-		.then(0L)
-		.otherwise(review.id.count());
-
 	@Override
-	public Optional<ReviewQueryResponse> findReviewById(Long id) {
+	public Optional<Review> findReviewById(Long id) {
 		return Optional.ofNullable(
 			factory
-				.select(assembleReviewProjection())
+				.select(review)
 				.from(review)
-				.leftJoin(like).on(review.id.eq(like.reviewId))
 				.leftJoin(review.hairStyle)
 				.fetchJoin()
 				.leftJoin(review.writer)
 				.fetchJoin()
 				.where(review.id.eq(id))
-				.groupBy(review.id)
 				.fetchOne()
 		);
 	}
 
 	@Override
-	public Slice<ReviewQueryResponse> findReviewByPaging(Pageable pageable) {
-		List<ReviewQueryResponse> result = factory
-			.select(assembleReviewProjection())
+	public Slice<Review> findReviewByPaging(Pageable pageable) {
+		List<Review> result = factory
+			.select(review)
 			.from(review)
-			.leftJoin(like).on(review.id.eq(like.reviewId))
 			.leftJoin(review.hairStyle)
 			.fetchJoin()
 			.leftJoin(review.writer)
 			.fetchJoin()
-			.groupBy(review.id)
 			.orderBy(applyOrderBy(pageable))
 			.offset(pageable.getOffset())
 			.limit(pageable.getPageSize() + 1L)
@@ -80,7 +66,7 @@ public class ReviewQueryDslRepository implements ReviewQueryRepository {
 	}
 
 	@Override
-	public Slice<ReviewQueryResponse> findReviewByLike(Long userId, Pageable pageable) {
+	public Slice<Review> findReviewByLike(Long userId, Pageable pageable) {
 		List<Long> filteredReviewId = factory
 			.select(review.id)
 			.from(review)
@@ -89,16 +75,14 @@ public class ReviewQueryDslRepository implements ReviewQueryRepository {
 			.groupBy(review.id)
 			.fetch();
 
-		List<ReviewQueryResponse> result = factory
-			.select(assembleReviewProjection())
+		List<Review> result = factory
+			.select(review)
 			.from(review)
-			.leftJoin(like).on(review.id.eq(like.reviewId))
 			.leftJoin(review.writer)
 			.fetchJoin()
 			.leftJoin(review.hairStyle)
 			.fetchJoin()
 			.where(review.id.in(filteredReviewId))
-			.groupBy(review.id)
 			.orderBy(review.id.desc())
 			.offset(pageable.getOffset())
 			.limit(pageable.getPageSize() + 1L)
@@ -108,22 +92,20 @@ public class ReviewQueryDslRepository implements ReviewQueryRepository {
 	}
 
 	@Override
-	public Slice<ReviewQueryResponse> findReviewByUser(Long userId, Pageable pageable) {
-		JPAQuery<ReviewQueryResponse> query = factory
-			.select(assembleReviewProjection())
+	public Slice<Review> findReviewByUser(Long userId, Pageable pageable) {
+		JPAQuery<Review> query = factory
+			.select(review)
 			.from(review)
-			.leftJoin(like).on(review.id.eq(like.reviewId))
 			.leftJoin(review.hairStyle)
 			.fetchJoin()
 			.leftJoin(review.writer)
 			.fetchJoin()
-			.groupBy(review.id)
 			.orderBy(applyOrderBy(pageable))
 			.where(review.writer.id.eq(userId))
 			.offset(pageable.getOffset())
 			.limit(pageable.getPageSize() + 1L);
 
-		List<ReviewQueryResponse> result = query.fetch();
+		List<Review> result = query.fetch();
 		return new SliceImpl<>(result, pageable, validateHasNext(pageable, result));
 	}
 
@@ -135,39 +117,31 @@ public class ReviewQueryDslRepository implements ReviewQueryRepository {
 		return factory
 			.select(review)
 			.from(review)
-			.leftJoin(like).on(review.id.eq(like.reviewId))
 			.leftJoin(review.hairStyle)
 			.fetchJoin()
 			.leftJoin(review.writer)
 			.fetchJoin()
 			.where(review.createdDate.between(startDate, endDate))
-			.groupBy(review.id)
-			.orderBy(likes.desc())
+			.orderBy(review.likeCount.desc())
 			.offset(0)
 			.limit(4)
 			.fetch();
 	}
 
 	@Override
-	public List<ReviewQueryResponse> findReviewByHairStyle(Long hairStyleId) {
+	public List<Review> findReviewByHairStyle(Long hairStyleId) {
 		return factory
-			.select(assembleReviewProjection())
+			.select(review)
 			.from(review)
-			.leftJoin(like).on(review.id.eq(like.reviewId))
 			.leftJoin(review.hairStyle)
 			.fetchJoin()
 			.leftJoin(review.writer)
 			.fetchJoin()
 			.where(review.hairStyle.id.eq(hairStyleId))
-			.groupBy(review.id)
-			.orderBy(likes.desc())
+			.orderBy(review.likeCount.desc())
 			.offset(0)
 			.limit(4)
 			.fetch();
-	}
-
-	private ConstructorExpression<ReviewQueryResponse> assembleReviewProjection() {
-		return new QReviewQueryResponse(review, likes.as("likes"));
 	}
 
 	private OrderSpecifier<?>[] applyOrderBy(Pageable pageable) {
@@ -176,7 +150,7 @@ public class ReviewQueryDslRepository implements ReviewQueryRepository {
 
 		switch (sort) {
 			case LIKES_DESC -> {
-				orderBy.add(likes.desc());
+				orderBy.add(review.likeCount.desc());
 				orderBy.add(review.id.desc());
 			}
 			case DATE_DESC -> orderBy.add(review.id.desc());
@@ -185,7 +159,7 @@ public class ReviewQueryDslRepository implements ReviewQueryRepository {
 		return orderBy.toArray(OrderSpecifier[]::new);
 	}
 
-	private boolean validateHasNext(Pageable pageable, List<ReviewQueryResponse> result) {
+	private boolean validateHasNext(Pageable pageable, List<Review> result) {
 		if (result.size() > pageable.getPageSize()) {
 			result.remove(pageable.getPageSize());
 			return true;

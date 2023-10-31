@@ -24,8 +24,10 @@ public class ReviewResponse {
 	private long likes;
 	private List<HashTagResponse> hashTags;
 	private boolean isWriter;
+
 	@JsonIgnore
 	private Long writerId;
+
 	public void addIsWriter(Long userId) {
 		this.isWriter = writerId.equals(userId);
 	}
