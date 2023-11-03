@@ -14,11 +14,17 @@ spring:
     properties:
       hibernate:
         default_batch_fetch_size: 100
-        show_sql: true
-        format_sql: true
-        dialect: org.hibernate.dialect.MySQL57Dialect
+#        show_sql: true
+#        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
 
     open-in-view: false
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      expire-time: 21600000
 
   mail:
     host: smtp.gmail.com
@@ -47,17 +53,18 @@ flask:
 
 # 서버 런시 발생하는 에러 로그 방지
 logging:
-  level:
-    com:
+  com:
       amazonaws:
         util:
           EC2MetadataUtils: error
+  level:
+    root: warn
 
 #p6spy 설정
 decorator:
   datasource:
     p6spy:
-      enable-logging: true
+      enable-logging: false
 
 #JWT key
 jwt:

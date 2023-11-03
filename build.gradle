@@ -70,6 +70,8 @@ dependencies {
 	//DB
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	runtimeOnly 'com.h2database:h2'
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'org.redisson:redisson-spring-boot-starter:3.24.3'
 
 	//네이버 클라우드
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'

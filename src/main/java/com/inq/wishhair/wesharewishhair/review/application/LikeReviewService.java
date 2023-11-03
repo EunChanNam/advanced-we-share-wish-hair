@@ -1,54 +1,82 @@
 package com.inq.wishhair.wesharewishhair.review.application;
 
-import java.util.Set;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.inq.wishhair.wesharewishhair.review.domain.entity.Review;
+import com.inq.wishhair.wesharewishhair.global.utils.RedisUtils;
+import com.inq.wishhair.wesharewishhair.review.application.dto.response.LikeReviewResponse;
 import com.inq.wishhair.wesharewishhair.review.domain.likereview.LikeReview;
 import com.inq.wishhair.wesharewishhair.review.domain.likereview.LikeReviewRepository;
-import com.inq.wishhair.wesharewishhair.review.application.dto.response.LikeReviewResponse;
 
+import jakarta.persistence.EntityExistsException;
 import lombok.RequiredArgsConstructor;
 
-//todo : 캐시를 이용해서 DB 에 변경을 줄이는 방식 적용해보기
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class LikeReviewService {
 
 	private final LikeReviewRepository likeReviewRepository;
-	private final ReviewFindService reviewFindService;
-	private final Set<Long> updateReviewSet;
+	private final RedisUtils redisUtils;
 
 	@Transactional
-	public void executeLike(Long reviewId, Long userId) {
-		if (notExistLikeReview(userId, reviewId)) {
+	public boolean executeLike(Long reviewId, Long userId) {
+		try {
 			likeReviewRepository.save(LikeReview.addLike(userId, reviewId));
-
-			Review review = reviewFindService.getById(reviewId);
-			review.addLike();
-
-			updateReviewSet.add(reviewId);
+		} catch (EntityExistsException e) {
+			return false;
 		}
+
+		//락을 걸지않고 값이없으면 좋아요 개수를 로드해서 반영 기능 추가
+		redisUtils.getData(reviewId)
+			.ifPresentOrElse(
+				likeCount -> redisUtils.increaseData(reviewId),
+				() -> updateLikeCountFromRedis(reviewId)
+			);
+
+		return true;
 	}
 
 	@Transactional
-	public void cancelLike(Long reviewId, Long userId) {
-		likeReviewRepository.deleteByUserIdAndReviewId(userId, reviewId);
+	public boolean cancelLike(Long reviewId, Long userId) {
+		int deletedCount = likeReviewRepository.deleteByUserIdAndReviewId(userId, reviewId);
+		if (deletedCount == 0) {
+			return false;
+		}
 
-		Review review = reviewFindService.getById(reviewId);
-		review.cancelLike();
+		redisUtils.getData(reviewId)
+			.ifPresentOrElse(
+				likeCount -> redisUtils.decreaseData(reviewId),
+				() -> updateLikeCountFromRedis(reviewId)
+			);
 
-		updateReviewSet.add(reviewId);
+		return true;
 	}
 
 	public LikeReviewResponse checkIsLiking(Long userId, Long reviewId) {
-		return new LikeReviewResponse(notExistLikeReview(userId, reviewId));
+		return new LikeReviewResponse(existLikeReview(userId, reviewId));
 	}
 
-	private boolean notExistLikeReview(Long userId, Long reviewId) {
-		return !likeReviewRepository.existsByUserIdAndReviewId(userId, reviewId);
+	public Long getLikeCount(Long reviewId) {
+		return redisUtils.getData(reviewId)
+			.orElse(updateLikeCountFromRedis(reviewId));
+	}
+
+	public List<Long> getLikeCounts(List<Long> reviewIds) {
+		return reviewIds.stream()
+			.map(this::getLikeCount)
+			.toList();
+	}
+
+	private Long updateLikeCountFromRedis(Long reviewId) {
+		Long likeCount = likeReviewRepository.countByReviewId(reviewId);
+		redisUtils.setData(reviewId, likeCount);
+		return likeCount;
+	}
+
+	private boolean existLikeReview(Long userId, Long reviewId) {
+		return likeReviewRepository.existsByUserIdAndReviewId(userId, reviewId);
 	}
 }
