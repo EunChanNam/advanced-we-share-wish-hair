@@ -4,8 +4,10 @@ import com.inq.wishhair.wesharewishhair.hairstyle.domain.HairStyle;
 import com.inq.wishhair.wesharewishhair.review.domain.entity.Review;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,11 +27,11 @@ public class Photo {
 	private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "hair_style_id")
+	@JoinColumn(name = "hair_style_id", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
 	private HairStyle hairStyle;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "review_id")
+	@JoinColumn(name = "review_id", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
 	private Review review;
 
 	@Column(nullable = false, updatable = false, unique = true)
