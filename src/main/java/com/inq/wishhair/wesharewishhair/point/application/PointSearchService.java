@@ -25,7 +25,6 @@ public class PointSearchService {
 		final Long userId,
 		final Pageable pageable
 	) {
-
 		Slice<PointLog> result = pointLogRepository.findByUserIdOrderByNew(userId, pageable);
 		return toPagedResponse(result);
 	}

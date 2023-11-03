@@ -2,6 +2,7 @@ package com.inq.wishhair.wesharewishhair.point.fixture;
 
 import org.springframework.test.util.ReflectionTestUtils;
 
+import com.inq.wishhair.wesharewishhair.point.application.dto.PointUseRequest;
 import com.inq.wishhair.wesharewishhair.point.domain.PointLog;
 import com.inq.wishhair.wesharewishhair.point.domain.PointType;
 import com.inq.wishhair.wesharewishhair.user.domain.entity.User;
@@ -28,5 +29,13 @@ public final class PointLogFixture {
 
 	public static PointLog getUsePointLog() {
 		return PointLog.addPointLog(getUser(), PointType.USE, DEAL_AMOUNT, PRE_POINT);
+	}
+
+	public static PointLog getUsePointLog(User user) {
+		return PointLog.addPointLog(user, PointType.USE, DEAL_AMOUNT, PRE_POINT);
+	}
+
+	public static PointUseRequest getPointUseRequest() {
+		return new PointUseRequest("bank", "1234-1234", DEAL_AMOUNT);
 	}
 }

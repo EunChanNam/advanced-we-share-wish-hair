@@ -1,6 +1,7 @@
 package com.inq.wishhair.wesharewishhair.user.fixture;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import com.inq.wishhair.wesharewishhair.common.stub.PasswordEncoderStub;
 import com.inq.wishhair.wesharewishhair.user.domain.entity.Password;
@@ -27,6 +28,12 @@ public final class UserFixture {
 			NICKNAME,
 			Sex.MAN
 		);
+	}
+
+	public static User getManUserWithId(Long id) {
+		User user = getFixedManUser();
+		ReflectionTestUtils.setField(user, "id", id);
+		return user;
 	}
 
 	public static User getFixedWomanUser() {
