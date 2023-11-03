@@ -61,7 +61,9 @@ public enum ErrorCode {
 	FLASK_SERVER_EXCEPTION("FLASK_001", "Flask 서버 요청 간 에러가 발생하였습니다.", HttpStatus.INTERNAL_SERVER_ERROR),
 	FLASK_RESPONSE_ERROR("FLASK_002", "Flask 서버의 응답값의 형식이 올바르지 않습니다.", HttpStatus.INTERNAL_SERVER_ERROR),
 
-	AOP_GENERIC_EXCEPTION("AOP_001", "AOP 에서 발생한 Generic 에러 입니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+	AOP_GENERIC_EXCEPTION("AOP_001", "AOP 에서 발생한 Generic 에러 입니다.", HttpStatus.INTERNAL_SERVER_ERROR),
+
+	REDIS_FAIL_ACQUIRE_LOCK("REDIS_001", "서버 일시적 오류입니다. 재시도 해주세요", HttpStatus.INTERNAL_SERVER_ERROR);
 
 	private final String code;
 	private final String message;

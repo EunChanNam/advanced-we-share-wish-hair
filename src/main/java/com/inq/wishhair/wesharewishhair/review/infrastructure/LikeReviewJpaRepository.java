@@ -12,14 +12,16 @@ import com.inq.wishhair.wesharewishhair.review.domain.likereview.LikeReviewRepos
 
 public interface LikeReviewJpaRepository extends LikeReviewRepository, JpaRepository<LikeReview, Long> {
 
+	@Query("select count(l.id) from LikeReview l where l.reviewId = :reviewId")
+	Long countByReviewId(@Param("reviewId") Long reviewId);
+
 	@Modifying
 	@Query("delete from LikeReview l where l.reviewId = :reviewId")
 	void deleteAllByReview(@Param("reviewId") Long reviewId);
 
 	@Modifying
-	@Query("delete from LikeReview l " +
-		"where l.userId = :userId and l.reviewId = :reviewId")
-	void deleteByUserIdAndReviewId(@Param("userId") Long userId,
+	@Query("delete from LikeReview l where l.userId = :userId and l.reviewId = :reviewId")
+	int deleteByUserIdAndReviewId(@Param("userId") Long userId,
 		@Param("reviewId") Long reviewId);
 
 	boolean existsByUserIdAndReviewId(Long userId, Long reviewId);

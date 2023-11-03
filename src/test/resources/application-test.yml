@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:tcp://localhost/~/wishhair-db-test
+    url: jdbc:h2:mem:test_db;MODE=MySQL;
     username: sa
     password:
 
@@ -20,6 +20,12 @@ spring:
         format_sql: true # ddl을 이쁘게 하려고 킴
 
     open-in-view: false
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      expire-time: 50000
 
   #메일 설정
   mail:
@@ -59,17 +65,6 @@ jwt:
   secret-key: abcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabc
   access-token-validity: 1111
   refresh-token-validity: 1111
-
-# OAuth
-oauth2:
-  google:
-    grant-type: authorization_code
-    client-id: client-id
-    redirect-url: redirect-url
-    scope: profile, email
-    auth-url: https://accounts.google.com/o/oauth2/v2/auth
-    token-url: https://www.googleapis.com/oauth2/v4/token
-    user-info-url: https://www.googleapis.com/oauth2/v3/userinfo
 
 # 네이버 클라우드 오브젝트 스토리지
 cloud:

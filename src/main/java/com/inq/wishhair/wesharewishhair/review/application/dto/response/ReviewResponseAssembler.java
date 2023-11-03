@@ -3,9 +3,11 @@ package com.inq.wishhair.wesharewishhair.review.application.dto.response;
 import static com.inq.wishhair.wesharewishhair.hairstyle.application.dto.response.HairStyleResponseAssembler.*;
 import static com.inq.wishhair.wesharewishhair.photo.application.dto.response.PhotoResponseAssembler.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.SliceImpl;
 
 import com.inq.wishhair.wesharewishhair.global.dto.response.PagedResponse;
 import com.inq.wishhair.wesharewishhair.global.dto.response.ResponseWrapper;
@@ -17,15 +19,25 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ReviewResponseAssembler {
 
-	public static PagedResponse<ReviewResponse> toPagedReviewResponse(Slice<Review> slice) {
-		return new PagedResponse<>(transferContentToResponse(slice));
+	public static PagedResponse<ReviewResponse> toPagedReviewResponse(Slice<Review> slice, List<Long> likeCounts) {
+		return new PagedResponse<>(transferContentToResponse(slice, likeCounts));
 	}
 
-	private static Slice<ReviewResponse> transferContentToResponse(Slice<Review> slice) {
-		return slice.map(ReviewResponseAssembler::toReviewResponse);
+	private static Slice<ReviewResponse> transferContentToResponse(Slice<Review> slice, List<Long> likeCounts) {
+		List<Review> reviews = slice.getContent();
+
+		List<ReviewResponse> reviewResponses = new ArrayList<>();
+		for (int i = 0; i < reviews.size(); i++) {
+			Review review = reviews.get(i);
+			Long likeCount = likeCounts.get(i);
+
+			reviewResponses.add(toReviewResponse(review, likeCount));
+		}
+
+		return new SliceImpl<>(reviewResponses, slice.getPageable(), slice.hasNext());
 	}
 
-	public static ReviewResponse toReviewResponse(Review review) {
+	public static ReviewResponse toReviewResponse(Review review, Long likeCount) {
 
 		return ReviewResponse.builder()
 			.reviewId(review.getId())
@@ -35,7 +47,7 @@ public final class ReviewResponseAssembler {
 			.contents(review.getContentsValue())
 			.createdDate(review.getCreatedDate())
 			.photos(toPhotoResponses(review.getPhotos()))
-			.likes(review.getLikeCount())
+			.likes(likeCount)
 			.hashTags(toHashTagResponses(review.getHairStyle().getHashTags()))
 			.writerId(review.getWriter().getId())
 			.build();
@@ -43,9 +55,10 @@ public final class ReviewResponseAssembler {
 
 	public static ReviewDetailResponse toReviewDetailResponse(
 		Review review,
+		Long likeCount,
 		boolean isLiking
 	) {
-		return new ReviewDetailResponse(toReviewResponse(review), isLiking);
+		return new ReviewDetailResponse(toReviewResponse(review, likeCount), isLiking);
 	}
 
 	public static ResponseWrapper<ReviewSimpleResponse> toWrappedSimpleResponse(List<Review> reviews) {
@@ -53,10 +66,16 @@ public final class ReviewResponseAssembler {
 		return new ResponseWrapper<>(responses);
 	}
 
-	public static ResponseWrapper<ReviewResponse> toWrappedReviewResponse(List<Review> responses) {
-		List<ReviewResponse> reviewResponses = responses.stream()
-			.map(ReviewResponseAssembler::toReviewResponse)
-			.toList();
+	public static ResponseWrapper<ReviewResponse> toWrappedReviewResponse(
+		List<Review> responses,
+		List<Long> likeCounts
+	) {
+		List<ReviewResponse> reviewResponses = new ArrayList<>();
+
+		for (int i = 0; i < responses.size(); i++) {
+			ReviewResponse reviewResponse = toReviewResponse(responses.get(i), likeCounts.get(i));
+			reviewResponses.add(reviewResponse);
+		}
 
 		return new ResponseWrapper<>(reviewResponses);
 	}

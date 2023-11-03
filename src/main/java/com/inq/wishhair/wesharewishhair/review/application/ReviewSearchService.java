@@ -19,7 +19,6 @@ import com.inq.wishhair.wesharewishhair.review.application.dto.response.ReviewRe
 import com.inq.wishhair.wesharewishhair.review.application.dto.response.ReviewSimpleResponse;
 import com.inq.wishhair.wesharewishhair.review.domain.ReviewQueryRepository;
 import com.inq.wishhair.wesharewishhair.review.domain.entity.Review;
-import com.inq.wishhair.wesharewishhair.review.domain.likereview.LikeReviewRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -29,7 +28,7 @@ import lombok.RequiredArgsConstructor;
 public class ReviewSearchService {
 
 	private final ReviewQueryRepository reviewQueryRepository;
-	private final LikeReviewRepository likeReviewRepository;
+	private final LikeReviewService likeReviewService;
 
 	/*리뷰 단건 조회*/
 	@AddisWriter
@@ -37,23 +36,30 @@ public class ReviewSearchService {
 		Review review = reviewQueryRepository.findReviewById(reviewId)
 			.orElseThrow(() -> new WishHairException(ErrorCode.NOT_EXIST_KEY));
 
-		boolean isLiking = likeReviewRepository.existsByUserIdAndReviewId(userId, reviewId);
+		Long likeCount = likeReviewService.getLikeCount(review.getId());
+		boolean isLiking = likeReviewService.checkIsLiking(userId, reviewId).isLiking();
 
-		return toReviewDetailResponse(review, isLiking);
+		return toReviewDetailResponse(review, likeCount, isLiking);
 	}
 
 	/*전체 리뷰 조회*/
 	@AddisWriter
 	public PagedResponse<ReviewResponse> findPagedReviews(Long userId, Pageable pageable) {
 		Slice<Review> sliceResult = reviewQueryRepository.findReviewByPaging(pageable);
-		return toPagedReviewResponse(sliceResult);
+
+		List<Long> likeCounts = fetchLikeCounts(sliceResult.getContent());
+
+		return toPagedReviewResponse(sliceResult, likeCounts);
 	}
 
 	/*좋아요한 리뷰 조회*/
 	@AddisWriter
 	public PagedResponse<ReviewResponse> findLikingReviews(Long userId, Pageable pageable) {
 		Slice<Review> sliceResult = reviewQueryRepository.findReviewByLike(userId, pageable);
-		return toPagedReviewResponse(sliceResult);
+
+		List<Long> likeCounts = fetchLikeCounts(sliceResult.getContent());
+
+		return toPagedReviewResponse(sliceResult, likeCounts);
 	}
 
 	/*나의 리뷰 조회*/
@@ -61,7 +67,9 @@ public class ReviewSearchService {
 	public PagedResponse<ReviewResponse> findMyReviews(Long userId, Pageable pageable) {
 		Slice<Review> sliceResult = reviewQueryRepository.findReviewByUser(userId, pageable);
 
-		return toPagedReviewResponse(sliceResult);
+		List<Long> likeCounts = fetchLikeCounts(sliceResult.getContent());
+
+		return toPagedReviewResponse(sliceResult, likeCounts);
 	}
 
 	/*이달의 추천 리뷰 조회*/
@@ -74,6 +82,14 @@ public class ReviewSearchService {
 	@AddisWriter
 	public ResponseWrapper<ReviewResponse> findReviewByHairStyle(Long userId, Long hairStyleId) {
 		List<Review> result = reviewQueryRepository.findReviewByHairStyle(hairStyleId);
-		return toWrappedReviewResponse(result);
+
+		List<Long> likeCounts = fetchLikeCounts(result);
+
+		return toWrappedReviewResponse(result, likeCounts);
+	}
+
+	private List<Long> fetchLikeCounts(List<Review> result) {
+		List<Long> reviewIds = result.stream().map(Review::getId).toList();
+		return likeReviewService.getLikeCounts(reviewIds);
 	}
 }

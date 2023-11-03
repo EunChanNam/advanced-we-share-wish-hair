@@ -53,10 +53,12 @@ public class ReviewQueryDslRepository implements ReviewQueryRepository {
 		List<Review> result = factory
 			.select(review)
 			.from(review)
+			.leftJoin(like).on(like.reviewId.eq(review.id))
 			.leftJoin(review.hairStyle)
 			.fetchJoin()
 			.leftJoin(review.writer)
 			.fetchJoin()
+			.groupBy(review.id)
 			.orderBy(applyOrderBy(pageable))
 			.offset(pageable.getOffset())
 			.limit(pageable.getPageSize() + 1L)
