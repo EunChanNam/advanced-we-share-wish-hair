@@ -4,15 +4,18 @@ import com.inq.wishhair.wesharewishhair.global.auditing.BaseEntity;
 import com.inq.wishhair.wesharewishhair.user.domain.entity.User;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,6 +23,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "point_log")
 public class PointLog extends BaseEntity {
 
 	@Id
@@ -37,7 +41,11 @@ public class PointLog extends BaseEntity {
 	private int point;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id", nullable = false, updatable = false)
+	@JoinColumn(
+		name = "user_id",
+		nullable = false, updatable = false,
+		foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT)
+	)
 	private User user;
 
 	private PointLog(

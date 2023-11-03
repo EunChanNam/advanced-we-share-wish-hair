@@ -13,7 +13,7 @@ public enum PointType {
 	CHARGE(
 		"충전",
 		(chargeAmount, prePoint) -> {
-			if (chargeAmount <= 0) {
+			if (chargeAmount < 0) {
 				throw new WishHairException(POINT_INVALID_POINT_RANGE);
 			}
 			return prePoint + chargeAmount;
@@ -22,7 +22,10 @@ public enum PointType {
 		"사용",
 		(useAmount, prePoint) -> {
 			int point = prePoint - useAmount;
-			if (useAmount <= 0 || point < 0) {
+			if (useAmount < 0) {
+				throw new WishHairException(POINT_INVALID_POINT_RANGE);
+			}
+			if (point < 0) {
 				throw new WishHairException(POINT_NOT_ENOUGH);
 			}
 			return point;

@@ -11,10 +11,12 @@ import com.inq.wishhair.wesharewishhair.user.domain.entity.User;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -35,7 +37,7 @@ public class Review extends BaseEntity {
 	private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "user_id", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
 	private User writer;
 
 	private Contents contents;
@@ -48,7 +50,7 @@ public class Review extends BaseEntity {
 	private final List<Photo> photos = new ArrayList<>();
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "hair_style_id")
+	@JoinColumn(name = "hair_style_id", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
 	private HairStyle hairStyle;
 
 	private Long likeCount;
