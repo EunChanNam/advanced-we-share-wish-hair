@@ -5,7 +5,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -16,10 +15,8 @@ import com.inq.wishhair.wesharewishhair.auth.application.MailAuthService;
 import com.inq.wishhair.wesharewishhair.auth.presentation.dto.request.AuthKeyRequest;
 import com.inq.wishhair.wesharewishhair.auth.presentation.dto.request.MailRequest;
 import com.inq.wishhair.wesharewishhair.common.support.ApiTestSupport;
-import com.inq.wishhair.wesharewishhair.global.config.SecurityConfig;
 import com.inq.wishhair.wesharewishhair.user.application.utils.UserValidator;
 
-@WebMvcTest(value = {MailAuthController.class, SecurityConfig.class})
 @DisplayName("[MailAuthController 테스트] - API")
 class MailAuthControllerTest extends ApiTestSupport {
 

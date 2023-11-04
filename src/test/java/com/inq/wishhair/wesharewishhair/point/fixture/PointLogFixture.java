@@ -35,6 +35,10 @@ public final class PointLogFixture {
 		return PointLog.addPointLog(user, PointType.USE, DEAL_AMOUNT, PRE_POINT);
 	}
 
+	public static PointLog getChargePointLog(User user) {
+		return PointLog.addPointLog(user, PointType.CHARGE, DEAL_AMOUNT, PRE_POINT);
+	}
+
 	public static PointUseRequest getPointUseRequest() {
 		return new PointUseRequest("bank", "1234-1234", DEAL_AMOUNT);
 	}

@@ -7,7 +7,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -18,9 +17,7 @@ import com.inq.wishhair.wesharewishhair.auth.application.AuthService;
 import com.inq.wishhair.wesharewishhair.auth.application.dto.response.LoginResponse;
 import com.inq.wishhair.wesharewishhair.auth.presentation.dto.request.LoginRequest;
 import com.inq.wishhair.wesharewishhair.common.support.ApiTestSupport;
-import com.inq.wishhair.wesharewishhair.global.config.SecurityConfig;
 
-@WebMvcTest(value = {AuthController.class, SecurityConfig.class})
 @DisplayName("[AuthController 테스트] - API")
 class AuthControllerTest extends ApiTestSupport {
 

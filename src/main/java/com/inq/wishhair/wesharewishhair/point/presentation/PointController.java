@@ -15,7 +15,7 @@ import com.inq.wishhair.wesharewishhair.point.application.PointService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/users/point")
+@RequestMapping("/api/points")
 @RequiredArgsConstructor
 public class PointController {
 
@@ -26,7 +26,6 @@ public class PointController {
 		final @RequestBody PointUseRequest request,
 		final @FetchAuthInfo AuthInfo authInfo
 	) {
-
 		pointService.usePoint(request, authInfo.userId());
 
 		return ResponseEntity.ok(new Success());
