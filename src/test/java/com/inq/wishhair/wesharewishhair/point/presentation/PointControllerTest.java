@@ -6,8 +6,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -20,12 +18,11 @@ import com.inq.wishhair.wesharewishhair.user.domain.UserRepository;
 import com.inq.wishhair.wesharewishhair.user.domain.entity.User;
 import com.inq.wishhair.wesharewishhair.user.fixture.UserFixture;
 
-@SpringBootTest
-@AutoConfigureMockMvc
 @DisplayName("[PointController 테스트 - API]")
 class PointControllerTest extends ApiTestSupport {
 
 	private static final String POINT_USE_URL = "/api/points/use";
+	private static final String POINT_QUERY_URL = "/api/points";
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -53,5 +50,31 @@ class PointControllerTest extends ApiTestSupport {
 
 		//then
 		result.andExpect(status().isOk());
+	}
+
+	@Test
+	@DisplayName("[포인트 로그를 페이징 정보를 통해 조회한다]")
+	void findPointHistories() throws Exception {
+		//given
+		User user = UserFixture.getFixedManUser();
+		Long userId = userRepository.save(user).getId();
+		pointLogRepository.save(PointLogFixture.getUsePointLog(user));
+
+		setAuthorization(userId);
+
+		//when
+		ResultActions result = mockMvc.perform(
+			MockMvcRequestBuilders
+				.get(POINT_QUERY_URL)
+				.header(AUTHORIZATION, ACCESS_TOKEN)
+		);
+
+		//then
+		result.andExpectAll(
+			status().isOk(),
+			jsonPath("$.paging").exists(),
+			jsonPath("$.result").isNotEmpty(),
+			jsonPath("$.result.size()").value(1)
+		);
 	}
 }

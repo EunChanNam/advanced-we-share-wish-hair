@@ -32,6 +32,7 @@ class PhotoServiceTest {
 	}
 
 	@Test
+	@DisplayName("[이미지들을 업로드한다]")
 	void uploadPhotos() throws IOException {
 		//given
 		List<MultipartFile> files = FileMockingUtils.createMockMultipartFiles();
@@ -48,6 +49,7 @@ class PhotoServiceTest {
 	}
 
 	@Test
+	@DisplayName("[Photo 데이터와 실제 이미지를 리뷰 아이디로 삭제한다]")
 	void deletePhotosByReviewId() {
 		//given
 		Review review = ReviewFixture.getEmptyReview(1L);
@@ -64,6 +66,7 @@ class PhotoServiceTest {
 	}
 
 	@Test
+	@DisplayName("[특정 리뷰어의 리뷰의 Photo 데이터와 실제 이미지를 삭제한다]")
 	void deletePhotosByWriter() {
 		//given
 		Review review1 = ReviewFixture.getEmptyReview(1L);
