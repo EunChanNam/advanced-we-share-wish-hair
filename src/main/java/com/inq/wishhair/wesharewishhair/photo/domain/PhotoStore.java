@@ -8,5 +8,5 @@ public interface PhotoStore {
 
 	List<String> uploadFiles(List<MultipartFile> files);
 
-	void deleteFiles(List<String> storeUrls);
+	boolean deleteFiles(List<String> storeUrls);
 }
