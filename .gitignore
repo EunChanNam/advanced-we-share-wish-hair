@@ -12,6 +12,7 @@ build/
 
 ### images ###
 **/src/main/resources/static/
+**/src/test/resources/images/
 
 ### STS ###
 .apt_generated
