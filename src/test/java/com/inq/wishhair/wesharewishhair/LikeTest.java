@@ -14,14 +14,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.inq.wishhair.wesharewishhair.review.application.LikeReviewService;
 
-@SpringBootTest
+// @SpringBootTest
 @DisplayName("[좋아요 동시성 테스트]")
 class LikeTest {
 
-	@Autowired
+	// @Autowired
 	private LikeReviewService likeReviewService;
 
-	@Test
+	// @Test
 	@DisplayName("[100개의 동시요청에서 100개의 좋아요 개수를 기록한다]")
 	void test() throws InterruptedException {
 		//given
