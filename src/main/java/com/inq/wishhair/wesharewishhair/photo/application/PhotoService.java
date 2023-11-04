@@ -25,19 +25,15 @@ public class PhotoService {
 	}
 
 	@Transactional
-	public boolean deletePhotosByReviewId(final Review review) {
+	public void deletePhotosByReviewId(final Review review) {
 		deletePhotosInCloud(review);
 		photoRepository.deleteAllByReview(review.getId());
-
-		return true;
 	}
 
 	@Transactional
-	public boolean deletePhotosByWriter(final List<Review> reviews) {
+	public void deletePhotosByWriter(final List<Review> reviews) {
 		reviews.forEach(this::deletePhotosInCloud);
 		photoRepository.deleteAllByReviews(reviews.stream().map(Review::getId).toList());
-
-		return true;
 	}
 
 	private void deletePhotosInCloud(final Review review) {
