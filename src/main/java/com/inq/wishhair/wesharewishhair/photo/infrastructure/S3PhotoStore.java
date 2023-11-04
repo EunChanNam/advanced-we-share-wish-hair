@@ -61,9 +61,8 @@ public class S3PhotoStore implements PhotoStore {
 		}
 	}
 
-	public boolean deleteFiles(final List<String> storeUrls) {
+	public void deleteFiles(final List<String> storeUrls) {
 		storeUrls.forEach(this::deleteFile);
-		return true;
 	}
 
 	private void deleteFile(final String storeUrl) {
