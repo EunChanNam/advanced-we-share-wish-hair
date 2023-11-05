@@ -15,7 +15,7 @@ import com.inq.wishhair.wesharewishhair.global.dto.response.PagedResponse;
 import com.inq.wishhair.wesharewishhair.global.dto.response.ResponseWrapper;
 import com.inq.wishhair.wesharewishhair.global.exception.ErrorCode;
 import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
-import com.inq.wishhair.wesharewishhair.hairstyle.application.query.HairStyleQueryRepository;
+import com.inq.wishhair.wesharewishhair.hairstyle.domain.HairStyleQueryRepository;
 import com.inq.wishhair.wesharewishhair.hairstyle.domain.HairStyle;
 import com.inq.wishhair.wesharewishhair.hairstyle.domain.HairStyleRepository;
 import com.inq.wishhair.wesharewishhair.hairstyle.domain.hashtag.Tag;

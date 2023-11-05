@@ -17,7 +17,6 @@ import com.inq.wishhair.wesharewishhair.review.presentation.LikeReviewController
 import com.inq.wishhair.wesharewishhair.review.presentation.ReviewController;
 import com.inq.wishhair.wesharewishhair.review.presentation.ReviewSearchController;
 import com.inq.wishhair.wesharewishhair.point.presentation.PointController;
-import com.inq.wishhair.wesharewishhair.point.presentation.PointSearchController;
 import com.inq.wishhair.wesharewishhair.user.presentation.UserController;
 import com.inq.wishhair.wesharewishhair.user.presentation.UserInfoController;
 
@@ -26,7 +25,7 @@ import com.inq.wishhair.wesharewishhair.user.presentation.UserInfoController;
 	ReviewController.class, WishHairController.class, AuthController.class,
 	TokenReissueController.class, MailAuthController.class,
 	UserInfoController.class, LikeReviewController.class, ReviewSearchController.class,
-	PointSearchController.class, PointController.class
+	PointController.class
 })
 public class ApiExceptionHandler {
 

@@ -1,11 +1,10 @@
-package com.inq.wishhair.wesharewishhair.hairstyle.application.query;
+package com.inq.wishhair.wesharewishhair.hairstyle.domain;
 
 import java.util.List;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 
-import com.inq.wishhair.wesharewishhair.hairstyle.domain.HairStyle;
 import com.inq.wishhair.wesharewishhair.hairstyle.utils.HairRecommendCondition;
 
 public interface HairStyleQueryRepository {
