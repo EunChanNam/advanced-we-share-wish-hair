@@ -9,7 +9,7 @@ import org.springframework.data.domain.SliceImpl;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.inq.wishhair.wesharewishhair.hairstyle.application.query.HairStyleQueryRepository;
+import com.inq.wishhair.wesharewishhair.hairstyle.domain.HairStyleQueryRepository;
 import com.inq.wishhair.wesharewishhair.hairstyle.domain.HairStyle;
 import com.inq.wishhair.wesharewishhair.hairstyle.domain.QHairStyle;
 import com.inq.wishhair.wesharewishhair.hairstyle.domain.hashtag.QHashTag;
@@ -59,7 +59,8 @@ public class HairStyleQueryDslRepository implements HairStyleQueryRepository {
 			.where(
 				hashTagInTags(condition.getTags()),
 				hairStyleIn(filteredHairStyles),
-				hairStyle.sex.eq(condition.getSex()))
+				hairStyle.sex.eq(condition.getSex())
+			)
 			.groupBy(hairStyle.id)
 			.orderBy(mainOrderBy())
 			.fetch();

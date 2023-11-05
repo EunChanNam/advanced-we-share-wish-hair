@@ -1,7 +1,5 @@
 package com.inq.wishhair.wesharewishhair.hairstyle.utils;
 
-import static lombok.AccessLevel.*;
-
 import java.util.List;
 
 import com.inq.wishhair.wesharewishhair.hairstyle.domain.hashtag.Tag;
@@ -12,7 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor(access = PRIVATE)
+@AllArgsConstructor
 public class HairRecommendCondition {
 
 	private List<Tag> tags;

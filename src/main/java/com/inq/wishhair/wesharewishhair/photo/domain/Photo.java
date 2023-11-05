@@ -34,7 +34,7 @@ public class Photo {
 	@JoinColumn(name = "review_id", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
 	private Review review;
 
-	@Column(nullable = false, updatable = false, unique = true)
+	@Column(nullable = false, updatable = false)
 	private String storeUrl;
 
 	//==생성 메서드==//
