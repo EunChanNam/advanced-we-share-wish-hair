@@ -23,7 +23,6 @@ public abstract class ApiTestSupport {
 		return authTokenManager.generate(userId).accessToken();
 	}
 
-
 	public String toJson(Object object) throws JsonProcessingException {
 		return objectMapper.writeValueAsString(object);
 	}

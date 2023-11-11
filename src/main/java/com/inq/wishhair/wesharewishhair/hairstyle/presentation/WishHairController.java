@@ -25,8 +25,8 @@ public class WishHairController {
 
 	@PostMapping(path = "{hairStyleId}")
 	public ResponseEntity<Success> executeWish(
-		final @PathVariable Long hairStyleId,
-		final @FetchAuthInfo AuthInfo authInfo
+		@PathVariable Long hairStyleId,
+		@FetchAuthInfo AuthInfo authInfo
 	) {
 
 		wishHairService.executeWish(hairStyleId, authInfo.userId());
@@ -36,8 +36,8 @@ public class WishHairController {
 
 	@DeleteMapping(path = "{hairStyleId}")
 	public ResponseEntity<Success> cancelWish(
-		final @PathVariable Long hairStyleId,
-		final @FetchAuthInfo AuthInfo authInfo
+		@PathVariable Long hairStyleId,
+		@FetchAuthInfo AuthInfo authInfo
 	) {
 		wishHairService.cancelWish(hairStyleId, authInfo.userId());
 
@@ -46,8 +46,8 @@ public class WishHairController {
 
 	@GetMapping(path = {"{hairStyleId}"})
 	public ResponseEntity<WishHairResponse> checkIsWishing(
-		final @PathVariable Long hairStyleId,
-		final @FetchAuthInfo AuthInfo authInfo
+		@PathVariable Long hairStyleId,
+		@FetchAuthInfo AuthInfo authInfo
 	) {
 		WishHairResponse result = wishHairService.checkIsWishing(hairStyleId, authInfo.userId());
 		return ResponseEntity.ok(result);
