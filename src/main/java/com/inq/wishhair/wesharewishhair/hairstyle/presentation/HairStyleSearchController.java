@@ -31,8 +31,8 @@ public class HairStyleSearchController {
 
 	@GetMapping("/recommend")
 	public ResponseWrapper<HairStyleResponse> respondRecommendedHairStyle(
-		final @RequestParam(defaultValue = "ERROR") List<Tag> tags,
-		final @FetchAuthInfo AuthInfo authInfo
+		@RequestParam(defaultValue = "ERROR") List<Tag> tags,
+		@FetchAuthInfo AuthInfo authInfo
 	) {
 		validateHasTag(tags);
 
@@ -41,15 +41,15 @@ public class HairStyleSearchController {
 
 	@GetMapping("/home")
 	public ResponseWrapper<HairStyleResponse> findHairStyleByFaceShape(
-		final @FetchAuthInfo AuthInfo authInfo
+		@FetchAuthInfo AuthInfo authInfo
 	) {
 		return hairStyleSearchService.recommendHairByFaceShape(authInfo.userId());
 	}
 
 	@GetMapping("/wish")
 	public PagedResponse<HairStyleResponse> findWishHairStyles(
-		final @FetchAuthInfo AuthInfo authInfo,
-		final @PageableDefault Pageable pageable) {
+		@FetchAuthInfo AuthInfo authInfo,
+		@PageableDefault Pageable pageable) {
 
 		return hairStyleSearchService.findWishHairStyles(authInfo.userId(), pageable);
 	}
