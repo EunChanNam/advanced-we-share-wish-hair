@@ -19,10 +19,8 @@ public class TokenReissueController {
 
 	private final TokenReissueService tokenReissueService;
 
-	@PostMapping("/token/reissue")
-	public ResponseEntity<TokenResponse> reissueToken(
-		final @FetchAuthInfo AuthInfo authInfo
-	) {
+	@PostMapping("/tokens/reissue")
+	public ResponseEntity<TokenResponse> reissueToken(@FetchAuthInfo AuthInfo authInfo) {
 		TokenResponse response = tokenReissueService.reissueToken(authInfo.userId(), authInfo.token());
 		return ResponseEntity.ok(response);
 	}
