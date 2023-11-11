@@ -7,7 +7,7 @@ import com.inq.wishhair.wesharewishhair.hairstyle.domain.wishhair.WishHairReposi
 
 public interface WishHairJpaRepository extends WishHairRepository, JpaRepository<WishHair, Long> {
 
-	int deleteByHairStyleIdAndUserId(Long hairStyleId, Long userId);
+	void deleteByHairStyleIdAndUserId(Long hairStyleId, Long userId);
 
 	boolean existsByHairStyleIdAndUserId(Long hairStyleId, Long userId);
 }

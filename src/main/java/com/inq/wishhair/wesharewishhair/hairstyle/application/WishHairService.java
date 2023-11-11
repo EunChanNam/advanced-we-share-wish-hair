@@ -42,8 +42,8 @@ public class WishHairService {
 		final Long hairStyleId,
 		final Long userId
 	) {
-		int deletedCount = wishHairRepository.deleteByHairStyleIdAndUserId(hairStyleId, userId);
-		return deletedCount != 0;
+		wishHairRepository.deleteByHairStyleIdAndUserId(hairStyleId, userId);
+		return true;
 	}
 
 	public WishHairResponse checkIsWishing(

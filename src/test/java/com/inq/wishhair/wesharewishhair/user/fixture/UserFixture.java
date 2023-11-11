@@ -45,4 +45,10 @@ public final class UserFixture {
 			Sex.WOMAN
 		);
 	}
+
+	public static User getFixedWomanUser(Long id) {
+		User user = getFixedWomanUser();
+		ReflectionTestUtils.setField(user, "id", id);
+		return user;
+	}
 }
