@@ -4,7 +4,7 @@ public interface WishHairRepository {
 
 	WishHair save(WishHair wishHair);
 
-	void deleteByHairStyleIdAndUserId(Long hairStyleId, Long userId);
+	int deleteByHairStyleIdAndUserId(Long hairStyleId, Long userId);
 
 	boolean existsByHairStyleIdAndUserId(Long hairStyleId, Long userId);
 }

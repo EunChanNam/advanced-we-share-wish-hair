@@ -15,7 +15,7 @@ public class HairStyleFindService {
 
 	private final HairStyleRepository hairStyleRepository;
 
-	public HairStyle findById(Long id) {
+	public HairStyle getById(Long id) {
 		return hairStyleRepository.findById(id)
 			.orElseThrow(() -> new WishHairException(ErrorCode.NOT_EXIST_KEY));
 	}
