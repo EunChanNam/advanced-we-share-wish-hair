@@ -36,14 +36,14 @@ class PointControllerTest extends ApiTestSupport {
 	void usePoint() throws Exception {
 		//given
 		User user = UserFixture.getFixedManUser();
-		userRepository.save(user);
+		Long userId = userRepository.save(user).getId();
 		pointLogRepository.save(PointLogFixture.getUsePointLog(user));
 
 		//when
 		ResultActions result = mockMvc.perform(
 			MockMvcRequestBuilders
 				.post(POINT_USE_URL)
-				.header(AUTHORIZATION, ACCESS_TOKEN)
+				.header(AUTHORIZATION, BEARER + getAccessToken(userId))
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(toJson(PointLogFixture.getPointUseRequest()))
 		);
@@ -60,13 +60,11 @@ class PointControllerTest extends ApiTestSupport {
 		Long userId = userRepository.save(user).getId();
 		pointLogRepository.save(PointLogFixture.getUsePointLog(user));
 
-		setAuthorization(userId);
-
 		//when
 		ResultActions result = mockMvc.perform(
 			MockMvcRequestBuilders
 				.get(POINT_QUERY_URL)
-				.header(AUTHORIZATION, ACCESS_TOKEN)
+				.header(AUTHORIZATION, BEARER + getAccessToken(userId))
 		);
 
 		//then

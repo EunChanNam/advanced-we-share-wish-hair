@@ -17,6 +17,9 @@ import com.inq.wishhair.wesharewishhair.auth.application.AuthService;
 import com.inq.wishhair.wesharewishhair.auth.application.dto.response.LoginResponse;
 import com.inq.wishhair.wesharewishhair.auth.presentation.dto.request.LoginRequest;
 import com.inq.wishhair.wesharewishhair.common.support.ApiTestSupport;
+import com.inq.wishhair.wesharewishhair.user.domain.UserRepository;
+import com.inq.wishhair.wesharewishhair.user.domain.entity.User;
+import com.inq.wishhair.wesharewishhair.user.fixture.UserFixture;
 
 @DisplayName("[AuthController 테스트] - API")
 class AuthControllerTest extends ApiTestSupport {
@@ -28,6 +31,8 @@ class AuthControllerTest extends ApiTestSupport {
 	private MockMvc mockMvc;
 	@MockBean
 	private AuthService authService;
+	@Autowired
+	private UserRepository userRepository;
 
 	@Test
 	@DisplayName("[로그인 API 를 호출한다]")
@@ -60,11 +65,15 @@ class AuthControllerTest extends ApiTestSupport {
 	@Test
 	@DisplayName("[로그아웃 API 를 호출한다]")
 	void logout() throws Exception {
+		//given
+		User user = UserFixture.getFixedManUser();
+		Long userId = userRepository.save(user).getId();
+
 		//when
 		ResultActions result = mockMvc.perform(
 			MockMvcRequestBuilders
 				.post(LOGOUT_URL)
-				.header(AUTHORIZATION, ACCESS_TOKEN)
+				.header(AUTHORIZATION, BEARER + getAccessToken(userId))
 		);
 
 		//then
