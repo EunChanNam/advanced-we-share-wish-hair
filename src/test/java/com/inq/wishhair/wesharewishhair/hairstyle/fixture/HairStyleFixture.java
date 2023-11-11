@@ -2,6 +2,8 @@ package com.inq.wishhair.wesharewishhair.hairstyle.fixture;
 
 import java.util.List;
 
+import org.springframework.test.util.ReflectionTestUtils;
+
 import com.inq.wishhair.wesharewishhair.hairstyle.domain.HairStyle;
 import com.inq.wishhair.wesharewishhair.hairstyle.domain.hashtag.Tag;
 import com.inq.wishhair.wesharewishhair.user.domain.entity.Sex;
@@ -25,14 +27,12 @@ public final class HairStyleFixture {
 		);
 	}
 
-	public static HairStyle getWomanHairStyle(List<Tag> tags) {
-		return HairStyle.createHairStyle(
-			NAME,
-			Sex.WOMAN,
-			IMAGE_URLS,
-			tags
-		);
+	public static HairStyle getWomanHairStyle(Long id) {
+		HairStyle hairStyle = getWomanHairStyle();
+		ReflectionTestUtils.setField(hairStyle, "id", id);
+		return hairStyle;
 	}
+
 
 	public static HairStyle getWomanHairStyle(String name, List<Tag> tags) {
 		return HairStyle.createHairStyle(
