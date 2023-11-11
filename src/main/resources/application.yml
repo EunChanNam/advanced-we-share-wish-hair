@@ -16,7 +16,7 @@ spring:
         default_batch_fetch_size: 100
 #        show_sql: true
 #        format_sql: true
-        dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect: org.hibernate.dialect.MySQLDialect
 
     open-in-view: false
 
@@ -29,8 +29,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: ${MAIL}  # namhm23@kyonggi.ac.kr
-    password: ${MAIL_PW} # qkvpxhpgyuywcbgh
+    username: ${MAIL}
+    password: ${MAIL_PW}
     protocol: smtp
     properties:
       mail:
@@ -68,9 +68,9 @@ decorator:
 
 #JWT key
 jwt:
-  secret-key: ${JWT_SECRET_KEY} # wishhairOiJIUzI1NiIvLoAR5cCI6IkpXSCJ9.eyJzdWIiOiIiLCLoCP1lIjoiSm9obiBEV9UiLCJpYXBCusE1MTYyMzkwMjJ9.163aevla8s7d6f987qweahqwculaoxce80k1i2o387tg
-  access-token-validity: ${ACCESS_TOKEN_VALIDITY}  # 1800000
-  refresh-token-validity: ${REFRESH_TOKEN_VALIDITY} # 259200000
+  secret-key: ${JWT_SECRET_KEY}
+  access-token-validity: ${ACCESS_TOKEN_VALIDITY}
+  refresh-token-validity: ${REFRESH_TOKEN_VALIDITY}
 
 # 네이버 클라우드 오브젝트 스토리지
 cloud:
