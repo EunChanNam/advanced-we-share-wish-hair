@@ -8,11 +8,11 @@ public interface LikeReviewRepository {
 
 	Long countByReviewId(Long reviewId);
 
-	void deleteAllByReview(Long reviewId);
+	void deleteByReviewId(Long reviewId);
 
-	int deleteByUserIdAndReviewId(Long userId, Long reviewId);
+	void deleteByUserIdAndReviewId(Long userId, Long reviewId);
 
 	boolean existsByUserIdAndReviewId(Long userId, Long reviewId);
 
-	void deleteAllByReviews(List<Long> reviewIds);
+	void deleteByReviewIdIn(List<Long> reviewIds);
 }

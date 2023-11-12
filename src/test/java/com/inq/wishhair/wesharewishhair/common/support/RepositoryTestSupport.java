@@ -5,8 +5,9 @@ import org.springframework.context.annotation.Import;
 
 import com.inq.wishhair.wesharewishhair.global.config.QueryDslConfig;
 import com.inq.wishhair.wesharewishhair.hairstyle.infrastructure.query.HairStyleQueryDslRepository;
+import com.inq.wishhair.wesharewishhair.review.infrastructure.ReviewQueryDslRepository;
 
-@Import({QueryDslConfig.class, HairStyleQueryDslRepository.class})
+@Import({QueryDslConfig.class, HairStyleQueryDslRepository.class, ReviewQueryDslRepository.class})
 @DataJpaTest
 public abstract class RepositoryTestSupport {
 }

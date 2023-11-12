@@ -28,6 +28,6 @@ public class ReviewFindService {
 	}
 
 	public List<Review> findWithPhotosByUserId(Long userId) {
-		return reviewRepository.findWithPhotosByUserId(userId);
+		return reviewRepository.findWithPhotosByWriterId(userId);
 	}
 }

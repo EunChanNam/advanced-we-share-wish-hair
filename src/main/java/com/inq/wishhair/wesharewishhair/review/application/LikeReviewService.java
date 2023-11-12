@@ -21,6 +21,12 @@ public class LikeReviewService {
 	private final LikeReviewRepository likeReviewRepository;
 	private final RedisUtils redisUtils;
 
+	private Long updateLikeCountFromRedis(Long reviewId) {
+		Long likeCount = likeReviewRepository.countByReviewId(reviewId);
+		redisUtils.setData(reviewId, likeCount);
+		return likeCount;
+	}
+
 	@Transactional
 	public boolean executeLike(Long reviewId, Long userId) {
 		try {
@@ -41,10 +47,7 @@ public class LikeReviewService {
 
 	@Transactional
 	public boolean cancelLike(Long reviewId, Long userId) {
-		int deletedCount = likeReviewRepository.deleteByUserIdAndReviewId(userId, reviewId);
-		if (deletedCount == 0) {
-			return false;
-		}
+		likeReviewRepository.deleteByUserIdAndReviewId(userId, reviewId);
 
 		redisUtils.getData(reviewId)
 			.ifPresentOrElse(
@@ -56,7 +59,8 @@ public class LikeReviewService {
 	}
 
 	public LikeReviewResponse checkIsLiking(Long userId, Long reviewId) {
-		return new LikeReviewResponse(existLikeReview(userId, reviewId));
+		boolean isLiking = likeReviewRepository.existsByUserIdAndReviewId(userId, reviewId);
+		return new LikeReviewResponse(isLiking);
 	}
 
 	public Long getLikeCount(Long reviewId) {
@@ -70,13 +74,4 @@ public class LikeReviewService {
 			.toList();
 	}
 
-	private Long updateLikeCountFromRedis(Long reviewId) {
-		Long likeCount = likeReviewRepository.countByReviewId(reviewId);
-		redisUtils.setData(reviewId, likeCount);
-		return likeCount;
-	}
-
-	private boolean existLikeReview(Long userId, Long reviewId) {
-		return likeReviewRepository.existsByUserIdAndReviewId(userId, reviewId);
-	}
 }

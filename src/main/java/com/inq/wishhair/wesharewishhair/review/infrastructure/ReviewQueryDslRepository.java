@@ -53,12 +53,10 @@ public class ReviewQueryDslRepository implements ReviewQueryRepository {
 		List<Review> result = factory
 			.select(review)
 			.from(review)
-			.leftJoin(like).on(like.reviewId.eq(review.id))
 			.leftJoin(review.hairStyle)
 			.fetchJoin()
 			.leftJoin(review.writer)
 			.fetchJoin()
-			.groupBy(review.id)
 			.orderBy(applyOrderBy(pageable))
 			.offset(pageable.getOffset())
 			.limit(pageable.getPageSize() + 1L)
@@ -69,22 +67,16 @@ public class ReviewQueryDslRepository implements ReviewQueryRepository {
 
 	@Override
 	public Slice<Review> findReviewByLike(Long userId, Pageable pageable) {
-		List<Long> filteredReviewId = factory
-			.select(review.id)
-			.from(review)
-			.leftJoin(like).on(review.id.eq(like.reviewId))
-			.where(like.userId.eq(userId))
-			.groupBy(review.id)
-			.fetch();
-
 		List<Review> result = factory
 			.select(review)
 			.from(review)
+			.leftJoin(like).on(review.id.eq(like.reviewId))
 			.leftJoin(review.writer)
 			.fetchJoin()
 			.leftJoin(review.hairStyle)
 			.fetchJoin()
-			.where(review.id.in(filteredReviewId))
+			.where(like.userId.eq(userId))
+			.groupBy(review.id)
 			.orderBy(review.id.desc())
 			.offset(pageable.getOffset())
 			.limit(pageable.getPageSize() + 1L)
@@ -124,7 +116,6 @@ public class ReviewQueryDslRepository implements ReviewQueryRepository {
 			.leftJoin(review.writer)
 			.fetchJoin()
 			.where(review.createdDate.between(startDate, endDate))
-			.orderBy(review.likeCount.desc())
 			.offset(0)
 			.limit(4)
 			.fetch();
@@ -140,7 +131,6 @@ public class ReviewQueryDslRepository implements ReviewQueryRepository {
 			.leftJoin(review.writer)
 			.fetchJoin()
 			.where(review.hairStyle.id.eq(hairStyleId))
-			.orderBy(review.likeCount.desc())
 			.offset(0)
 			.limit(4)
 			.fetch();
@@ -150,13 +140,10 @@ public class ReviewQueryDslRepository implements ReviewQueryRepository {
 		List<OrderSpecifier<?>> orderBy = new LinkedList<>();
 		String sort = pageable.getSort().toString().replace(": ", ".");
 
-		switch (sort) {
-			case LIKES_DESC -> {
-				orderBy.add(review.likeCount.desc());
-				orderBy.add(review.id.desc());
-			}
-			case DATE_DESC -> orderBy.add(review.id.desc());
-			case DATE_ASC -> orderBy.add(review.id.asc());
+		if (sort.equals(DATE_ASC)) {
+			orderBy.add(review.id.asc());
+		} else {
+			orderBy.add(review.id.desc());
 		}
 		return orderBy.toArray(OrderSpecifier[]::new);
 	}
