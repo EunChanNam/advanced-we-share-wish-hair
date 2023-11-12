@@ -23,4 +23,8 @@ public final class PageableGenerator {
 	public static Pageable generateDateDescPageable(int size) {
 		return PageRequest.of(0, size, Sort.by(Sort.Direction.DESC, DATE));
 	}
+
+	public static Pageable generateDateAscPageable(int size) {
+		return PageRequest.of(0, size, Sort.by(Sort.Direction.ASC, DATE));
+	}
 }

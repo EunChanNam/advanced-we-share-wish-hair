@@ -55,7 +55,7 @@ public class ReviewService {
 		Review review = reviewFindService.findWithPhotosById(reviewId);
 		validateIsWriter(userId, review);
 
-		likeReviewRepository.deleteAllByReview(reviewId);
+		likeReviewRepository.deleteByReviewId(reviewId);
 		photoService.deletePhotosByReviewId(review);
 		reviewRepository.delete(review);
 	}
@@ -75,9 +75,9 @@ public class ReviewService {
 		List<Review> reviews = reviewFindService.findWithPhotosByUserId(userId);
 		List<Long> reviewIds = reviews.stream().map(Review::getId).toList();
 
-		likeReviewRepository.deleteAllByReviews(reviewIds);
+		likeReviewRepository.deleteByReviewIdIn(reviewIds);
 		photoService.deletePhotosByWriter(reviews);
-		reviewRepository.deleteAllByWriter(reviewIds);
+		reviewRepository.deleteByIdIn(reviewIds);
 	}
 
 	private void validateIsWriter(Long userId, Review review) {
