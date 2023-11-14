@@ -1,8 +1,13 @@
 package com.inq.wishhair.wesharewishhair.common.support;
 
+import static org.mockito.BDDMockito.*;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -23,6 +28,15 @@ public abstract class ApiTestSupport {
 	private AuthTokenManager authTokenManager;
 	@Autowired
 	private UserRepository userRepository;
+
+	@MockBean
+	private PasswordEncoder passwordEncoder;
+
+	@BeforeEach
+	void setPasswordEncoder() {
+		given(passwordEncoder.encode(any())).willReturn("password");
+		given(passwordEncoder.matches(any(), any())).willReturn(true);
+	}
 
 	protected String getAccessToken(Long userId) {
 		return authTokenManager.generate(userId).accessToken();

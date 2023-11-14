@@ -4,10 +4,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import com.inq.wishhair.wesharewishhair.common.stub.PasswordEncoderStub;
+import com.inq.wishhair.wesharewishhair.user.application.dto.response.UserInfo;
 import com.inq.wishhair.wesharewishhair.user.domain.entity.Password;
 import com.inq.wishhair.wesharewishhair.user.domain.entity.Sex;
 import com.inq.wishhair.wesharewishhair.user.domain.entity.User;
- 
+import com.inq.wishhair.wesharewishhair.user.presentation.dto.request.PasswordRefreshRequest;
+import com.inq.wishhair.wesharewishhair.user.presentation.dto.request.PasswordUpdateRequest;
+import com.inq.wishhair.wesharewishhair.user.presentation.dto.request.SignUpRequest;
+import com.inq.wishhair.wesharewishhair.user.presentation.dto.request.UserUpdateRequest;
+
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -50,5 +55,36 @@ public final class UserFixture {
 		User user = getFixedWomanUser();
 		ReflectionTestUtils.setField(user, "id", id);
 		return user;
+	}
+
+	public static SignUpRequest getSignUpRequest() {
+		return new SignUpRequest(
+			"newMail@naver.com",
+			"hello1234!",
+			"name",
+			"nickname",
+			Sex.MAN
+		);
+	}
+
+	public static PasswordRefreshRequest getPasswordRefreshRequest() {
+		return new PasswordRefreshRequest(
+			EMAIL,
+			"newPassword1234@"
+		);
+	}
+
+	public static UserUpdateRequest getUserUpdateRequest() {
+		return new UserUpdateRequest(
+			"nickname",
+			Sex.MAN
+		);
+	}
+
+	public static PasswordUpdateRequest getPasswordUpdateRequest() {
+		return new PasswordUpdateRequest(
+			PW,
+			"newPw1234!"
+		);
 	}
 }

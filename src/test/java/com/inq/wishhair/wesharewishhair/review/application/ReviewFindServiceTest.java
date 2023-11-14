@@ -65,7 +65,7 @@ class ReviewFindServiceTest extends MockTestSupport {
 	}
 
 	@Test
-	@DisplayName("[]")
+	@DisplayName("[특정 작성자의 리뷰를 조회한다]")
 	void findWithPhotosByUserId() {
 		//given
 		List<Review> reviews = List.of(ReviewFixture.getReview());

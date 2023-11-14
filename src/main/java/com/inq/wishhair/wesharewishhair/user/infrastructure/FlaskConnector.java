@@ -27,9 +27,12 @@ public class FlaskConnector implements AiConnector {
 	private final String requestUri;
 	private final RestTemplate restTemplate;
 
-	public FlaskConnector(@Value("${flask.domain}") String domain) {
+	public FlaskConnector(
+		@Value("${flask.domain}") String domain,
+		RestTemplate restTemplate
+	) {
 		this.requestUri = domain + URL;
-		this.restTemplate = new RestTemplate();
+		this.restTemplate = restTemplate;
 	}
 
 	@Override
