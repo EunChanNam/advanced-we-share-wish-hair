@@ -11,7 +11,7 @@ public class ScoreConverter implements Converter<String, Score> {
 	@Override
 	public Score convert(String value) {
 		switch (value) {
-			case "0" -> {
+			case "0.0" -> {
 				return Score.S0;
 			}
 			case "0.5" -> {
