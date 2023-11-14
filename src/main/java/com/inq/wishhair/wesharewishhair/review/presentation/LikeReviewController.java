@@ -25,8 +25,8 @@ public class LikeReviewController {
 
 	@PostMapping(path = "{reviewId}")
 	public ResponseEntity<Success> executeLike(
-		final @PathVariable Long reviewId,
-		final @FetchAuthInfo AuthInfo authInfo
+		@PathVariable Long reviewId,
+		@FetchAuthInfo AuthInfo authInfo
 	) {
 
 		likeReviewService.executeLike(reviewId, authInfo.userId());
@@ -35,8 +35,8 @@ public class LikeReviewController {
 
 	@DeleteMapping("/{reviewId}")
 	public ResponseEntity<Success> cancelLike(
-		final @PathVariable Long reviewId,
-		final @FetchAuthInfo AuthInfo authInfo
+		@PathVariable Long reviewId,
+		@FetchAuthInfo AuthInfo authInfo
 	) {
 
 		likeReviewService.cancelLike(reviewId, authInfo.userId());
@@ -45,8 +45,8 @@ public class LikeReviewController {
 
 	@GetMapping(path = "{reviewId}")
 	public ResponseEntity<LikeReviewResponse> checkIsLiking(
-		final @FetchAuthInfo AuthInfo authInfo,
-		final @PathVariable Long reviewId
+		@FetchAuthInfo AuthInfo authInfo,
+		@PathVariable Long reviewId
 	) {
 
 		LikeReviewResponse result = likeReviewService.checkIsLiking(authInfo.userId(), reviewId);

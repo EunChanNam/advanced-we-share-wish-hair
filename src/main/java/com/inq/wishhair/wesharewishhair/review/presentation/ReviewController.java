@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.inq.wishhair.wesharewishhair.global.annotation.FetchAuthInfo;
 import com.inq.wishhair.wesharewishhair.global.dto.response.Success;
 import com.inq.wishhair.wesharewishhair.global.resolver.dto.AuthInfo;
-import com.inq.wishhair.wesharewishhair.review.presentation.dto.request.ReviewCreateRequest;
-import com.inq.wishhair.wesharewishhair.review.presentation.dto.request.ReviewUpdateRequest;
+import com.inq.wishhair.wesharewishhair.review.application.dto.request.ReviewCreateRequest;
+import com.inq.wishhair.wesharewishhair.review.application.dto.request.ReviewUpdateRequest;
 import com.inq.wishhair.wesharewishhair.review.application.ReviewService;
 
 import lombok.RequiredArgsConstructor;
@@ -29,8 +29,8 @@ public class ReviewController {
 
 	@PostMapping
 	public ResponseEntity<Success> createReview(
-		final @ModelAttribute ReviewCreateRequest reviewCreateRequest,
-		final @FetchAuthInfo AuthInfo authInfo
+		@ModelAttribute ReviewCreateRequest reviewCreateRequest,
+		@FetchAuthInfo AuthInfo authInfo
 	) {
 		Long reviewId = reviewService.createReview(reviewCreateRequest, authInfo.userId());
 
@@ -41,8 +41,8 @@ public class ReviewController {
 
 	@DeleteMapping(path = "{reviewId}")
 	public ResponseEntity<Success> deleteReview(
-		final @FetchAuthInfo AuthInfo authInfo,
-		final @PathVariable Long reviewId
+		@FetchAuthInfo AuthInfo authInfo,
+		@PathVariable Long reviewId
 	) {
 		reviewService.deleteReview(reviewId, authInfo.userId());
 
@@ -51,8 +51,8 @@ public class ReviewController {
 
 	@PatchMapping
 	public ResponseEntity<Success> updateReview(
-		final @ModelAttribute ReviewUpdateRequest request,
-		final @FetchAuthInfo AuthInfo authInfo
+		@ModelAttribute ReviewUpdateRequest request,
+		@FetchAuthInfo AuthInfo authInfo
 	) {
 		reviewService.updateReview(request, authInfo.userId());
 

@@ -30,7 +30,7 @@ public final class UserFixture {
 		);
 	}
 
-	public static User getManUserWithId(Long id) {
+	public static User getFixedManUser(Long id) {
 		User user = getFixedManUser();
 		ReflectionTestUtils.setField(user, "id", id);
 		return user;

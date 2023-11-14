@@ -12,8 +12,8 @@ import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
 import com.inq.wishhair.wesharewishhair.hairstyle.domain.HairStyle;
 import com.inq.wishhair.wesharewishhair.hairstyle.application.HairStyleFindService;
 import com.inq.wishhair.wesharewishhair.photo.application.PhotoService;
-import com.inq.wishhair.wesharewishhair.review.presentation.dto.request.ReviewCreateRequest;
-import com.inq.wishhair.wesharewishhair.review.presentation.dto.request.ReviewUpdateRequest;
+import com.inq.wishhair.wesharewishhair.review.application.dto.request.ReviewCreateRequest;
+import com.inq.wishhair.wesharewishhair.review.application.dto.request.ReviewUpdateRequest;
 import com.inq.wishhair.wesharewishhair.review.domain.entity.Contents;
 import com.inq.wishhair.wesharewishhair.review.domain.entity.Review;
 import com.inq.wishhair.wesharewishhair.review.domain.ReviewRepository;
@@ -37,49 +37,6 @@ public class ReviewService {
 	private final HairStyleFindService hairStyleFindService;
 	private final ApplicationEventPublisher eventPublisher;
 
-	@Transactional
-	public Long createReview(ReviewCreateRequest request, Long userId) {
-
-		List<String> photoUrls = photoService.uploadPhotos(request.getFiles());
-		User user = userFindService.findByUserId(userId);
-		HairStyle hairStyle = hairStyleFindService.getById(request.getHairStyleId());
-
-		Review review = generateReview(request, photoUrls, user, hairStyle);
-		eventPublisher.publishEvent(new PointChargeEvent(100, userId));
-
-		return reviewRepository.save(review).getId();
-	}
-
-	@Transactional
-	public void deleteReview(Long reviewId, Long userId) {
-		Review review = reviewFindService.findWithPhotosById(reviewId);
-		validateIsWriter(userId, review);
-
-		likeReviewRepository.deleteByReviewId(reviewId);
-		photoService.deletePhotosByReviewId(review);
-		reviewRepository.delete(review);
-	}
-
-	@Transactional
-	public void updateReview(ReviewUpdateRequest request, Long userId) {
-		Review review = reviewFindService.findWithPhotosById(request.getReviewId());
-		validateIsWriter(userId, review);
-
-		Contents contents = new Contents(request.getContents());
-		List<String> storeUrls = refreshPhotos(review, request.getFiles());
-		review.updateReview(contents, request.getScore(), storeUrls);
-	}
-
-	@Transactional
-	public void deleteReviewByWriter(Long userId) {
-		List<Review> reviews = reviewFindService.findWithPhotosByUserId(userId);
-		List<Long> reviewIds = reviews.stream().map(Review::getId).toList();
-
-		likeReviewRepository.deleteByReviewIdIn(reviewIds);
-		photoService.deletePhotosByWriter(reviews);
-		reviewRepository.deleteByIdIn(reviewIds);
-	}
-
 	private void validateIsWriter(Long userId, Review review) {
 		if (!review.isWriter(userId)) {
 			throw new WishHairException(ErrorCode.REVIEW_NOT_WRITER);
@@ -94,10 +51,59 @@ public class ReviewService {
 	private Review generateReview(ReviewCreateRequest request, List<String> photos, User user, HairStyle hairStyle) {
 		return Review.createReview(
 			user,
-			request.getContents(),
-			request.getScore(),
+			request.contents(),
+			request.score(),
 			photos,
 			hairStyle
 		);
+	}
+
+	@Transactional
+	public Long createReview(ReviewCreateRequest request, Long userId) {
+
+		List<String> photoUrls = photoService.uploadPhotos(request.files());
+		User user = userFindService.findByUserId(userId);
+		HairStyle hairStyle = hairStyleFindService.getById(request.hairStyleId());
+
+		Review review = generateReview(request, photoUrls, user, hairStyle);
+		eventPublisher.publishEvent(new PointChargeEvent(100, userId));
+
+		return reviewRepository.save(review).getId();
+	}
+
+	@Transactional
+	public boolean deleteReview(Long reviewId, Long userId) {
+		Review review = reviewFindService.findWithPhotosById(reviewId);
+		validateIsWriter(userId, review);
+
+		likeReviewRepository.deleteByReviewId(reviewId);
+		photoService.deletePhotosByReviewId(review);
+		reviewRepository.delete(review);
+
+		return true;
+	}
+
+	@Transactional
+	public boolean updateReview(ReviewUpdateRequest request, Long userId) {
+		Review review = reviewFindService.findWithPhotosById(request.reviewId());
+		validateIsWriter(userId, review);
+
+		Contents contents = new Contents(request.contents());
+		List<String> storeUrls = refreshPhotos(review, request.files());
+		review.updateReview(contents, request.score(), storeUrls);
+
+		return true;
+	}
+
+	@Transactional
+	public boolean deleteReviewByWriter(Long userId) {
+		List<Review> reviews = reviewFindService.findWithPhotosByUserId(userId);
+		List<Long> reviewIds = reviews.stream().map(Review::getId).toList();
+
+		likeReviewRepository.deleteByReviewIdIn(reviewIds);
+		photoService.deletePhotosByWriter(reviews);
+		reviewRepository.deleteByIdIn(reviewIds);
+
+		return true;
 	}
 }

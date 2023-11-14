@@ -11,8 +11,8 @@ public record ReviewSimpleResponse(
 	public ReviewSimpleResponse(Review review) {
 		this(
 			review.getId(),
-			review.getContentsValue(),
-			review.getContentsValue(),
+			review.getWriter().getNicknameValue(),
+			review.getHairStyle().getName(),
 			review.getContentsValue()
 		);
 	}

@@ -30,6 +30,11 @@ public class ReviewSearchService {
 	private final ReviewQueryRepository reviewQueryRepository;
 	private final LikeReviewService likeReviewService;
 
+	private List<Long> fetchLikeCounts(List<Review> result) {
+		List<Long> reviewIds = result.stream().map(Review::getId).toList();
+		return likeReviewService.getLikeCounts(reviewIds);
+	}
+
 	/*리뷰 단건 조회*/
 	@AddisWriter
 	public ReviewDetailResponse findReviewById(Long userId, Long reviewId) {
@@ -86,10 +91,5 @@ public class ReviewSearchService {
 		List<Long> likeCounts = fetchLikeCounts(result);
 
 		return toWrappedReviewResponse(result, likeCounts);
-	}
-
-	private List<Long> fetchLikeCounts(List<Review> result) {
-		List<Long> reviewIds = result.stream().map(Review::getId).toList();
-		return likeReviewService.getLikeCounts(reviewIds);
 	}
 }

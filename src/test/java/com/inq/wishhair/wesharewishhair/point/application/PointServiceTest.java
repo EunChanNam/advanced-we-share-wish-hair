@@ -47,7 +47,7 @@ class PointServiceTest {
 		@DisplayName("[성공적으로 사용한다]")
 		void success() {
 			//given
-			User user = UserFixture.getManUserWithId(1L);
+			User user = UserFixture.getFixedManUser(1L);
 			given(userFindService.findByUserId(user.getId()))
 				.willReturn(user);
 
@@ -67,7 +67,7 @@ class PointServiceTest {
 		@DisplayName("[이전 PointLog 가 없어서 실패한다]")
 		void fail() {
 			//given
-			User user = UserFixture.getManUserWithId(1L);
+			User user = UserFixture.getFixedManUser(1L);
 			given(userFindService.findByUserId(user.getId()))
 				.willReturn(user);
 
@@ -92,7 +92,7 @@ class PointServiceTest {
 		@DisplayName("[성공적으로 충전한다]")
 		void success1() {
 			//given
-			User user = UserFixture.getManUserWithId(1L);
+			User user = UserFixture.getFixedManUser(1L);
 			given(userFindService.findByUserId(user.getId()))
 				.willReturn(user);
 
@@ -111,7 +111,7 @@ class PointServiceTest {
 		@DisplayName("[이전 PointLog 가 없어서 0원에서 시작한 PointLog 를 만든다]")
 		void success2() {
 			//given
-			User user = UserFixture.getManUserWithId(1L);
+			User user = UserFixture.getFixedManUser(1L);
 			given(userFindService.findByUserId(user.getId()))
 				.willReturn(user);
 

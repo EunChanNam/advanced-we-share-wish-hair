@@ -31,8 +31,8 @@ public class ReviewSearchController {
 
 	@GetMapping(path = "{reviewId}")
 	public ResponseEntity<ReviewDetailResponse> findReview(
-		final @PathVariable Long reviewId,
-		final @FetchAuthInfo AuthInfo authInfo
+		@PathVariable Long reviewId,
+		@FetchAuthInfo AuthInfo authInfo
 	) {
 		ReviewDetailResponse result = reviewSearchService.findReviewById(authInfo.userId(), reviewId);
 
@@ -41,8 +41,8 @@ public class ReviewSearchController {
 
 	@GetMapping
 	public ResponseEntity<PagedResponse<ReviewResponse>> findPagingReviews(
-		final @PageableDefault(sort = LIKES, direction = Sort.Direction.DESC) Pageable pageable,
-		final @FetchAuthInfo AuthInfo authInfo
+		@PageableDefault(sort = LIKES, direction = Sort.Direction.DESC) Pageable pageable,
+		@FetchAuthInfo AuthInfo authInfo
 	) {
 		PagedResponse<ReviewResponse> result = reviewSearchService.findPagedReviews(authInfo.userId(), pageable);
 
@@ -51,8 +51,8 @@ public class ReviewSearchController {
 
 	@GetMapping("/my")
 	public ResponseEntity<PagedResponse<ReviewResponse>> findMyReviews(
-		final @PageableDefault(sort = DATE, direction = Sort.Direction.DESC) Pageable pageable,
-		final @FetchAuthInfo AuthInfo authInfo
+		@PageableDefault(sort = DATE, direction = Sort.Direction.DESC) Pageable pageable,
+		@FetchAuthInfo AuthInfo authInfo
 	) {
 		PagedResponse<ReviewResponse> result = reviewSearchService.findMyReviews(authInfo.userId(), pageable);
 
@@ -66,8 +66,8 @@ public class ReviewSearchController {
 
 	@GetMapping("/hair_style/{hairStyleId}")
 	public ResponseWrapper<ReviewResponse> findHairStyleReview(
-		final @PathVariable Long hairStyleId,
-		final @FetchAuthInfo AuthInfo authInfo
+		@PathVariable Long hairStyleId,
+		@FetchAuthInfo AuthInfo authInfo
 	) {
 		return reviewSearchService.findReviewByHairStyle(authInfo.userId(), hairStyleId);
 	}
