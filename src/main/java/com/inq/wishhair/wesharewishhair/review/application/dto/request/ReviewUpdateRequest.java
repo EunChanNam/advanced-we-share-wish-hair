@@ -15,6 +15,7 @@ public record ReviewUpdateRequest(
 	String contents,
 	@NotNull
 	Score score,
+
 	List<MultipartFile> files
 ) {
 }

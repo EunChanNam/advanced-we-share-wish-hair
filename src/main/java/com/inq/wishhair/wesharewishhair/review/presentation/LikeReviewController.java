@@ -28,7 +28,6 @@ public class LikeReviewController {
 		@PathVariable Long reviewId,
 		@FetchAuthInfo AuthInfo authInfo
 	) {
-
 		likeReviewService.executeLike(reviewId, authInfo.userId());
 		return ResponseEntity.ok(new Success());
 	}
@@ -38,7 +37,6 @@ public class LikeReviewController {
 		@PathVariable Long reviewId,
 		@FetchAuthInfo AuthInfo authInfo
 	) {
-
 		likeReviewService.cancelLike(reviewId, authInfo.userId());
 		return ResponseEntity.ok(new Success());
 	}
@@ -48,7 +46,6 @@ public class LikeReviewController {
 		@FetchAuthInfo AuthInfo authInfo,
 		@PathVariable Long reviewId
 	) {
-
 		LikeReviewResponse result = likeReviewService.checkIsLiking(authInfo.userId(), reviewId);
 		return ResponseEntity.ok(result);
 	}

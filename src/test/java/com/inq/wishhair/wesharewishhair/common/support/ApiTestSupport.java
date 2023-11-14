@@ -8,6 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inq.wishhair.wesharewishhair.auth.domain.AuthTokenManager;
+import com.inq.wishhair.wesharewishhair.user.domain.UserRepository;
+import com.inq.wishhair.wesharewishhair.user.domain.entity.User;
+import com.inq.wishhair.wesharewishhair.user.fixture.UserFixture;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -18,9 +21,16 @@ public abstract class ApiTestSupport {
 
 	@Autowired
 	private AuthTokenManager authTokenManager;
+	@Autowired
+	private UserRepository userRepository;
 
 	protected String getAccessToken(Long userId) {
 		return authTokenManager.generate(userId).accessToken();
+	}
+
+	protected User saveUser() {
+		User user = UserFixture.getFixedWomanUser();
+		return userRepository.save(user);
 	}
 
 	public String toJson(Object object) throws JsonProcessingException {
