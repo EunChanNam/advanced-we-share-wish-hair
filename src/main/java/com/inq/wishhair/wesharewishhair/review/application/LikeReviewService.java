@@ -73,5 +73,4 @@ public class LikeReviewService {
 			.map(this::getLikeCount)
 			.toList();
 	}
-
 }

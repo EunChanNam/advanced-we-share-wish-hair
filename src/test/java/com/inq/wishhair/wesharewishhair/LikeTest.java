@@ -24,34 +24,8 @@ class LikeTest {
 	@Autowired
 	private LikeReviewService likeReviewService;
 
-	// @Test
-	// @DisplayName("[좋아요 정보가 Redis 에 없을 때, 동시적 요청이 들어오면 동시성 이슈가 발생한다]")
-	// void fail() throws InterruptedException {
-	// 	//given
-	// 	int threadCount = 100;
-	// 	ExecutorService service = Executors.newFixedThreadPool(threadCount);
-	// 	CountDownLatch latch = new CountDownLatch(threadCount);
-	//
-	// 	//when
-	// 	for (int i = 0; i < threadCount; i++) {
-	// 		service.execute(() -> {
-	// 			Random random = new Random();
-	// 			int id = random.nextInt(Integer.MAX_VALUE);
-	//
-	// 			likeReviewService.executeLike(1L, (long)id);
-	// 			latch.countDown();
-	// 		});
-	// 	}
-	//
-	// 	latch.await();
-	//
-	// 	//then -> 동시성 이슈 발생으로 100개의 좋아요 보다 적은 likeCount
-	// 	Long likeCount = likeReviewService.getLikeCount(1L);
-	// 	assertThat(likeCount).isLessThan(100L);
-	// }
-
 	@Test
-	@DisplayName("[좋아요 정보가 Redis 에 있을 때에는 동시성 이슈가 발생하지 않는다.]")
+	@DisplayName("[100개의 좋아요 동시 요청 모두 반영한다]")
 	void success() throws InterruptedException {
 		//given
 		int threadCount = 100;
