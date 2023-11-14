@@ -70,7 +70,7 @@ class ReviewServiceTest extends MockTestSupport {
 			.willReturn(photoUrls);
 
 		User user = UserFixture.getFixedManUser(1L);
-		given(userFindService.findByUserId(1L))
+		given(userFindService.getById(1L))
 			.willReturn(user);
 
 		HairStyle hairstyle = HairStyleFixture.getWomanHairStyle(1L);

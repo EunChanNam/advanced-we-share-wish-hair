@@ -42,7 +42,7 @@ public class PointService {
 	@Transactional
 	public boolean usePoint(final PointUseRequest request, final Long userId) {
 
-		User user = userFindService.findByUserId(userId);
+		User user = userFindService.getById(userId);
 
 		pointLogRepository.findByUserOrderByCreatedDateDesc(user)
 			.ifPresentOrElse(
@@ -62,7 +62,7 @@ public class PointService {
 
 	@Transactional
 	public boolean chargePoint(int dealAmount, Long userId) {
-		User user = userFindService.findByUserId(userId);
+		User user = userFindService.getById(userId);
 		pointLogRepository.findByUserOrderByCreatedDateDesc(user)
 			.ifPresentOrElse(
 				lastPointLog -> saveNewPointLog(

@@ -21,7 +21,6 @@ import com.inq.wishhair.wesharewishhair.hairstyle.domain.wishhair.WishHair;
 import com.inq.wishhair.wesharewishhair.hairstyle.domain.wishhair.WishHairRepository;
 import com.inq.wishhair.wesharewishhair.hairstyle.fixture.HairStyleFixture;
 import com.inq.wishhair.wesharewishhair.user.domain.UserRepository;
-import com.inq.wishhair.wesharewishhair.user.domain.entity.FaceShape;
 import com.inq.wishhair.wesharewishhair.user.domain.entity.User;
 import com.inq.wishhair.wesharewishhair.user.fixture.UserFixture;
 
@@ -54,7 +53,7 @@ class HairStyleApiTest extends ApiTestSupport {
 	void respondRecommendedHairStyle() throws Exception {
 		//given
 		User user = UserFixture.getFixedWomanUser();
-		user.updateFaceShape(new FaceShape(Tag.OBLONG));
+		user.updateFaceShape(Tag.OBLONG);
 		Long userId = userRepository.save(user).getId();
 
 		//when
@@ -76,7 +75,7 @@ class HairStyleApiTest extends ApiTestSupport {
 	void findHairStyleByFaceShape() throws Exception {
 		//given
 		User user = UserFixture.getFixedWomanUser();
-		user.updateFaceShape(new FaceShape(Tag.OBLONG));
+		user.updateFaceShape(Tag.OBLONG);
 		Long userId = userRepository.save(user).getId();
 
 		//when

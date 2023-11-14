@@ -31,7 +31,6 @@ import com.inq.wishhair.wesharewishhair.hairstyle.domain.hashtag.Tag;
 import com.inq.wishhair.wesharewishhair.hairstyle.fixture.HairStyleFixture;
 import com.inq.wishhair.wesharewishhair.hairstyle.utils.HairRecommendCondition;
 import com.inq.wishhair.wesharewishhair.user.application.UserFindService;
-import com.inq.wishhair.wesharewishhair.user.domain.entity.FaceShape;
 import com.inq.wishhair.wesharewishhair.user.domain.entity.User;
 import com.inq.wishhair.wesharewishhair.user.fixture.UserFixture;
 
@@ -70,8 +69,8 @@ class HairStyleSearchServiceTest extends MockTestSupport {
 		void success() {
 			//given
 			User user = UserFixture.getFixedWomanUser(1L);
-			user.updateFaceShape(new FaceShape(Tag.ROUND));
-			given(userFindService.findByUserId(user.getId()))
+			user.updateFaceShape(Tag.ROUND);
+			given(userFindService.getById(user.getId()))
 				.willReturn(user);
 
 			given(hairStyleQueryRepository.findByRecommend(any(HairRecommendCondition.class), any(Pageable.class)))
@@ -94,7 +93,7 @@ class HairStyleSearchServiceTest extends MockTestSupport {
 		void fail() {
 			//given
 			User user = UserFixture.getFixedWomanUser(1L);
-			given(userFindService.findByUserId(user.getId()))
+			given(userFindService.getById(user.getId()))
 				.willReturn(user);
 
 			//when
@@ -112,8 +111,8 @@ class HairStyleSearchServiceTest extends MockTestSupport {
 	void recommendHairByFaceShape() {
 		//given
 		User user = UserFixture.getFixedWomanUser(1L);
-		user.updateFaceShape(new FaceShape(Tag.ROUND));
-		given(userFindService.findByUserId(user.getId()))
+		user.updateFaceShape(Tag.ROUND);
+		given(userFindService.getById(user.getId()))
 			.willReturn(user);
 
 		given(hairStyleQueryRepository.findByFaceShape(any(HairRecommendCondition.class), any(Pageable.class)))

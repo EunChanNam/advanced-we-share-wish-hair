@@ -38,7 +38,7 @@ public class HairStyleSearchService {
 
 	//메인 추천 로직
 	public ResponseWrapper<HairStyleResponse> recommendHair(List<Tag> tags, Long userId) {
-		User user = userFindService.findByUserId(userId);
+		User user = userFindService.getById(userId);
 
 		validateUserHasFaceShapeTag(user);
 
@@ -50,7 +50,7 @@ public class HairStyleSearchService {
 
 	//홈 화면 사용자 맞춤 추천 로직
 	public ResponseWrapper<HairStyleResponse> recommendHairByFaceShape(Long userId) {
-		User user = userFindService.findByUserId(userId);
+		User user = userFindService.getById(userId);
 
 		HairRecommendCondition condition = subRecommend(user.getFaceShape(), user.getSex());
 		List<HairStyle> hairStyles = hairStyleQueryRepository.findByFaceShape(condition, getDefaultPageable());

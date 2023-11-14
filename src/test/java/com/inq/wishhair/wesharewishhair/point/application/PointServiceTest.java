@@ -48,7 +48,7 @@ class PointServiceTest {
 		void success() {
 			//given
 			User user = UserFixture.getFixedManUser(1L);
-			given(userFindService.findByUserId(user.getId()))
+			given(userFindService.getById(user.getId()))
 				.willReturn(user);
 
 			PointLog pointLog = PointLogFixture.getUsePointLog(user);
@@ -68,7 +68,7 @@ class PointServiceTest {
 		void fail() {
 			//given
 			User user = UserFixture.getFixedManUser(1L);
-			given(userFindService.findByUserId(user.getId()))
+			given(userFindService.getById(user.getId()))
 				.willReturn(user);
 
 			given(pointLogRepository.findByUserOrderByCreatedDateDesc(user))
@@ -93,7 +93,7 @@ class PointServiceTest {
 		void success1() {
 			//given
 			User user = UserFixture.getFixedManUser(1L);
-			given(userFindService.findByUserId(user.getId()))
+			given(userFindService.getById(user.getId()))
 				.willReturn(user);
 
 			PointLog pointLog = PointLogFixture.getUsePointLog(user);
@@ -112,7 +112,7 @@ class PointServiceTest {
 		void success2() {
 			//given
 			User user = UserFixture.getFixedManUser(1L);
-			given(userFindService.findByUserId(user.getId()))
+			given(userFindService.getById(user.getId()))
 				.willReturn(user);
 
 			given(pointLogRepository.findByUserOrderByCreatedDateDesc(user))

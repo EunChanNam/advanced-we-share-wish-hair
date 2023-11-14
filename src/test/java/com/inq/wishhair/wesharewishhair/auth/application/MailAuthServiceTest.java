@@ -10,10 +10,8 @@ import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.function.Executable;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.ApplicationEventPublisher;
 
 import com.inq.wishhair.wesharewishhair.auth.application.utils.RandomGenerator;
@@ -22,7 +20,6 @@ import com.inq.wishhair.wesharewishhair.auth.domain.entity.AuthCode;
 import com.inq.wishhair.wesharewishhair.global.exception.ErrorCode;
 import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
 
-@ExtendWith(MockitoExtension.class)
 @DisplayName("[AuthService Test] - Application Layer")
 class MailAuthServiceTest {
 
