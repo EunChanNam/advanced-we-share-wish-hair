@@ -25,7 +25,7 @@ import com.inq.wishhair.wesharewishhair.user.domain.entity.FaceShape;
 import com.inq.wishhair.wesharewishhair.user.domain.entity.User;
 import com.inq.wishhair.wesharewishhair.user.fixture.UserFixture;
 
-@DisplayName("[HairStyleApi 테스트]")
+@DisplayName("[HairStyle Api 테스트]")
 class HairStyleApiTest extends ApiTestSupport {
 
 	@Autowired

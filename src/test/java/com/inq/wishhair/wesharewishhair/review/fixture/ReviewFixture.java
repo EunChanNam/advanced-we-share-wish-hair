@@ -9,6 +9,7 @@ import com.inq.wishhair.wesharewishhair.common.utils.FileMockingUtils;
 import com.inq.wishhair.wesharewishhair.hairstyle.domain.HairStyle;
 import com.inq.wishhair.wesharewishhair.hairstyle.fixture.HairStyleFixture;
 import com.inq.wishhair.wesharewishhair.review.application.dto.request.ReviewCreateRequest;
+import com.inq.wishhair.wesharewishhair.review.application.dto.request.ReviewUpdateRequest;
 import com.inq.wishhair.wesharewishhair.review.domain.entity.Review;
 import com.inq.wishhair.wesharewishhair.review.domain.entity.Score;
 import com.inq.wishhair.wesharewishhair.user.domain.entity.User;
@@ -83,6 +84,24 @@ public final class ReviewFixture {
 			Score.S2H,
 			List.of(FileMockingUtils.createMockMultipartFile("hello1.jpg")),
 			1L
+		);
+	}
+
+	public static ReviewCreateRequest getReviewCreateRequest(Long hairStyleId) throws IOException {
+		return new ReviewCreateRequest(
+			CONTENTS,
+			Score.S2H,
+			List.of(FileMockingUtils.createMockMultipartFile("hello1.jpg")),
+			hairStyleId
+		);
+	}
+
+	public static ReviewUpdateRequest getReviewUpdateRequest(Long reviewId) throws IOException {
+		return new ReviewUpdateRequest(
+			reviewId,
+			"updateContents",
+			Score.S5,
+			FileMockingUtils.createMockMultipartFiles()
 		);
 	}
 }
