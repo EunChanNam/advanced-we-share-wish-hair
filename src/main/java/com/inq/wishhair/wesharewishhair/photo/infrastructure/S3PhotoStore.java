@@ -24,6 +24,22 @@ public class S3PhotoStore implements PhotoStore {
 	private final AmazonS3Client amazonS3Client;
 	private final String buketName;
 
+	private void deleteFile(final String storeUrl) {
+		int point = storeUrl.indexOf('/', 10) + 1;
+		String fileKey = storeUrl.substring(point);
+		amazonS3Client.deleteObject(buketName, fileKey);
+	}
+
+	private String createStoreFilename(final String originalFilename) {
+		String ext = getExt(originalFilename);
+		return UUID.randomUUID() + ext;
+	}
+
+	private String getExt(final String originalFilename) {
+		int index = originalFilename.lastIndexOf(".");
+		return originalFilename.substring(index);
+	}
+
 	public S3PhotoStore(final AmazonS3Client amazonS3Client,
 		@Value("${cloud.aws.s3.bucket}") String buketName) {
 		this.amazonS3Client = amazonS3Client;
@@ -37,8 +53,6 @@ public class S3PhotoStore implements PhotoStore {
 	}
 
 	private String uploadFile(final MultipartFile file) {
-		validateFileExist(file);
-
 		String originalFilename = file.getOriginalFilename();
 		String storeFilename = createStoreFilename(originalFilename);
 
@@ -64,27 +78,5 @@ public class S3PhotoStore implements PhotoStore {
 	public boolean deleteFiles(final List<String> storeUrls) {
 		storeUrls.forEach(this::deleteFile);
 		return true;
-	}
-
-	private void deleteFile(final String storeUrl) {
-		int point = storeUrl.indexOf('/', 10) + 1;
-		String fileKey = storeUrl.substring(point);
-		amazonS3Client.deleteObject(buketName, fileKey);
-	}
-
-	private void validateFileExist(final MultipartFile file) {
-		if (file == null || file.isEmpty()) {
-			throw new WishHairException(ErrorCode.EMPTY_FILE_EX);
-		}
-	}
-
-	private String createStoreFilename(final String originalFilename) {
-		String ext = getExt(originalFilename);
-		return UUID.randomUUID() + ext;
-	}
-
-	private String getExt(final String originalFilename) {
-		int index = originalFilename.lastIndexOf(".");
-		return originalFilename.substring(index);
 	}
 }

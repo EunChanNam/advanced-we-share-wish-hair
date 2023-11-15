@@ -5,17 +5,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import com.inq.wishhair.wesharewishhair.auth.application.MailAuthService;
+import com.inq.wishhair.wesharewishhair.auth.domain.AuthCodeRepository;
+import com.inq.wishhair.wesharewishhair.auth.domain.entity.AuthCode;
 import com.inq.wishhair.wesharewishhair.auth.presentation.dto.request.AuthKeyRequest;
 import com.inq.wishhair.wesharewishhair.auth.presentation.dto.request.MailRequest;
 import com.inq.wishhair.wesharewishhair.common.support.ApiTestSupport;
-import com.inq.wishhair.wesharewishhair.user.application.utils.UserValidator;
 
 @DisplayName("[MailAuthController 테스트] - API")
 class MailAuthControllerTest extends ApiTestSupport {
@@ -27,10 +26,8 @@ class MailAuthControllerTest extends ApiTestSupport {
 
 	@Autowired
 	private MockMvc mockMvc;
-	@MockBean
-	private UserValidator userValidator;
-	@MockBean
-	private MailAuthService mailAuthService;
+	@Autowired
+	private AuthCodeRepository authCodeRepository;
 
 	@Test
 	@DisplayName("[이메일 중복검사 API 를 호출한다]")
@@ -72,7 +69,8 @@ class MailAuthControllerTest extends ApiTestSupport {
 	@DisplayName("[인증코드 확인 API 를 호출한다]")
 	void authorizeKey() throws Exception {
 		//given
-		AuthKeyRequest authKeyRequest = new AuthKeyRequest(EMAIL, "authcode");
+		authCodeRepository.save(new AuthCode(EMAIL, "1234"));
+		AuthKeyRequest authKeyRequest = new AuthKeyRequest(EMAIL, "1234");
 
 		//when
 		ResultActions result = mockMvc.perform(

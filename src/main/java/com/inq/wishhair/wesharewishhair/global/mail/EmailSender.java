@@ -14,10 +14,8 @@ import com.inq.wishhair.wesharewishhair.user.event.RefundMailSendEvent;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
-import lombok.RequiredArgsConstructor;
 
 @Component
-@RequiredArgsConstructor
 public class EmailSender {
 
 	private static final String AUTH_MAIL_TITLE = "We-Share-Wish-Hair 이메일 인증";
@@ -26,26 +24,53 @@ public class EmailSender {
 	private static final String AUTH_TEMPLATE = "AuthMailTemplate";
 	private static final String REFUND_TEMPLATE = "RefundRequestMailTemplate";
 
-	@Value("${spring.mail.username}")
-	private String from;
-	@Value("${mail.point-mail-receiver}")
-	private String receiver;
+	private final String from;
+	private final String receiver;
 	private final JavaMailSender mailSender;
 	private final ITemplateEngine templateEngine;
 
-	public void sendAuthMail(String address, String authKey) throws MessagingException, UnsupportedEncodingException {
+	public EmailSender(
+		@Value("${spring.mail.username}") String from,
+		@Value("${mail.point-mail-receiver}") String receiver,
+		JavaMailSender mailSender,
+		ITemplateEngine templateEngine
+	) {
+		this.from = from;
+		this.receiver = receiver;
+		this.mailSender = mailSender;
+		this.templateEngine = templateEngine;
+	}
 
+	private MimeMessage generateMessage(
+		String address,
+		String htmlTemplate,
+		String subject
+	) throws MessagingException, UnsupportedEncodingException {
+		MimeMessage mimeMessage = mailSender.createMimeMessage();
+		MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, "UTF-8");
+		mimeMessageHelper.setTo(address);
+		mimeMessageHelper.setFrom(new InternetAddress(from, PERSONAL));
+		mimeMessageHelper.setSubject(subject);
+		mimeMessageHelper.setText(htmlTemplate, true);
+		return mimeMessage;
+	}
+
+	public boolean sendAuthMail(
+		String address,
+		String authKey
+	) throws MessagingException, UnsupportedEncodingException {
 		Context context = new Context();
 		context.setVariable("authKey", authKey);
 
 		String htmlTemplate = templateEngine.process(AUTH_TEMPLATE, context);
 
 		MimeMessage mimeMessage = generateMessage(address, htmlTemplate, AUTH_MAIL_TITLE);
-
 		mailSender.send(mimeMessage);
+
+		return true;
 	}
 
-	public void sendRefundRequestMail(RefundMailSendEvent event) throws
+	public boolean sendRefundRequestMail(RefundMailSendEvent event) throws
 		MessagingException,
 		UnsupportedEncodingException {
 
@@ -58,19 +83,8 @@ public class EmailSender {
 		String htmlTemplate = templateEngine.process(REFUND_TEMPLATE, context);
 
 		MimeMessage mimeMessage = generateMessage(receiver, htmlTemplate, REFUND_MAIL_TITLE);
-
 		mailSender.send(mimeMessage);
-	}
 
-	private MimeMessage generateMessage(String address, String htmlTemplate, String subject) throws
-		MessagingException,
-		UnsupportedEncodingException {
-		MimeMessage mimeMessage = mailSender.createMimeMessage();
-		MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, "UTF-8");
-		mimeMessageHelper.setTo(address);
-		mimeMessageHelper.setFrom(new InternetAddress(from, PERSONAL));
-		mimeMessageHelper.setSubject(subject);
-		mimeMessageHelper.setText(htmlTemplate, true);
-		return mimeMessage;
+		return true;
 	}
 }

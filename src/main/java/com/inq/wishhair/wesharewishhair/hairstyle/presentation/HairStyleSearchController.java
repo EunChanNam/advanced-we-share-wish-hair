@@ -12,13 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.inq.wishhair.wesharewishhair.global.annotation.FetchAuthInfo;
 import com.inq.wishhair.wesharewishhair.global.dto.response.PagedResponse;
 import com.inq.wishhair.wesharewishhair.global.dto.response.ResponseWrapper;
-import com.inq.wishhair.wesharewishhair.global.exception.ErrorCode;
-import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
 import com.inq.wishhair.wesharewishhair.global.resolver.dto.AuthInfo;
-import com.inq.wishhair.wesharewishhair.hairstyle.domain.hashtag.Tag;
 import com.inq.wishhair.wesharewishhair.hairstyle.application.HairStyleSearchService;
 import com.inq.wishhair.wesharewishhair.hairstyle.application.dto.response.HairStyleResponse;
 import com.inq.wishhair.wesharewishhair.hairstyle.application.dto.response.HairStyleSimpleResponse;
+import com.inq.wishhair.wesharewishhair.hairstyle.domain.hashtag.Tag;
 
 import lombok.RequiredArgsConstructor;
 
@@ -34,8 +32,6 @@ public class HairStyleSearchController {
 		@RequestParam(defaultValue = "ERROR") List<Tag> tags,
 		@FetchAuthInfo AuthInfo authInfo
 	) {
-		validateHasTag(tags);
-
 		return hairStyleSearchService.recommendHair(tags, authInfo.userId());
 	}
 
@@ -57,11 +53,5 @@ public class HairStyleSearchController {
 	@GetMapping
 	public ResponseWrapper<HairStyleSimpleResponse> findAllHairStyles() {
 		return hairStyleSearchService.findAllHairStyle();
-	}
-
-	private void validateHasTag(List<Tag> tags) {
-		if (tags.get(0).equals(Tag.ERROR)) {
-			throw new WishHairException(ErrorCode.RUN_NOT_ENOUGH_TAG);
-		}
 	}
 }
