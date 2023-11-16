@@ -32,8 +32,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: ${MAIL}
-    password: ${MAIL_PW}
+    username: namhm23@kyonggi.ac.kr
+    password: qkvpxhpgyuywcbgh
     protocol: smtp
     properties:
       mail:
@@ -48,11 +48,11 @@ spring:
 
 # 포인트 메일 수신자 #
 mail:
-  point-mail-receiver: ${POINT_MAIL}
+  point-mail-receiver: namhm23@naver.com
 
 # Flask domain #
 flask:
-  domain: ${FLASK_DOMAIN}
+  domain: http://domain/
 
 # 서버 런시 발생하는 에러 로그 방지
 logging:
@@ -70,20 +70,20 @@ decorator:
 
 #JWT key
 jwt:
-  secret-key: ${JWT_SECRET_KEY}
-  access-token-validity: ${ACCESS_TOKEN_VALIDITY}
-  refresh-token-validity: ${REFRESH_TOKEN_VALIDITY}
+  secret-key: abcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabc
+  access-token-validity: 1800000
+  refresh-token-validity: 259200000
 
 # 네이버 클라우드 오브젝트 스토리지
 cloud:
   aws:
     credentials:
-      access-key: ${S3_ACCESS_KEY}
-      secret-key: ${S3_SECRET_KEY}
+      access-key: N3JCSJUtgse4alKEaOqX
+      secret-key: rRamLrfUV8v6ZziJFEN4CVLjE9rl4kCBnEOLje5f
     stack:
       auto: false
     region:
       static: ap-northeast-2
     s3:
       endpoint: https://kr.object.ncloudstorage.com
-      bucket: ${BUCKET_NAME}
+      bucket: wswh-storage
