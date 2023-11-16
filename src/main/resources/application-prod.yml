@@ -4,7 +4,7 @@ server:
 spring:
   data:
     redis:
-      host: 13.59.136.85
+      host: 3.21.14.25
       port: 6379
       expire-time: 21600000
 
