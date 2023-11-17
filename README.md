@@ -1,10 +1,8 @@
 # Advavced-We-Share-Wish-Hair - Backend
 💇‍♀️ AI 기반 헤어스타일 추천 어플리케이션 💇‍♂️
+> 기존에 진행한 <a href="https://github.com/EunChanNam/We-Share-Wish-Hair">We-Share-Wish-Hair</a> 프로젝트를 개선하고 발전시키는 프로젝트 👊
 
 ## 개선 목적
-### 아키텍처 
-* 기존의 레이어드 아키텍처는 유지하지만, 기존 Domain 계층의 잘못된 의존관계를 바로 잡는다.
-* 관련 블로깅 : <a href="https://velog.io/@namhm23/JPA-Repository-%EC%82%AC%EC%9A%A9-%EC%8B%9C-%EA%B3%84%EC%B8%B5%EA%B0%84-%EC%9D%98%EC%A1%B4%EA%B4%80%EA%B3%84-%EB%AC%B8%EC%A0%9C%EC%A0%90">블로그 링크</a>
 ### CI/CD 
 * `github action` 을 통해서 `CI/CD` 를 구성하고 관리와 배포에 대한 자동화 환경을 구성한다.
 ### 테스트 코드
@@ -20,12 +18,15 @@
 <br><br>
 <img width="300" alt="image" src="https://github.com/EunChanNam/advanced-we-share-wish-hair/assets/75837025/a20e020b-eecb-4fe6-9212-7a29ce224e8e">
 
+### 아키텍처 
+* 기존의 레이어드 아키텍처는 유지하지만, 기존 Domain 계층의 잘못된 의존관계를 바로 잡는다.
+* 관련 블로깅 : <a href="https://velog.io/@namhm23/JPA-Repository-%EC%82%AC%EC%9A%A9-%EC%8B%9C-%EA%B3%84%EC%B8%B5%EA%B0%84-%EC%9D%98%EC%A1%B4%EA%B4%80%EA%B3%84-%EB%AC%B8%EC%A0%9C%EC%A0%90">블로그 링크</a>
 
 ### 좋아요 관련 동시성 관리 및 성능 개선 
 * 기존에 동시성을 관리하는 방법으로 `join` 을 통해 쿼리로 해결하는 방법에서 `Redis` 를 통한 방법으로 교체
 * 관련 블로깅 <a href="https://velog.io/@namhm23/%EC%A2%8B%EC%95%84%EC%9A%94-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%9D%B4%EC%8A%88%EC%99%80-%EC%BF%BC%EB%A6%AC-%EC%84%B1%EB%8A%A5-%EB%AC%B8%EC%A0%9C-%ED%95%B4%EA%B2%B0">블로그 링크</a>
 
-## 🛠️ 기술 스택
+## 기술 스택 🛠️
 ### 프로젝트
 <img width="623" alt="image" src="https://github.com/EunChanNam/advanced-we-share-wish-hair/assets/75837025/393f370a-c604-4106-aeba-3ba05ea4e389">
 
@@ -34,7 +35,7 @@
 
 ---
 
-## 프로젝트 소개
+## 프로젝트 소개 👏
 <img width="900" alt="image" src="https://github.com/EunChanNam/We-Share-Wish-Hair/assets/75837025/91db7148-d5c1-48bf-b5d2-ec29ac691591">
 <img width="900" alt="image" src="https://github.com/EunChanNam/We-Share-Wish-Hair/assets/75837025/70582e7b-3f39-4cbf-94e3-88b3d6cd3cca">
 <img width="900" alt="image" src="https://github.com/EunChanNam/We-Share-Wish-Hair/assets/75837025/04243c46-dac3-4419-9d49-ea2dc9ca1b05">
@@ -44,14 +45,14 @@
 
 ---
 
-## 테스트
+## 테스트 ✅
 ![image](https://github.com/EunChanNam/advanced-we-share-wish-hair/assets/75837025/8179e215-776a-48d6-a9af-ca01bd8faab7)
 
 ![image](https://github.com/EunChanNam/advanced-we-share-wish-hair/assets/75837025/e275990a-2bb7-4fb4-8f0a-83ed4d46bfaa)
 
 ---
 
-## 🕹️ API 목록
+## API 목록 🕹️
 **Swagger API 명세 링크**<br>
 http://3.21.14.25:8080/swagger-ui/index.html
 
