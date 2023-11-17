@@ -4,7 +4,7 @@
 ## 개선 목적
 ### 아키텍처 
 * 기존의 레이어드 아키텍처는 유지하지만, 기존 Domain 계층의 잘못된 의존관계를 바로 잡는다.
-* 관련 블로깅 : https://velog.io/@namhm23/JPA-Repository-%EC%82%AC%EC%9A%A9-%EC%8B%9C-%EA%B3%84%EC%B8%B5%EA%B0%84-%EC%9D%98%EC%A1%B4%EA%B4%80%EA%B3%84-%EB%AC%B8%EC%A0%9C%EC%A0%90
+* 관련 블로깅 : <a href="https://velog.io/@namhm23/JPA-Repository-%EC%82%AC%EC%9A%A9-%EC%8B%9C-%EA%B3%84%EC%B8%B5%EA%B0%84-%EC%9D%98%EC%A1%B4%EA%B4%80%EA%B3%84-%EB%AC%B8%EC%A0%9C%EC%A0%90">블로그 링크</a>
 ### CI/CD 
 * `github action` 을 통해서 `CI/CD` 를 구성하고 관리와 배포에 대한 자동화 환경을 구성한다.
 ### 테스트 코드
@@ -23,7 +23,7 @@
 
 ### 좋아요 관련 동시성 관리 및 성능 개선 
 * 기존에 동시성을 관리하는 방법으로 `join` 을 통해 쿼리로 해결하는 방법에서 `Redis` 를 통한 방법으로 교체
-* 관련 블로깅 : https://velog.io/@namhm23/%EC%A2%8B%EC%95%84%EC%9A%94-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%9D%B4%EC%8A%88%EC%99%80-%EC%BF%BC%EB%A6%AC-%EC%84%B1%EB%8A%A5-%EB%AC%B8%EC%A0%9C-%ED%95%B4%EA%B2%B0
+* 관련 블로깅 <a href="https://velog.io/@namhm23/%EC%A2%8B%EC%95%84%EC%9A%94-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%9D%B4%EC%8A%88%EC%99%80-%EC%BF%BC%EB%A6%AC-%EC%84%B1%EB%8A%A5-%EB%AC%B8%EC%A0%9C-%ED%95%B4%EA%B2%B0">블로그 링크</a>
 
 ## 🛠️ 기술 스택
 ### 프로젝트
