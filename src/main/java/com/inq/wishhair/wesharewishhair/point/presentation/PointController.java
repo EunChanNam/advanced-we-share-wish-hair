@@ -18,33 +18,40 @@ import com.inq.wishhair.wesharewishhair.point.application.dto.PointResponse;
 import com.inq.wishhair.wesharewishhair.point.application.dto.PointUseRequest;
 import com.inq.wishhair.wesharewishhair.point.application.PointService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
+@Tag(name = "Point API")
 @RestController
 @RequestMapping("/api/points")
 @RequiredArgsConstructor
 public class PointController {
 
 	private final PointService pointService;
+	private final PointSearchService pointSearchService;
 
+	@Operation(summary = "포인트 사용 API", description = "포인트를 사용한다")
+	@ApiResponse(responseCode = "200", useReturnTypeSchema = true)
 	@PostMapping("/use")
 	public ResponseEntity<Success> usePoint(
-		final @RequestBody PointUseRequest request,
-		final @FetchAuthInfo AuthInfo authInfo
+		@Parameter(description = "포인트 사용 폼") @RequestBody PointUseRequest request,
+		@Parameter(hidden = true) @FetchAuthInfo AuthInfo authInfo
 	) {
 		pointService.usePoint(request, authInfo.userId());
 
 		return ResponseEntity.ok(new Success());
 	}
 
-	private final PointSearchService pointSearchService;
-
+	@Operation(summary = "포인트 내역 조회 API", description = "포인트 내역을 조회한다")
+	@ApiResponse(responseCode = "200", useReturnTypeSchema = true)
 	@GetMapping
 	public ResponseEntity<PagedResponse<PointResponse>> findPointHistories(
-		final @FetchAuthInfo AuthInfo authInfo,
-		final @PageableDefault Pageable pageable
+		@Parameter(hidden = true) @FetchAuthInfo AuthInfo authInfo,
+		@Parameter(description = "페이징 정보") @PageableDefault Pageable pageable
 	) {
-
 		return ResponseEntity.ok(pointSearchService.getPointHistories(authInfo.userId(), pageable));
 	}
 }

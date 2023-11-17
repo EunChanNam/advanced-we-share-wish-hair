@@ -14,8 +14,13 @@ import com.inq.wishhair.wesharewishhair.global.resolver.dto.AuthInfo;
 import com.inq.wishhair.wesharewishhair.hairstyle.application.WishHairService;
 import com.inq.wishhair.wesharewishhair.hairstyle.application.dto.response.WishHairResponse;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
+@Tag(name = "HairStyle API")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/hair_styles/wish/")
@@ -23,31 +28,36 @@ public class WishHairController {
 
 	private final WishHairService wishHairService;
 
+	@Operation(summary = "찜 API", description = "찜를 한다")
+	@ApiResponse(responseCode = "200", useReturnTypeSchema = true)
 	@PostMapping(path = "{hairStyleId}")
 	public ResponseEntity<Success> executeWish(
-		@PathVariable Long hairStyleId,
-		@FetchAuthInfo AuthInfo authInfo
+		@Parameter(description = "헤어스타일 아이디") @PathVariable Long hairStyleId,
+		@Parameter(hidden = true) @FetchAuthInfo AuthInfo authInfo
 	) {
-
 		wishHairService.executeWish(hairStyleId, authInfo.userId());
 
 		return ResponseEntity.ok(new Success());
 	}
 
+	@Operation(summary = "찜 취소 API", description = "찜를 취소한다")
+	@ApiResponse(responseCode = "200", useReturnTypeSchema = true)
 	@DeleteMapping(path = "{hairStyleId}")
 	public ResponseEntity<Success> cancelWish(
-		@PathVariable Long hairStyleId,
-		@FetchAuthInfo AuthInfo authInfo
+		@Parameter(description = "헤어스타일 아이디") @PathVariable Long hairStyleId,
+		@Parameter(hidden = true) @FetchAuthInfo AuthInfo authInfo
 	) {
 		wishHairService.cancelWish(hairStyleId, authInfo.userId());
 
 		return ResponseEntity.ok(new Success());
 	}
 
+	@Operation(summary = "헤어스타일 찜 확인 API", description = "찜를 취소한다")
+	@ApiResponse(responseCode = "200", useReturnTypeSchema = true)
 	@GetMapping(path = {"{hairStyleId}"})
 	public ResponseEntity<WishHairResponse> checkIsWishing(
-		@PathVariable Long hairStyleId,
-		@FetchAuthInfo AuthInfo authInfo
+		@Parameter(description = "헤어스타일 아이디") @PathVariable Long hairStyleId,
+		@Parameter(hidden = true) @FetchAuthInfo AuthInfo authInfo
 	) {
 		WishHairResponse result = wishHairService.checkIsWishing(hairStyleId, authInfo.userId());
 		return ResponseEntity.ok(result);

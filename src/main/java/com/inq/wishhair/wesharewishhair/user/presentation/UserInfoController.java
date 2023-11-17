@@ -12,8 +12,13 @@ import com.inq.wishhair.wesharewishhair.user.application.dto.response.MyPageResp
 import com.inq.wishhair.wesharewishhair.user.application.dto.response.UserInfo;
 import com.inq.wishhair.wesharewishhair.user.application.dto.response.UserInformation;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
+@Tag(name = "User API")
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
@@ -21,17 +26,21 @@ public class UserInfoController {
 
 	private final UserInfoService userInfoService;
 
+	@Operation(summary = "마이페이지 정보 조회 API", description = "마이페이지 정보를 조회한다")
+	@ApiResponse(responseCode = "200", useReturnTypeSchema = true)
 	@GetMapping("/my_page")
-	public ResponseEntity<MyPageResponse> getMyPageInfo(final @FetchAuthInfo AuthInfo authInfo) {
+	public ResponseEntity<MyPageResponse> getMyPageInfo(@Parameter(hidden = true) @FetchAuthInfo AuthInfo authInfo) {
 
 		MyPageResponse result = userInfoService.getMyPageInfo(authInfo.userId());
 
 		return ResponseEntity.ok(result);
 	}
 
+	@Operation(summary = "사용자 정보 조회 API", description = "사용자 정보 조회한다")
+	@ApiResponse(responseCode = "200", useReturnTypeSchema = true)
 	@GetMapping("/info")
 	public ResponseEntity<UserInformation> getUserInformation(
-		final @FetchAuthInfo AuthInfo authInfo
+		@Parameter(hidden = true) @FetchAuthInfo AuthInfo authInfo
 	) {
 
 		UserInformation result = userInfoService.getUserInformation(authInfo.userId());
@@ -39,8 +48,10 @@ public class UserInfoController {
 		return ResponseEntity.ok(result);
 	}
 
+	@Operation(summary = "간략한 사용자 정보 조회 API", description = "간락한 사용자 정보를 조회한다")
+	@ApiResponse(responseCode = "200", useReturnTypeSchema = true)
 	@GetMapping("/home_info")
-	public ResponseEntity<UserInfo> getUserInfo(final @FetchAuthInfo AuthInfo authInfo) {
+	public ResponseEntity<UserInfo> getUserInfo(@Parameter(hidden = true) @FetchAuthInfo AuthInfo authInfo) {
 
 		UserInfo result = userInfoService.getUserInfo(authInfo.userId());
 

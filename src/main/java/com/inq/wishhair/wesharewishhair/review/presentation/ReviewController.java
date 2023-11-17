@@ -18,8 +18,13 @@ import com.inq.wishhair.wesharewishhair.review.application.dto.request.ReviewCre
 import com.inq.wishhair.wesharewishhair.review.application.dto.request.ReviewUpdateRequest;
 import com.inq.wishhair.wesharewishhair.review.application.ReviewService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
+@Tag(name = "Review API")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/reviews")
@@ -27,10 +32,12 @@ public class ReviewController {
 
 	private final ReviewService reviewService;
 
+	@Operation(summary = "리뷰 등록 API", description = "리뷰를 등록한다")
+	@ApiResponse(responseCode = "200", useReturnTypeSchema = true)
 	@PostMapping
 	public ResponseEntity<Success> createReview(
 		@ModelAttribute ReviewCreateRequest reviewCreateRequest,
-		@FetchAuthInfo AuthInfo authInfo
+		@Parameter(hidden = true) @FetchAuthInfo AuthInfo authInfo
 	) {
 		Long reviewId = reviewService.createReview(reviewCreateRequest, authInfo.userId());
 
@@ -39,9 +46,11 @@ public class ReviewController {
 			.body(new Success());
 	}
 
+	@Operation(summary = "리뷰 삭제 API", description = "리뷰를 삭제한다")
+	@ApiResponse(responseCode = "200", useReturnTypeSchema = true)
 	@DeleteMapping(path = "{reviewId}")
 	public ResponseEntity<Success> deleteReview(
-		@FetchAuthInfo AuthInfo authInfo,
+		@Parameter(hidden = true) @FetchAuthInfo AuthInfo authInfo,
 		@PathVariable Long reviewId
 	) {
 		reviewService.deleteReview(reviewId, authInfo.userId());
@@ -49,10 +58,12 @@ public class ReviewController {
 		return ResponseEntity.ok(new Success());
 	}
 
+	@Operation(summary = "리뷰 수정 API", description = "리뷰를 수정한다")
+	@ApiResponse(responseCode = "200", useReturnTypeSchema = true)
 	@PatchMapping
 	public ResponseEntity<Success> updateReview(
 		@ModelAttribute ReviewUpdateRequest request,
-		@FetchAuthInfo AuthInfo authInfo
+		@Parameter(hidden = true) @FetchAuthInfo AuthInfo authInfo
 	) {
 		reviewService.updateReview(request, authInfo.userId());
 
