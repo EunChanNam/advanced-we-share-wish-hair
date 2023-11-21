@@ -7,19 +7,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import com.inq.wishhair.wesharewishhair.common.config.EmbeddedRedisConfig;
 import com.inq.wishhair.wesharewishhair.common.support.ApiTestSupport;
 import com.inq.wishhair.wesharewishhair.review.domain.likereview.LikeReview;
 import com.inq.wishhair.wesharewishhair.review.domain.likereview.LikeReviewRepository;
 import com.inq.wishhair.wesharewishhair.user.domain.entity.User;
 
 @DisplayName("[LikeReview API 테스트]")
-@Import(EmbeddedRedisConfig.class)
 class LikeReviewControllerTest extends ApiTestSupport {
 
 	@Autowired

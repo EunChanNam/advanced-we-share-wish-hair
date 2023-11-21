@@ -20,7 +20,7 @@ import com.inq.wishhair.wesharewishhair.user.fixture.UserFixture;
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
-public abstract class ApiTestSupport {
+public abstract class ApiTestSupport extends TestContainerSupport {
 
 	private final ObjectMapper objectMapper = new ObjectMapper();
 

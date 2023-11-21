@@ -12,12 +12,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import com.inq.wishhair.wesharewishhair.common.config.EmbeddedRedisConfig;
 import com.inq.wishhair.wesharewishhair.common.support.ApiTestSupport;
 import com.inq.wishhair.wesharewishhair.hairstyle.domain.HairStyle;
 import com.inq.wishhair.wesharewishhair.hairstyle.domain.HairStyleRepository;
@@ -29,7 +27,6 @@ import com.inq.wishhair.wesharewishhair.review.fixture.ReviewFixture;
 import com.inq.wishhair.wesharewishhair.user.domain.entity.User;
 
 @DisplayName("[ReviewSearchController 테스트]")
-@Import(EmbeddedRedisConfig.class)
 class ReviewSearchApiTest extends ApiTestSupport {
 
 	@Autowired

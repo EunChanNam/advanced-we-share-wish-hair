@@ -11,15 +11,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 
-import com.inq.wishhair.wesharewishhair.common.config.EmbeddedRedisConfig;
+import com.inq.wishhair.wesharewishhair.common.support.TestContainerSupport;
 import com.inq.wishhair.wesharewishhair.review.application.LikeReviewService;
 
 @SpringBootTest
-@Import(EmbeddedRedisConfig.class)
 @DisplayName("[좋아요 동시성 테스트]")
-class LikeTest {
+class LikeTest extends TestContainerSupport {
 
 	@Autowired
 	private LikeReviewService likeReviewService;

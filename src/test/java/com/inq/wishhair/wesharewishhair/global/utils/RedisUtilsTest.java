@@ -8,18 +8,16 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.data.redis.core.RedisTemplate;
 
-import com.inq.wishhair.wesharewishhair.common.config.EmbeddedRedisConfig;
+import com.inq.wishhair.wesharewishhair.common.support.TestContainerSupport;
 
 /**
  * 주의사항 : 각 테스트 케이스별로 저장하는 데이터를 다르게 해야함(레디스 서버는 복구가 안되기 때문)
  */
 @SpringBootTest
-@Import(EmbeddedRedisConfig.class)
 @DisplayName("[RedisUtils 테스트]")
-class RedisUtilsTest {
+class RedisUtilsTest extends TestContainerSupport {
 
 	@Autowired
 	private RedisUtils redisUtils;
