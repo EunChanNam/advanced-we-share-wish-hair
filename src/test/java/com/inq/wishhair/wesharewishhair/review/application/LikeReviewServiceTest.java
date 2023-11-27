@@ -15,10 +15,7 @@ import org.mockito.Mock;
 import com.inq.wishhair.wesharewishhair.common.support.MockTestSupport;
 import com.inq.wishhair.wesharewishhair.global.utils.RedisUtils;
 import com.inq.wishhair.wesharewishhair.review.application.dto.response.LikeReviewResponse;
-import com.inq.wishhair.wesharewishhair.review.domain.likereview.LikeReview;
 import com.inq.wishhair.wesharewishhair.review.domain.likereview.LikeReviewRepository;
-
-import jakarta.persistence.EntityExistsException;
 
 @DisplayName("[LikeReviewService 테스트]")
 class LikeReviewServiceTest extends MockTestSupport {
@@ -70,19 +67,6 @@ class LikeReviewServiceTest extends MockTestSupport {
 				assertThat(actual).isTrue();
 				verify(redisUtils, timeout(1)).setData(1L, 10L);
 			}
-		}
-
-		@Test
-		@DisplayName("[이미 좋아요한 상태여서 false 를 반환한다]")
-		void returnFalse() {
-			given(likeReviewRepository.save(any(LikeReview.class)))
-				.willThrow(new EntityExistsException());
-
-			//when
-			boolean actual = likeReviewService.executeLike(1L, 1L);
-
-			//then
-			assertThat(actual).isFalse();
 		}
 	}
 

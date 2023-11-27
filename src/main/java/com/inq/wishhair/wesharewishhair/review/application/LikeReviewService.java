@@ -10,7 +10,6 @@ import com.inq.wishhair.wesharewishhair.review.application.dto.response.LikeRevi
 import com.inq.wishhair.wesharewishhair.review.domain.likereview.LikeReview;
 import com.inq.wishhair.wesharewishhair.review.domain.likereview.LikeReviewRepository;
 
-import jakarta.persistence.EntityExistsException;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -29,11 +28,7 @@ public class LikeReviewService {
 
 	@Transactional
 	public boolean executeLike(Long reviewId, Long userId) {
-		try {
-			likeReviewRepository.save(LikeReview.addLike(userId, reviewId));
-		} catch (EntityExistsException e) {
-			return false;
-		}
+		likeReviewRepository.save(LikeReview.addLike(userId, reviewId));
 
 		//락을 걸지않고 값이없으면 좋아요 개수를 로드해서 반영 기능 추가
 		redisUtils.getData(reviewId)

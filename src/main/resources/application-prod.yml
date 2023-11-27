@@ -71,7 +71,7 @@ decorator:
 #JWT key
 jwt:
   secret-key: abcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabc
-  access-token-validity: 1800000
+  access-token-validity: 180000000
   refresh-token-validity: 259200000
 
 # 네이버 클라우드 오브젝트 스토리지

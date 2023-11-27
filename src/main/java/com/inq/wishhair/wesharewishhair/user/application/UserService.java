@@ -10,20 +10,20 @@ import com.inq.wishhair.wesharewishhair.global.dto.response.SimpleResponseWrappe
 import com.inq.wishhair.wesharewishhair.global.exception.ErrorCode;
 import com.inq.wishhair.wesharewishhair.global.exception.WishHairException;
 import com.inq.wishhair.wesharewishhair.hairstyle.domain.hashtag.Tag;
+import com.inq.wishhair.wesharewishhair.point.domain.PointLogRepository;
 import com.inq.wishhair.wesharewishhair.review.application.ReviewService;
-import com.inq.wishhair.wesharewishhair.user.presentation.dto.request.PasswordRefreshRequest;
-import com.inq.wishhair.wesharewishhair.user.presentation.dto.request.PasswordUpdateRequest;
-import com.inq.wishhair.wesharewishhair.user.presentation.dto.request.SignUpRequest;
-import com.inq.wishhair.wesharewishhair.user.presentation.dto.request.UserUpdateRequest;
+import com.inq.wishhair.wesharewishhair.user.application.utils.UserValidator;
+import com.inq.wishhair.wesharewishhair.user.domain.AiConnector;
+import com.inq.wishhair.wesharewishhair.user.domain.UserRepository;
 import com.inq.wishhair.wesharewishhair.user.domain.entity.Email;
 import com.inq.wishhair.wesharewishhair.user.domain.entity.FaceShape;
 import com.inq.wishhair.wesharewishhair.user.domain.entity.Nickname;
 import com.inq.wishhair.wesharewishhair.user.domain.entity.Password;
 import com.inq.wishhair.wesharewishhair.user.domain.entity.User;
-import com.inq.wishhair.wesharewishhair.user.domain.UserRepository;
-import com.inq.wishhair.wesharewishhair.point.domain.PointLogRepository;
-import com.inq.wishhair.wesharewishhair.user.application.utils.UserValidator;
-import com.inq.wishhair.wesharewishhair.user.domain.AiConnector;
+import com.inq.wishhair.wesharewishhair.user.presentation.dto.request.PasswordRefreshRequest;
+import com.inq.wishhair.wesharewishhair.user.presentation.dto.request.PasswordUpdateRequest;
+import com.inq.wishhair.wesharewishhair.user.presentation.dto.request.SignUpRequest;
+import com.inq.wishhair.wesharewishhair.user.presentation.dto.request.UserUpdateRequest;
 
 import lombok.RequiredArgsConstructor;
 
