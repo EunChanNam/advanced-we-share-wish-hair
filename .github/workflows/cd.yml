@@ -47,8 +47,8 @@ jobs:
 
       - name: ubuntu Docker image build and push
         run: |
-          docker-compose build -f ./docker/docker-compose.yml
-          docker-compose push -f ./docker/docker-compose.yml
+          docker-compose -f ./docker/docker-compose.yml build
+          docker-compose -f ./docker/docker-compose.yml push
 #      - name: ubuntu Docker image build
 #        run: docker build -t ${{ secrets.DOCKER_NAME }}/we-share-wish-hair:latest -f Dockerfile-server .
 #
