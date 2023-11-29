@@ -19,4 +19,6 @@ public interface LikeReviewJpaRepository extends LikeReviewRepository, JpaReposi
 	boolean existsByUserIdAndReviewId(Long userId, Long reviewId);
 
 	void deleteByReviewIdIn(@Param("reviewIds") List<Long> reviewIds);
+
+	void deleteAll();
 }

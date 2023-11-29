@@ -17,7 +17,10 @@ import com.inq.wishhair.wesharewishhair.review.domain.ReviewQueryRepository;
 import com.inq.wishhair.wesharewishhair.review.domain.entity.QReview;
 import com.inq.wishhair.wesharewishhair.review.domain.entity.Review;
 import com.inq.wishhair.wesharewishhair.review.domain.likereview.QLikeReview;
+import com.querydsl.core.types.ConstructorExpression;
 import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.dsl.CaseBuilder;
+import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -32,6 +35,45 @@ public class ReviewQueryDslRepository implements ReviewQueryRepository {
 
 	private final QReview review = new QReview("r");
 	private final QLikeReview like = new QLikeReview("l");
+
+	private final NumberExpression<Long> likes = new CaseBuilder()
+		.when(like.id.sum().isNull())
+		.then(0L)
+		.otherwise(review.id.count());
+
+	public List<ReviewQueryResponse> joinWithLikeQuery() {
+		return factory
+			.select(assembleReviewProjection())
+			.from(review)
+			.leftJoin(like).on(review.id.eq(like.reviewId))
+			.leftJoin(review.hairStyle)
+			.fetchJoin()
+			.leftJoin(review.writer)
+			.fetchJoin()
+			.groupBy(review.id)
+			.orderBy(review.id.desc())
+			.offset(0)
+			.limit(20)
+			.fetch();
+	}
+
+	public List<Review> noJoinQuery() {
+		return factory
+			.select(review)
+			.from(review)
+			.leftJoin(review.hairStyle)
+			.fetchJoin()
+			.leftJoin(review.writer)
+			.fetchJoin()
+			.orderBy(review.id.desc())
+			.offset(0)
+			.limit(20)
+			.fetch();
+	}
+
+	private ConstructorExpression<ReviewQueryResponse> assembleReviewProjection() {
+		return new QReviewQueryResponse(review, likes.as("likes"));
+	}
 
 	@Override
 	public Optional<Review> findReviewById(Long id) {

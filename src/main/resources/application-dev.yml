@@ -5,19 +5,27 @@ server:
 spring:
   data:
     redis:
-      host: 3.21.14.25~
+      host: 3.21.14.25
       port: 6379
       expire-time: 21600000
 
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://wswh-master-db.cgr8ovkfv2rw.us-east-2.rds.amazonaws.com/wswh_db
-    username: admin
-    password: dksk7946447
+    master:
+      hikari:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://localhost:3306/db
+        username: root
+        password: 1234
+    slave:
+      hikari:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://localhost:3307/db
+        username: root
+        password: 1234
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
 
     properties:
       hibernate:
@@ -77,25 +85,7 @@ cloud:
     s3:
       endpoint: https://kr.object.ncloudstorage.com
       bucket: wswh-storage
+
 logging:
   level:
     root: info
----
-spring:
-  config:
-    activate:
-      on-profile: dev
-
-  datasource:
-    master:
-      hikari:
-        username: root
-        password: 1234
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        jdbc-url: jdbc:mysql://localhost:3306/db
-    slave:
-      hikari:
-        username: root
-        password: 1234
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        jdbc-url: jdbc:mysql://localhost:3307/db

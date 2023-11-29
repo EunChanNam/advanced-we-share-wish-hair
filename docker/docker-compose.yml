@@ -1,0 +1,13 @@
+version: '3'
+services:
+  server:
+    build:
+      context: ./
+      dockerfile: server/Dockerfile-server
+    image: eunchannam/we-share-wish-hair:latest
+
+  redis:
+    build:
+      context: ./
+      dockerfile: redis/Dockerfile-redis
+    image: eunchannam/we-share-wish-hair:redis

@@ -15,4 +15,6 @@ public interface LikeReviewRepository {
 	boolean existsByUserIdAndReviewId(Long userId, Long reviewId);
 
 	void deleteByReviewIdIn(List<Long> reviewIds);
+
+	void deleteAll();
 }

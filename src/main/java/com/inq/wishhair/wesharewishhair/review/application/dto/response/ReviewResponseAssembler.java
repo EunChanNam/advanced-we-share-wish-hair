@@ -53,6 +53,22 @@ public final class ReviewResponseAssembler {
 			.build();
 	}
 
+	public static ReviewResponse toReviewResponse(Review review) {
+
+		return ReviewResponse.builder()
+			.reviewId(review.getId())
+			.hairStyleName(review.getHairStyle().getName())
+			.userNickname(review.getWriter().getNicknameValue())
+			.score(review.getScore().getValue())
+			.contents(review.getContentsValue())
+			.createdDate(review.getCreatedDate())
+			.photos(toPhotoResponses(review.getPhotos()))
+			.likes(review.getLikeCount())
+			.hashTags(toHashTagResponses(review.getHairStyle().getHashTags()))
+			.writerId(review.getWriter().getId())
+			.build();
+	}
+
 	public static ReviewDetailResponse toReviewDetailResponse(
 		Review review,
 		Long likeCount,
@@ -76,6 +92,16 @@ public final class ReviewResponseAssembler {
 			ReviewResponse reviewResponse = toReviewResponse(responses.get(i), likeCounts.get(i));
 			reviewResponses.add(reviewResponse);
 		}
+
+		return new ResponseWrapper<>(reviewResponses);
+	}
+
+	public static ResponseWrapper<ReviewResponse> toWrappedReviewResponse(
+		List<Review> responses
+	) {
+		List<ReviewResponse> reviewResponses = responses.stream()
+			.map(ReviewResponseAssembler::toReviewResponse)
+			.toList();
 
 		return new ResponseWrapper<>(reviewResponses);
 	}

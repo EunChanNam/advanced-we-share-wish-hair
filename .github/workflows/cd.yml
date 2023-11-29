@@ -45,17 +45,20 @@ jobs:
           source: "./.env"
           target: "./"
 
+      - name: ubuntu Docker image build and push
+        run: |
+          docker-compose build -f ./docker/docker-compose.yml
+          docker-compose push -f ./docker/docker-compose.yml
+#      - name: ubuntu Docker image build
+#        run: docker build -t ${{ secrets.DOCKER_NAME }}/we-share-wish-hair:latest -f Dockerfile-server .
+#
+#      - name: Redis Docker image build
+#        run: docker build -t ${{ secrets.DOCKER_NAME }}/we-share-wish-hair:redis -f Dockerfile-redis .
 
-      - name: ubuntu Docker image build
-        run: docker build -t ${{ secrets.DOCKER_NAME }}/we-share-wish-hair:latest -f Dockerfile-server .
-
-      - name: Redis Docker image build
-        run: docker build -t ${{ secrets.DOCKER_NAME }}/we-share-wish-hair:redis -f Dockerfile-redis .
-
-      - name: ubuntu docker Hub 푸쉬
-        run: docker push ${{ secrets.DOCKER_NAME }}/we-share-wish-hair:latest
-      - name: Redis docker Hub 푸쉬
-        run: docker push ${{ secrets.DOCKER_NAME }}/we-share-wish-hair:redis
+#      - name: ubuntu docker Hub 푸쉬
+#        run: docker push ${{ secrets.DOCKER_NAME }}/we-share-wish-hair:latest
+#      - name: Redis docker Hub 푸쉬
+#        run: docker push ${{ secrets.DOCKER_NAME }}/we-share-wish-hair:redis
 
       - name: Deploy with push
         uses: appleboy/ssh-action@v1.0.0

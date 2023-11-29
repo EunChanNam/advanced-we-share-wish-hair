@@ -20,4 +20,6 @@ public interface ReviewRepository {
 	void deleteByIdIn(List<Long> reviewIds);
 
 	void delete(Review review);
+
+	Optional<Review> findWithLockById(Long id);
 }

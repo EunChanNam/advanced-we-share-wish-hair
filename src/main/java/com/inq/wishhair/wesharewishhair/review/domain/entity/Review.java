@@ -53,6 +53,8 @@ public class Review extends BaseEntity {
 	@JoinColumn(name = "hair_style_id", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
 	private HairStyle hairStyle;
 
+	private long likeCount = 0;
+
 	private Review(User writer, String contents, Score score, List<String> photos, HairStyle hairStyle) {
 		this.writer = writer;
 		this.contents = new Contents(contents);
@@ -89,6 +91,10 @@ public class Review extends BaseEntity {
 		updateContents(contents);
 		updateScore(score);
 		updatePhotos(storeUrls);
+	}
+
+	public void addLike() {
+		this.likeCount++;
 	}
 
 	private void updateContents(Contents contents) {

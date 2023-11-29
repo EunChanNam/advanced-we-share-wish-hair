@@ -25,4 +25,8 @@ public class ReviewFindService {
 	public List<Review> findWithPhotosByUserId(Long userId) {
 		return reviewRepository.findWithPhotosByWriterId(userId);
 	}
+
+	public Review getWithLockById(Long id) {
+		return reviewRepository.findWithLockById(id).orElseThrow();
+	}
 }
