@@ -18,14 +18,14 @@ import lombok.RequiredArgsConstructor;
 @Tag(name = "테스트 API")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/like")
+@RequestMapping("/api/like/")
 public class LikeReviewTestController {
 
 	private final LikeReviewTestService likeReviewService;
 
 	@Operation(summary = "좋아요 클린 API")
 	@ApiResponse(responseCode = "200", useReturnTypeSchema = true)
-	@PostMapping("/test/clean")
+	@PostMapping("test/clean")
 	public Success clean() {
 		likeReviewService.clean();
 		return new Success();
@@ -33,7 +33,7 @@ public class LikeReviewTestController {
 
 	@Operation(summary = "좋아요 카운팅 API")
 	@ApiResponse(responseCode = "200", useReturnTypeSchema = true)
-	@PostMapping("/test/count/{reviewId}")
+	@PostMapping("test/count/{reviewId}")
 	public Result count(@PathVariable Long reviewId) {
 		likeReviewService.clean();
 		return new Result(likeReviewService.count(reviewId));
@@ -41,7 +41,7 @@ public class LikeReviewTestController {
 
 	@Operation(summary = "락 좋아요 API")
 	@ApiResponse(responseCode = "200", useReturnTypeSchema = true)
-	@PostMapping("/test/lock/{reviewId}")
+	@PostMapping("test/lock/{reviewId}")
 	public Success withLock(
 		@PathVariable Long reviewId,
 		@FetchAuthInfo AuthInfo authInfo
@@ -52,7 +52,7 @@ public class LikeReviewTestController {
 
 	@Operation(summary = "논락 좋아요 API")
 	@ApiResponse(responseCode = "200", useReturnTypeSchema = true)
-	@PostMapping("/test/no_lock/{reviewId}")
+	@PostMapping("test/no_lock/{reviewId}")
 	public Success withoutLock(
 		@PathVariable Long reviewId,
 		@FetchAuthInfo AuthInfo authInfo
