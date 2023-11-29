@@ -1,6 +1,7 @@
 package com.inq.wishhair.wesharewishhair.review.application;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.inq.wishhair.wesharewishhair.global.utils.RedisUtils;
 import com.inq.wishhair.wesharewishhair.review.domain.entity.Review;
@@ -17,10 +18,12 @@ public class LikeReviewTestService {
 	private final ReviewFindService reviewFindService;
 	private final RedisUtils redisUtils;
 
+	@Transactional(readOnly = true)
 	public long count(Long reviewId) {
 		return likeReviewRepository.countByReviewId(reviewId);
 	}
 
+	@Transactional
 	public void clean() {
 		likeReviewRepository.deleteAll();
 	}
@@ -28,6 +31,7 @@ public class LikeReviewTestService {
 	/**
 	 * LikeReview 생성 후 Review 에 락걸고 likeCount 변수 update
 	 */
+	@Transactional
 	public void withLock(Long reviewId, Long userId) {
 		likeReviewRepository.save(LikeReview.addLike(userId, reviewId));
 
@@ -38,6 +42,7 @@ public class LikeReviewTestService {
 	/**
 	 * 레디스에 좋아요 정보가 없으면 새로 등록하고 있으면 INCR 수행
 	 */
+	@Transactional
 	public void withoutLock(Long reviewId, Long userId) {
 		likeReviewRepository.save(LikeReview.addLike(userId, reviewId));
 

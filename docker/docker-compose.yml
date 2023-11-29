@@ -3,11 +3,13 @@ services:
   server:
     build:
       context: ./
-      dockerfile: server/Dockerfile-server
+      dockerfile: ../Dockerfile-server
     image: eunchannam/we-share-wish-hair:latest
+    platform: linux/amd64
 
   redis:
     build:
       context: ./
-      dockerfile: redis/Dockerfile-redis
+      dockerfile: ../Dockerfile-redis
     image: eunchannam/we-share-wish-hair:redis
+    platform: linux/amd64
