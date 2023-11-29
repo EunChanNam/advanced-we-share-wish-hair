@@ -43,6 +43,8 @@ public class WebConfig implements WebMvcConfigurer {
 			.addExcludePathPattern("/api/auth/login", POST)
 			.addExcludePathPattern("/api/users")
 			.addExcludePathPattern("/api/users/refresh/*")
+			.addExcludePathPattern("/api/like/test/clean")
+			.addExcludePathPattern("/api/like/test/count/**")
 			.addExcludePathPattern("/api/email/*");
 
 		registry
