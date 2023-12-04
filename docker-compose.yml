@@ -1,0 +1,28 @@
+version: '3'
+services:
+  server:
+    image: openjdk:17-alpine
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - ./build/libs:/home
+    command: ["java", "-jar",
+              "-Dspring.profiles.active=prod",
+              "/home/advanced-we-share-wish-hair-0.0.1-SNAPSHOT.jar"]
+    ports:
+      - '8080:8080'
+    platform: linux/amd64
+    networks:
+      - my-net
+
+  redis:
+    image: redis:latest
+    ports:
+      - '6379:6379'
+    platform: linux/amd64
+    networks:
+      - my-net
+
+networks:
+  my-net:

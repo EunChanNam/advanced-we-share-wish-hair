@@ -32,33 +32,23 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-#      - name: 환경변수 파일 생성
-#        run: echo "${{ secrets.APPLICATION_ENV }}" > ./.env
+      - name: 환경변수 파일 생성
+        run: echo "${{ secrets.APPLICATION_ENV }}" > ./.env
+
+      - name: ubuntu Docker image build and push
+        run: |
+          docker-compose -f ./docker-compose.yml build
+          docker-compose -f ./docker-compose.yml push
+#      - name: ubuntu Docker image build
+#        run: docker build -t ${{ secrets.DOCKER_NAME }}/we-share-wish-hair:latest -f Dockerfile-server .
 #
-#      - name: 환경변수 파일을 서버로 전송한다
-#        uses: appleboy/scp-action@v0.1.4
-#        with:
-#          host: ${{ secrets.HOST }}
-#          username: ${{ secrets.USERNAME }}
-#          key: ${{ secrets.PRIVATE_KEY }}
-#          port: ${{ secrets.PORT }}
-#          source: "./.env"
-#          target: "./"
-
-#      - name: ubuntu Docker image build and push
-#        run: |
-#          docker-compose -f ./docker/docker-compose.yml build
-#          docker-compose -f ./docker/docker-compose.yml push
-      - name: ubuntu Docker image build
-        run: docker build -t ${{ secrets.DOCKER_NAME }}/we-share-wish-hair:latest -f Dockerfile-server .
-
-      - name: Redis Docker image build
-        run: docker build -t ${{ secrets.DOCKER_NAME }}/we-share-wish-hair:redis -f Dockerfile-redis .
-
-      - name: ubuntu docker Hub 푸쉬
-        run: docker push ${{ secrets.DOCKER_NAME }}/we-share-wish-hair:latest
-      - name: Redis docker Hub 푸쉬
-        run: docker push ${{ secrets.DOCKER_NAME }}/we-share-wish-hair:redis
+#      - name: Redis Docker image build
+#        run: docker build -t ${{ secrets.DOCKER_NAME }}/we-share-wish-hair:redis -f Dockerfile-redis .
+#
+#      - name: ubuntu docker Hub 푸쉬
+#        run: docker push ${{ secrets.DOCKER_NAME }}/we-share-wish-hair:latest
+#      - name: Redis docker Hub 푸쉬
+#        run: docker push ${{ secrets.DOCKER_NAME }}/we-share-wish-hair:redis
 
       - name: Deploy with push
         uses: appleboy/ssh-action@v1.0.0
@@ -73,7 +63,7 @@ jobs:
             sudo docker stop wswh-redis || true
             sudo docker container prune -f 
             sudo docker pull ${{ secrets.DOCKER_NAME }}/we-share-wish-hair:latest
-            sudo docker run -d --log-driver=syslog --env-file .env \
+            sudo docker run -d --log-driver=syslog \
             -p 8080:8080 --name we-share-wish-hair \
             ${{ secrets.DOCKER_NAME }}/we-share-wish-hair:latest
             sudo docker pull ${{ secrets.DOCKER_NAME }}/we-share-wish-hair:redis

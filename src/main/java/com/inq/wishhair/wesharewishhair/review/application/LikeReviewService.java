@@ -60,7 +60,7 @@ public class LikeReviewService {
 
 	public Long getLikeCount(Long reviewId) {
 		return redisUtils.getData(reviewId)
-			.orElse(updateLikeCountFromRedis(reviewId));
+			.orElseGet(() -> updateLikeCountFromRedis(reviewId));
 	}
 
 	public List<Long> getLikeCounts(List<Long> reviewIds) {

@@ -11,9 +11,9 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://wswh-master-db.cgr8ovkfv2rw.us-east-2.rds.amazonaws.com/wswh_db
-    username: admin
-    password: dksk7946447
+    url: ${URL}
+    username: ${USERNAME}
+    password: ${PW}
 
   jpa:
     hibernate:
@@ -30,8 +30,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: namhm23@kyonggi.ac.kr
-    password: qkvpxhpgyuywcbgh
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PW}
     protocol: smtp
     properties:
       mail:
@@ -60,42 +60,23 @@ decorator:
 
 #JWT key
 jwt:
-  secret-key: abcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabc
-  access-token-validity: 180000000
-  refresh-token-validity: 259200000
+  secret-key: ${JWT_KEY}
+  access-token-validity: ${ACCESS_VALIDITY}
+  refresh-token-validity: ${REFRESH_VALIDITY}
 
 # 네이버 클라우드 오브젝트 스토리지
 cloud:
   aws:
     credentials:
-      access-key: N3JCSJUtgse4alKEaOqX
-      secret-key: rRamLrfUV8v6ZziJFEN4CVLjE9rl4kCBnEOLje5f
+      access-key: ${S3_ACCESS_KEY}
+      secret-key: ${S3_SECRET_KEY}
     stack:
       auto: false
     region:
       static: ap-northeast-2
     s3:
       endpoint: https://kr.object.ncloudstorage.com
-      bucket: wswh-storage
+      bucket: ${S3_BUCKET}
 logging:
   level:
     root: info
----
-spring:
-  config:
-    activate:
-      on-profile: dev
-
-  datasource:
-    master:
-      hikari:
-        username: root
-        password: 1234
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        jdbc-url: jdbc:mysql://localhost:3306/db
-    slave:
-      hikari:
-        username: root
-        password: 1234
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        jdbc-url: jdbc:mysql://localhost:3307/db

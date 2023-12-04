@@ -45,7 +45,8 @@ public class WebConfig implements WebMvcConfigurer {
 			.addExcludePathPattern("/api/users/refresh/*")
 			.addExcludePathPattern("/api/like/test/clean")
 			.addExcludePathPattern("/api/like/test/count/**")
-			.addExcludePathPattern("/api/email/*");
+			.addExcludePathPattern("/api/email/*")
+			.addExcludePathPattern("/api/reviews/test/**");
 
 		registry
 			.addInterceptor(pathMatcherInterceptor)

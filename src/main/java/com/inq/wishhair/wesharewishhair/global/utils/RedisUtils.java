@@ -36,8 +36,9 @@ public class RedisUtils {
 	}
 
 	public Optional<Long> getData(Long key) {
+		Long value = redisTemplate.opsForValue().get(String.valueOf(key));
 		return Optional.ofNullable(
-			redisTemplate.opsForValue().get(String.valueOf(key))
+			value
 		);
 	}
 }
