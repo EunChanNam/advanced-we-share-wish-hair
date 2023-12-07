@@ -6,6 +6,7 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 /src/main/generated/
+src/main/resources/application*.yml
 
 ### sql ###
 **/src/main/resources/sql/

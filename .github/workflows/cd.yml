@@ -20,6 +20,9 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: application.yml 파일 생성
+        run: echo "${{ secrets.APPLICATION_ENV }}" > ./src/main/resources/application-prod.yml
+
       - name: Gradle 명령 실행을 위해 권한을 부여한다
         run: chmod +x gradlew
 
@@ -32,23 +35,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-      - name: 환경변수 파일 생성
-        run: echo "${{ secrets.APPLICATION_ENV }}" > ./.env
-
-      - name: ubuntu Docker image build and push
+      - name: Docker 이미지 빌드 & 푸쉬
         run: |
           docker-compose -f ./docker-compose.yml build
           docker-compose -f ./docker-compose.yml push
-#      - name: ubuntu Docker image build
-#        run: docker build -t ${{ secrets.DOCKER_NAME }}/we-share-wish-hair:latest -f Dockerfile-server .
-#
-#      - name: Redis Docker image build
-#        run: docker build -t ${{ secrets.DOCKER_NAME }}/we-share-wish-hair:redis -f Dockerfile-redis .
-#
-#      - name: ubuntu docker Hub 푸쉬
-#        run: docker push ${{ secrets.DOCKER_NAME }}/we-share-wish-hair:latest
-#      - name: Redis docker Hub 푸쉬
-#        run: docker push ${{ secrets.DOCKER_NAME }}/we-share-wish-hair:redis
 
       - name: Deploy with push
         uses: appleboy/ssh-action@v1.0.0
